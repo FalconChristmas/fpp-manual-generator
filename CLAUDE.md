@@ -32,6 +32,7 @@ done:**
 - an image referenced by a chapter (`images/`)
 - build configuration: `metadata.yaml`, `tools/reference.docx`, `tools/build.sh`,
   `mkdocs.yml`, `tools/build-web.sh`
+- a screenshot annotation under `annotations/` (see *Annotating screenshots* below)
 
 `generate.sh` / `generate-web.sh` do **not** require a running FPP. A missing
 screenshot is a non-fatal warning (Pandoc substitutes the image's caption text;
@@ -49,6 +50,31 @@ The PDF is produced by converting the `.docx` with LibreOffice, so it inherits t
 Word styling automatically — there is no separate PDF stylesheet to maintain. If
 LibreOffice isn't installed the PDF step is skipped with a hint and the `.docx`
 still builds; run `PDF=0 ./generate.sh` to skip the PDF deliberately.
+
+## Annotating screenshots (arrows, callouts, redactions)
+
+Screenshots can be marked up **declaratively** so `capture.sh` can still re-shoot
+the raw images: `images/` stays pristine and annotations are baked on at build time
+into `build/images/`, which every deliverable then uses. When the maintainer asks to
+annotate an image (e.g. "put an arrow on the Save button and number the tabs on
+`status.png`"):
+
+1. **Read the source image** (`images/<name>.png`) to find pixel coordinates —
+   the Read tool shows it to you; coordinates are pixels from the top-left.
+2. **Write/edit the sidecar** `annotations/<name>.yaml` (same stem as the image).
+   Supported types: `box`, `circle`, `marker` (numbered badge), `arrow`,
+   `highlight`, `text`, `blur` (redaction). Full format + an example are in
+   `annotations/README.md`.
+3. **Preview and verify placement**: run `./annotate.sh`, then Read
+   `build/images/<name>.png` and adjust coordinates until it looks right. Iterate
+   here rather than rebuilding the whole manual each time.
+4. **Rebuild the deliverables** (`./generate.sh` and `./generate-web.sh`) — both
+   apply annotations automatically.
+
+Rendering is `tools/annotate.py` (Pillow + PyYAML). If those libs are missing the
+build falls back to un-annotated images with a warning, so the manual still builds;
+`./install.sh` installs them (`python3-pil`, `python3-yaml`). `annotations/` is the
+source of truth (committed); `build/` is a git-ignored artifact.
 
 ## Conventions
 

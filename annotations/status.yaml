@@ -1,0 +1,30 @@
+# Annotations for images/status.png (1440 x 1071).
+#
+# This is a WORKED STARTER you can copy for other images. The active annotations
+# below number the six elements of the header bar, matching the numbered list in
+# chapters/20-status-page.md ("The header bar"). Coordinates are pixels from the
+# top-left; read the screenshot to find them (in Claude Code, the Read tool shows
+# the image). Preview with ./annotate.sh, then look at build/images/status.png.
+#
+# Every annotation type is shown as a commented reference at the bottom.
+
+annotations:
+  # Numbered callouts sitting just below each header-bar element (left -> right),
+  # so the elements themselves stay visible.
+  - {type: marker, at: [135, 72],  label: "1"}   # FPP logo + version
+  - {type: marker, at: [993, 72],  label: "2"}   # host name
+  - {type: marker, at: [1063, 72], label: "3"}   # player state
+  - {type: marker, at: [1122, 72], label: "4"}   # sensors (CPU temp)
+  - {type: marker, at: [1240, 72], label: "5"}   # IP addresses
+  - {type: marker, at: [1322, 72], label: "6"}   # time
+
+  # --- Reference: the other annotation types (uncomment / adapt as needed) -----
+  # - {type: box,       at: [x1, y1, x2, y2], color: red, label: "A"}  # outline (+badge)
+  # - {type: circle,    at: [cx, cy], radius: 40, color: "#1e88e5"}    # ring
+  # - {type: arrow,     from: [x1, y1], to: [x2, y2], color: red}      # pointer
+  # - {type: highlight, at: [x1, y1, x2, y2], color: yellow}          # translucent fill
+  # - {type: text,      at: [x, y], text: "Label", color: red}        # haloed caption
+  # - {type: blur,      at: [x1, y1, x2, y2]}                          # redact (hide IP etc.)
+  #
+  # Shared optional keys on any annotation: color (name / #rrggbb / [r,g,b]) and
+  # width (stroke px). See annotations/README.md for the full reference.

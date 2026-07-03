@@ -51,8 +51,21 @@ if [ -n "$first" ] && [ ! -e "$DOCS_DIR/index.md" ]; then
 fi
 
 # Copy images alongside the docs so the chapters' images/<name>.png links resolve.
-if [ -d "$IMAGES_DIR" ]; then
-    cp -r "$IMAGES_DIR" "$DOCS_DIR/images"
+# If screenshot annotations exist, bake them onto a mirror in build/images/ first
+# and copy that instead (raw images/ stays pristine). See annotations/README.md.
+SRC_IMAGES="$IMAGES_DIR"
+shopt -s nullglob
+ANN_SPECS=( "$MANUAL_DIR"/annotations/*.yaml "$MANUAL_DIR"/annotations/*.yml )
+if [ "${#ANN_SPECS[@]}" -gt 0 ]; then
+    if python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
+            "$MANUAL_DIR/build/images"; then
+        SRC_IMAGES="$MANUAL_DIR/build/images"
+    else
+        echo "Annotation step failed; using un-annotated images." >&2
+    fi
+fi
+if [ -d "$SRC_IMAGES" ]; then
+    cp -r "$SRC_IMAGES" "$DOCS_DIR/images"
 fi
 
 echo "Staged $count chapters -> web/docs/"

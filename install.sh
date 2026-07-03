@@ -9,7 +9,9 @@
 #   chromium       - headless browser used to screenshot the FPP web UI
 #   poppler-utils  - pdftotext/pdfinfo, used only when refreshing content from a
 #                    reference PDF (optional; safe to keep)
-#   python3        - runs the build and screenshot scripts (standard library only)
+#   python3        - runs the build and screenshot scripts
+#   python3-pil    - Pillow: draws screenshot annotations (annotations/ -> images)
+#   python3-yaml   - reads the annotation sidecar files
 #
 # Works on the FPP OS image (Debian) and other Debian/Ubuntu systems.
 set -e
@@ -20,14 +22,15 @@ if [ "$(id -u)" -ne 0 ]; then SUDO="sudo"; fi
 echo "Updating package lists..."
 $SUDO apt-get update
 
-echo "Installing pandoc, poppler-utils, python3, chromium, libreoffice-writer, mkdocs-material..."
+echo "Installing pandoc, poppler-utils, python3, python3-pil, python3-yaml, chromium, libreoffice-writer, mkdocs-material..."
 # libreoffice-writer (not the full suite) is enough for the headless docx->pdf
 # conversion and is much smaller.
 # mkdocs-material builds the web edition; it pulls in mkdocs itself as a dep.
+# python3-pil (Pillow) + python3-yaml render the screenshot annotations.
 # The Chromium package is named 'chromium' on Debian and 'chromium-browser' on
 # some Ubuntu releases; try both.
-$SUDO apt-get install -y pandoc poppler-utils python3 libreoffice-writer mkdocs-material chromium \
-  || $SUDO apt-get install -y pandoc poppler-utils python3 libreoffice-writer mkdocs-material chromium-browser
+$SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml libreoffice-writer mkdocs-material chromium \
+  || $SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml libreoffice-writer mkdocs-material chromium-browser
 
 echo
 echo "Install complete."

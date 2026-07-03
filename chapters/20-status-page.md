@@ -12,11 +12,18 @@ is running in, **Player** or **Remote**, the screen looks a little different.
 
 ## The header bar
 
-The header appears on every page and gives at‑a‑glance status: the FPP **logo**
-and **version** (the version links to the *System Upgrade* page), the **host
-name**, the current **player state**, **sensors** (such as CPU temperature), the
-device's **IP addresses**, and the **time**. *Press F1 for help* opens
-context‑sensitive help for the current page.
+The header appears on every page and gives at‑a‑glance status. The numbered
+callouts above correspond to:
+
+1. **Logo and version** – the FPP logo with the version number beside it; the
+   version links to the *System Upgrade* page.
+2. **Host name** – the device's configured host name.
+3. **Player state** – whether FPP is idle or playing.
+4. **Sensors** – readings such as CPU temperature.
+5. **IP addresses** – the device's active network addresses.
+6. **Time** – the device's current date and time.
+
+*Press F1 for help* (top right) opens context‑sensitive help for the current page.
 
 ## Player Status Page
 

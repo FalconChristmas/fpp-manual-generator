@@ -28,13 +28,30 @@ fi
 echo "Building manual from ${#CH[@]} chapters ->"
 printf '  %s\n' "${CH[@]##*/}"
 
+# If any screenshot annotations exist, bake them onto a mirror of images/ in
+# build/images/ and use that instead (raw images/ stays pristine). See
+# annotations/README.md. Falls back to images/ if the annotate step fails.
+IMG_DIR="$IMAGES_DIR"
+RESOURCE_PATH="$MANUAL_DIR:$IMAGES_DIR:$CHAPTERS_DIR"
+shopt -s nullglob
+ANN_SPECS=( "$MANUAL_DIR"/annotations/*.yaml "$MANUAL_DIR"/annotations/*.yml )
+if [ "${#ANN_SPECS[@]}" -gt 0 ]; then
+    if python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
+            "$MANUAL_DIR/build/images"; then
+        IMG_DIR="$MANUAL_DIR/build/images"
+        RESOURCE_PATH="$MANUAL_DIR/build:$RESOURCE_PATH"
+    else
+        echo "Annotation step failed; building with un-annotated images." >&2
+    fi
+fi
+
 # --resource-path lets image paths in the markdown be relative to images/.
 pandoc \
     "$MANUAL_DIR/metadata.yaml" \
     "${CH[@]}" \
     --from=markdown+pipe_tables+backtick_code_blocks+implicit_figures \
     --reference-doc="$HERE/reference.docx" \
-    --resource-path="$MANUAL_DIR:$IMAGES_DIR:$CHAPTERS_DIR" \
+    --resource-path="$RESOURCE_PATH" \
     --toc --toc-depth=3 \
     --number-sections \
     --top-level-division=chapter \

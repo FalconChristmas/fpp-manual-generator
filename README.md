@@ -14,16 +14,19 @@ from a running FPP web UI, and rendered to `.docx` with Pandoc.
 install.sh          Install the build/capture dependencies (Debian/Ubuntu)
 generate.sh         Build FPP_Manual_v10.docx (+ .pdf) from the chapters (no FPP needed)
 generate-web.sh     Build the browsable web edition into web/site/ (no FPP needed)
+annotate.sh         Render annotated screenshots into build/images/ for preview
 capture.sh          (Re)capture screenshots from a running FPP web UI
 metadata.yaml       Title-page metadata for the document
 mkdocs.yml          MkDocs config for the web edition (theme, nav, search)
 OUTLINE.md          Chapter plan / structure
 chapters/           The manual, one Markdown file per chapter (combined in
                     filename order, e.g. 00-*, 02-*, 20-* ...)
-images/             Screenshots referenced by the chapters
+images/             Raw screenshots referenced by the chapters (kept pristine)
+annotations/        Optional YAML sidecars that mark up screenshots (see README there)
 tools/
   build.sh          Pandoc build (invoked by generate.sh)
   build-web.sh      MkDocs build (invoked by generate-web.sh)
+  annotate.py       Bakes annotations/ onto images/ at build time (Pillow)
   shoot.py          Headless-Chromium screenshot driver (Chrome DevTools
                     Protocol; Python standard library only)
   shotlist.txt      The list of pages to screenshot
@@ -78,6 +81,29 @@ Enable it once under **repo Settings → Pages → Build and deployment → Sour
 "GitHub Actions"**; the site then goes live at the `site_url` in `mkdocs.yml`
 (<https://falconchristmas.github.io/fpp-manual-generator/>).
 
+## Annotating screenshots
+
+Screenshots can be marked up with arrows, boxes, numbered callouts, highlights,
+text labels, and blur/redactions — **without touching the raw images**. The raw
+captures in `images/` stay pristine (so `capture.sh` can re-shoot them); the markup
+lives in small YAML sidecars under `annotations/` and is baked on at build time into
+`build/images/`, which the `.docx`, `.pdf`, and web builds all use automatically.
+
+```bash
+# 1. describe the overlays for images/status.png in annotations/status.yaml
+# 2. preview placement:
+./annotate.sh                 # renders build/images/*.png (images/ untouched)
+# 3. rebuild the deliverables (they apply annotations for you):
+./generate.sh
+./generate-web.sh
+```
+
+Coordinates are pixels from the top-left of the source screenshot. The full sidecar
+format, the list of annotation types, and an example are in
+[`annotations/README.md`](annotations/README.md). Rendering needs `python3-pil` and
+`python3-yaml` (installed by `./install.sh`); if they're missing the build falls
+back to un-annotated images with a warning, so the manual still builds.
+
 ## Requirements
 
 - **pandoc** – Markdown → `.docx`.
@@ -86,8 +112,10 @@ Enable it once under **repo Settings → Pages → Build and deployment → Sour
   and skips the PDF (or run `PDF=0 ./generate.sh` to skip it deliberately).
 - **mkdocs-material** – builds the web edition (`./generate-web.sh`). Only needed
   for the web output; the `.docx`/`.pdf` build doesn't use it.
+- **python3-pil** / **python3-yaml** – render the screenshot annotations. Only
+  needed if `annotations/` is used; the build degrades to raw images without them.
 - **chromium** – headless screenshots. Started detached by `shoot.py`.
-- **python3** – build/capture scripts (standard library only; no `pip` needed).
+- **python3** – build/capture scripts.
 - **poppler-utils** – only used when refreshing content from a reference PDF.
 - A **running FPP** reachable over HTTP is required for `capture.sh` (not for
   `generate.sh`).
