@@ -61,7 +61,11 @@ remote):
   resource path.
 - Each chapter file should have a single top-level `#` heading (its chapter
   title); use `##`/`###` for sections.
-- Run `./generate.sh` to rebuild.
+- **Always run `./generate.sh` to rebuild `FPP_Manual_v10.docx` after any change to
+  manual content** (a chapter, an image, or the build config). The `.docx` is the
+  deliverable, so a content change isn't finished until it's regenerated. The build
+  needs only Pandoc — no running FPP — and a not‑yet‑captured screenshot is only a
+  warning, so the build still succeeds.
 
 ## Screenshots
 
