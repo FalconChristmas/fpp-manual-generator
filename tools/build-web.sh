@@ -57,12 +57,12 @@ SRC_IMAGES="$IMAGES_DIR"
 shopt -s nullglob
 ANN_SPECS=( "$MANUAL_DIR"/annotations/*.yaml "$MANUAL_DIR"/annotations/*.yml )
 if [ "${#ANN_SPECS[@]}" -gt 0 ]; then
-    if python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
-            "$MANUAL_DIR/build/images"; then
-        SRC_IMAGES="$MANUAL_DIR/build/images"
-    else
-        echo "Annotation step failed; using un-annotated images." >&2
-    fi
+    # Annotations exist, so they must render (annotate.py exits non-zero if the
+    # imaging libs are missing); set -e then aborts rather than silently shipping
+    # un-annotated images. Repos with no sidecars skip this and need no Pillow.
+    python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
+        "$MANUAL_DIR/build/images"
+    SRC_IMAGES="$MANUAL_DIR/build/images"
 fi
 if [ -d "$SRC_IMAGES" ]; then
     cp -r "$SRC_IMAGES" "$DOCS_DIR/images"

@@ -101,8 +101,10 @@ lives in small YAML sidecars under `annotations/` and is baked on at build time 
 Coordinates are pixels from the top-left of the source screenshot. The full sidecar
 format, the list of annotation types, and an example are in
 [`annotations/README.md`](annotations/README.md). Rendering needs `python3-pil` and
-`python3-yaml` (installed by `./install.sh`); if they're missing the build falls
-back to un-annotated images with a warning, so the manual still builds.
+`python3-yaml` (installed by `./install.sh`). If `annotations/` contains sidecars
+but those libraries are missing, the build **fails with a clear error** rather than
+silently shipping un-annotated images — install the libraries or remove the
+sidecars. (A repo with no sidecars skips the step entirely and needs neither.)
 
 ## Requirements
 
@@ -113,7 +115,9 @@ back to un-annotated images with a warning, so the manual still builds.
 - **mkdocs-material** – builds the web edition (`./generate-web.sh`). Only needed
   for the web output; the `.docx`/`.pdf` build doesn't use it.
 - **python3-pil** / **python3-yaml** – render the screenshot annotations. Only
-  needed if `annotations/` is used; the build degrades to raw images without them.
+  needed if `annotations/` is used; a build with sidecars but without these libs
+  fails loudly rather than dropping the annotations. A repo with no sidecars builds
+  fine without them.
 - **chromium** – headless screenshots. Started detached by `shoot.py`.
 - **python3** – build/capture scripts.
 - **poppler-utils** – only used when refreshing content from a reference PDF.

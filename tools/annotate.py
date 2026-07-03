@@ -191,9 +191,15 @@ def main(argv):
         import yaml  # noqa: F401
         import PIL  # noqa: F401
     except ImportError as e:
-        warn(f"{e.name} not installed — screenshots copied WITHOUT annotations. "
-             f"Run ./install.sh to enable annotations.")
-        return 0
+        # Fail loudly: there ARE annotations to render but we can't, so shipping
+        # un-annotated images would silently drop them. (A repo with no sidecars
+        # never reaches here — the build skips this step entirely.)
+        warn(f"{len(specs)} annotation spec(s) in the annotations/ folder, but "
+             f"'{e.name or 'Pillow/PyYAML'}' is not installed, so screenshots "
+             f"cannot be annotated. "
+             f"Install it (./install.sh, or: pip install pillow pyyaml) — or "
+             f"remove the annotations/ sidecars. Refusing to build un-annotated.")
+        return 3
 
     import yaml
     done = 0

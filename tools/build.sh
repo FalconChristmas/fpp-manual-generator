@@ -36,13 +36,13 @@ RESOURCE_PATH="$MANUAL_DIR:$IMAGES_DIR:$CHAPTERS_DIR"
 shopt -s nullglob
 ANN_SPECS=( "$MANUAL_DIR"/annotations/*.yaml "$MANUAL_DIR"/annotations/*.yml )
 if [ "${#ANN_SPECS[@]}" -gt 0 ]; then
-    if python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
-            "$MANUAL_DIR/build/images"; then
-        IMG_DIR="$MANUAL_DIR/build/images"
-        RESOURCE_PATH="$MANUAL_DIR/build:$RESOURCE_PATH"
-    else
-        echo "Annotation step failed; building with un-annotated images." >&2
-    fi
+    # Annotations exist, so they must render (annotate.py exits non-zero if the
+    # imaging libs are missing); set -e then aborts rather than silently shipping
+    # un-annotated images. Repos with no sidecars skip this and need no Pillow.
+    python3 "$HERE/annotate.py" "$IMAGES_DIR" "$MANUAL_DIR/annotations" \
+        "$MANUAL_DIR/build/images"
+    IMG_DIR="$MANUAL_DIR/build/images"
+    RESOURCE_PATH="$MANUAL_DIR/build:$RESOURCE_PATH"
 fi
 
 # --resource-path lets image paths in the markdown be relative to images/.

@@ -71,10 +71,12 @@ annotate an image (e.g. "put an arrow on the Save button and number the tabs on
 4. **Rebuild the deliverables** (`./generate.sh` and `./generate-web.sh`) — both
    apply annotations automatically.
 
-Rendering is `tools/annotate.py` (Pillow + PyYAML). If those libs are missing the
-build falls back to un-annotated images with a warning, so the manual still builds;
-`./install.sh` installs them (`python3-pil`, `python3-yaml`). `annotations/` is the
-source of truth (committed); `build/` is a git-ignored artifact.
+Rendering is `tools/annotate.py` (Pillow + PyYAML). If `annotations/` has sidecars
+but those libs are missing, the build **fails loudly** (rather than silently
+shipping un-annotated images) — `./install.sh` installs them (`python3-pil`,
+`python3-yaml`), and the CI workflow `pip install`s `pillow pyyaml`. A repo with no
+sidecars skips the step and needs neither. `annotations/` is the source of truth
+(committed); `build/` is a git-ignored artifact.
 
 ## Conventions
 
