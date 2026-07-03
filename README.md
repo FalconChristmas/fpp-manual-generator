@@ -13,14 +13,17 @@ from a running FPP web UI, and rendered to `.docx` with Pandoc.
 ```
 install.sh          Install the build/capture dependencies (Debian/Ubuntu)
 generate.sh         Build FPP_Manual_v10.docx (+ .pdf) from the chapters (no FPP needed)
+generate-web.sh     Build the browsable web edition into web/site/ (no FPP needed)
 capture.sh          (Re)capture screenshots from a running FPP web UI
 metadata.yaml       Title-page metadata for the document
+mkdocs.yml          MkDocs config for the web edition (theme, nav, search)
 OUTLINE.md          Chapter plan / structure
 chapters/           The manual, one Markdown file per chapter (combined in
                     filename order, e.g. 00-*, 02-*, 20-* ...)
 images/             Screenshots referenced by the chapters
 tools/
   build.sh          Pandoc build (invoked by generate.sh)
+  build-web.sh      MkDocs build (invoked by generate-web.sh)
   shoot.py          Headless-Chromium screenshot driver (Chrome DevTools
                     Protocol; Python standard library only)
   shotlist.txt      The list of pages to screenshot
@@ -43,12 +46,46 @@ remote):
 ./generate.sh                     # rebuild with the new images
 ```
 
+## Web edition
+
+The same chapters also build into a browsable web site with a chapter sidebar and
+built-in search (in the style of the xLights manual), using
+[MkDocs](https://www.mkdocs.org/) with the Material theme:
+
+```bash
+./generate-web.sh          # build the static site into web/site/
+./generate-web.sh serve    # live preview at http://localhost:8000
+```
+
+`web/site/` is a self-contained folder of static HTML — host it on any web server,
+GitHub Pages, Netlify, etc., or open `web/site/index.html` locally. It needs only
+`mkdocs-material` (installed by `./install.sh`), no running FPP. The chapters stay
+the single source of truth: `generate-web.sh` stages a copy under `web/docs/`
+(git-ignored) and never edits `chapters/`. Chapters appear in the sidebar in
+filename order, with the lowest-numbered chapter (*About This Manual*) as the home
+page; nav labels come from each chapter's top-level heading. A not-yet-captured
+screenshot is a non-fatal warning here too, so the site still builds.
+
+The staging step (`tools/webify.py`) also turns the manual's `> **Note:** …` /
+`> **Tip:** …` blockquotes into Material's styled admonition callouts for the web
+edition — the `.docx`/`.pdf` keep the plain blockquotes.
+
+### Publishing to GitHub Pages
+
+`.github/workflows/deploy-web.yml` builds and publishes the web edition on every
+push to `main` that changes manual content (and on demand from the Actions tab).
+Enable it once under **repo Settings → Pages → Build and deployment → Source =
+"GitHub Actions"**; the site then goes live at the `site_url` in `mkdocs.yml`
+(<https://falconchristmas.github.io/fpp-manual-generator/>).
+
 ## Requirements
 
 - **pandoc** – Markdown → `.docx`.
 - **libreoffice** – converts the `.docx` → `.pdf` (headless) so the PDF matches the
   Word styling. Optional: if it's missing, `generate.sh` still builds the `.docx`
   and skips the PDF (or run `PDF=0 ./generate.sh` to skip it deliberately).
+- **mkdocs-material** – builds the web edition (`./generate-web.sh`). Only needed
+  for the web output; the `.docx`/`.pdf` build doesn't use it.
 - **chromium** – headless screenshots. Started detached by `shoot.py`.
 - **python3** – build/capture scripts (standard library only; no `pip` needed).
 - **poppler-utils** – only used when refreshing content from a reference PDF.

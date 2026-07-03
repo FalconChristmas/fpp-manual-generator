@@ -1,0 +1,53 @@
+site_name: Falcon Player (FPP) User Manual
+site_description: FPP version 10 User Manual — web edition
+site_author: The FPP Community
+# Served from GitHub Pages for this repo. Update if you attach a custom domain.
+site_url: https://falconchristmas.github.io/fpp-manual-generator/
+repo_url: https://github.com/FalconChristmas/fpp-manual-generator
+repo_name: fpp-manual-generator
+docs_dir: web/docs
+site_dir: web/site
+# Use directory URLs (…/status-page/) but keep everything relative so the built
+# site works when opened from a subfolder or a plain file:// path too.
+use_directory_urls: true
+
+theme:
+  name: material
+  features:
+    - navigation.top        # back-to-top button
+    - navigation.tracking   # update URL with the active anchor
+    - navigation.footer     # prev/next chapter links
+    - toc.follow
+    - search.suggest        # autocomplete search terms
+    - search.highlight      # highlight matches on the page
+    - content.code.copy     # copy button on code blocks
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+# Chapters are ordered by their numeric filename prefixes (00-, 02-, …), which
+# sort correctly under MkDocs' automatic navigation — the same "filename order"
+# convention the .docx build uses. New chapters appear automatically; nav labels
+# come from each chapter's top-level heading.
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search

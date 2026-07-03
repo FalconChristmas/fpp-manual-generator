@@ -4,6 +4,9 @@
 *.docx
 !tools/reference.docx
 
+# Generated web edition (staged docs + built static site)
+/web/
+
 # Reference source material (fetched on demand, not distributed here)
 tools/v9manual.pdf
 tools/v9manual.txt
