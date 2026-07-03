@@ -12,7 +12,7 @@ from a running FPP web UI, and rendered to `.docx` with Pandoc.
 
 ```
 install.sh          Install the build/capture dependencies (Debian/Ubuntu)
-generate.sh         Build FPP_Manual_v10.docx from the chapters (no FPP needed)
+generate.sh         Build FPP_Manual_v10.docx (+ .pdf) from the chapters (no FPP needed)
 capture.sh          (Re)capture screenshots from a running FPP web UI
 metadata.yaml       Title-page metadata for the document
 OUTLINE.md          Chapter plan / structure
@@ -30,8 +30,8 @@ tools/
 ## Quick start
 
 ```bash
-./install.sh          # one-time: pandoc, chromium, poppler-utils, python3
-./generate.sh         # build ./FPP_Manual_v10.docx
+./install.sh          # one-time: pandoc, libreoffice, chromium, poppler-utils, python3
+./generate.sh         # build ./FPP_Manual_v10.docx (+ ./FPP_Manual_v10.pdf)
 ```
 
 To refresh the screenshots against a live FPP (the device can be this one or a
@@ -46,6 +46,9 @@ remote):
 ## Requirements
 
 - **pandoc** – Markdown → `.docx`.
+- **libreoffice** – converts the `.docx` → `.pdf` (headless) so the PDF matches the
+  Word styling. Optional: if it's missing, `generate.sh` still builds the `.docx`
+  and skips the PDF (or run `PDF=0 ./generate.sh` to skip it deliberately).
 - **chromium** – headless screenshots. Started detached by `shoot.py`.
 - **python3** – build/capture scripts (standard library only; no `pip` needed).
 - **poppler-utils** – only used when refreshing content from a reference PDF.
@@ -96,5 +99,5 @@ Some screens require hardware or data that a given device may not have:
 
 - The manual's prose builds on the community FPP Manual originally written by Rick
   Harris (Poporacer), updated for FPP 10.
-- `generate.sh` writes `FPP_Manual_v10.docx` to the repository root; it is a build
-  artifact and is git‑ignored by default.
+- `generate.sh` writes `FPP_Manual_v10.docx` (and `FPP_Manual_v10.pdf`) to the
+  repository root; they are build artifacts and are git‑ignored by default.

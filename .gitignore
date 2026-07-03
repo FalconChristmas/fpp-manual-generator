@@ -1,5 +1,6 @@
 # Generated manual output (build artifact)
 /FPP_Manual_v10.docx
+/FPP_Manual_v10.pdf
 *.docx
 !tools/reference.docx
 

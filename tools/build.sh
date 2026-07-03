@@ -1,8 +1,14 @@
 #!/bin/bash
-# Build the FPP v10 manual .docx from the Markdown chapters.
+# Build the FPP v10 manual .docx (and, when possible, a matching .pdf) from the
+# Markdown chapters.
 #
-# Usage:  ./build.sh            # builds ../FPP_Manual_v10.docx
+# Usage:  ./build.sh            # builds ../FPP_Manual_v10.docx (+ .pdf)
 #         OUT=/path/x.docx ./build.sh
+#         PDF=0 ./build.sh      # build the .docx only, skip the PDF
+#
+# The PDF is produced by converting the just-built .docx with LibreOffice, so it
+# matches the Word styling exactly. If LibreOffice isn't installed the PDF step is
+# skipped with a hint (the .docx still builds). Install it via ./install.sh.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -36,3 +42,31 @@ pandoc \
 
 echo "Wrote $OUT"
 ls -la "$OUT"
+
+# --- PDF (optional) --------------------------------------------------------
+# Convert the .docx to .pdf with LibreOffice so the PDF matches the Word styling
+# from reference.docx exactly. Set PDF=0 to skip.
+if [ "${PDF:-1}" != "0" ]; then
+    SOFFICE="$(command -v libreoffice || command -v soffice || true)"
+    if [ -n "$SOFFICE" ]; then
+        PDF_OUT="${OUT%.docx}.pdf"
+        OUT_DIR="$(dirname "$OUT")"
+        # Use a throwaway profile dir so headless runs don't clash with a desktop
+        # LibreOffice session or a locked default profile.
+        PROFILE="$(mktemp -d)"
+        echo "Converting to PDF with $(basename "$SOFFICE") ->"
+        "$SOFFICE" --headless --convert-to pdf --outdir "$OUT_DIR" \
+            -env:UserInstallation="file://$PROFILE" "$OUT" >/dev/null
+        rm -rf "$PROFILE"
+        if [ -f "$PDF_OUT" ]; then
+            echo "Wrote $PDF_OUT"
+            ls -la "$PDF_OUT"
+        else
+            echo "PDF conversion did not produce $PDF_OUT" >&2
+            exit 1
+        fi
+    else
+        echo "Skipping PDF: LibreOffice not found (install it with ./install.sh," \
+             "or set PDF=0 to silence this)." >&2
+    fi
+fi
