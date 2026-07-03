@@ -1,0 +1,76 @@
+# FPP v10 manual — screenshot capture list.
+# Columns (tab-separated): outfile.png <TAB> path_or_url <TAB> settle_ms
+#   [ <TAB> js_to_run_after_load [ <TAB> fixed_clip_height_px ] ]
+# Lines starting with # are ignored. Settings tabs use a #hash so the page's
+# onload JS selects the right tab (the driver forces a fresh load each shot).
+#
+# Requires a running FPP reachable at the base URL (default http://localhost).
+# Screens that need cape hardware or an xLights-uploaded show are noted below.
+
+# ---- Status / Control ----
+status.png	index.php	4500
+network.png	networkconfig.php	4500
+multisync.png	multisync.php	4500
+backup.png	backup.php	4500
+proxies.png	proxies.php	4000
+command-presets.png	commandPresets.php	4000
+effects.png	effects.php	4000
+testing.png	testing.php	4500
+
+# ---- FPP Settings (one shot per tab, via hash) ----
+settings-playback.png	settings.php#settings-playback	4500
+settings-av.png	settings.php#settings-av	4500
+settings-localization.png	settings.php#settings-localization	4000
+settings-ui.png	settings.php#settings-ui	4000
+settings-email.png	settings.php#settings-email	4000
+settings-mqtt.png	settings.php#settings-mqtt	4000
+settings-privacy.png	settings.php#settings-privacy	4000
+settings-output.png	settings.php#settings-output	4000
+settings-logging.png	settings.php#settings-logs	4000
+settings-services.png	settings.php#settings-services	4000
+settings-storage.png	settings.php#settings-storage	4000
+settings-system.png	settings.php#settings-system	4500
+settings-developer.png	settings.php#settings-developer	4000
+
+# ---- PipeWire audio/video pipeline (Settings -> Audio/Video buttons) ----
+pw-routing-matrix.png	pipewire-routing-matrix.php	6000
+pw-graph.png	pipewire-graph.php	6000
+pw-input-mixing.png	pipewire-input-mixing.php	5500
+pw-audio.png	pipewire-audio.php	6000
+pw-video.png	pipewire-video.php	5500
+pw-video-inputs.png	pipewire-video-inputs.php	5500
+aes67-config.png	aes67-config.php	5000
+opus-rtp-config.png	opus-rtp-config.php	5000
+sound-card-aliases.png	audio-card-aliases.php	5000
+
+# ---- Content Setup ----
+filemanager.png	filemanager.php	4500
+playlists.png	playlists.php	4500
+scheduler.png	scheduler.php	4500
+scriptbrowser.png	scriptbrowser.php	4500
+plugins.png	plugins.php	5000
+packages.png	packages.php	4500
+
+# ---- Input / Output Setup ----
+channel-inputs.png	channelinputs.php	4500
+channel-outputs.png	channeloutputs.php	5000
+output-processors.png	outputprocessors.php	4500
+gpio-inputs.png	gpio.php	4500
+# Overlay models page clipped to the top (full page can be >12000px tall):
+pixel-overlay-models.png	pixeloverlaymodels.php	5000		1500
+# Overlay preview modals below are EXAMPLES using model names from the reference
+# instance; edit the model/submodel names to ones present on your device, or
+# delete these two lines if you have no xLights-uploaded models.
+pov-model-preview.png	pixeloverlaymodels.php	5500	showModelPreview('Above_Bay_Matrix')	950
+pov-submodel-preview.png	pixeloverlaymodels.php	5500	showSubModelPreview('Lounge_Bay_Panel_1','Lounge_Bay_Panel_1_Horizontals')	950
+
+# ---- Help ----
+about.png	about.php	5000
+help.png	help.php	4000
+credits.png	credits.php	4000
+system-health.png	system-stats.php	5000
+troubleshooting.png	troubleshooting.php	4500
+
+# ---- Cape-hardware screens (capture on a cape-enabled device) ----
+# cape-info.png	cape-info.php	5000
+# current-monitor.png	currentmonitor.php	5000
