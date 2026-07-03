@@ -19,6 +19,7 @@ them in filename order and renders `FPP_Manual_v10.docx` via Pandoc.
 | 8 | `08-channel-inputs.md` | E1.31/DDP/ArtNet bridge inputs | channel-inputs.png |
 | 9 | `09-output-processors.md` | Remaps, colour order, brightness, gamma, etc. | output-processors.png |
 | 10 | `10-pixel-overlay-models.md` | Overlay models, sub-models, virtual display use | pixel-overlay-models.png |
+| 10a | `57-virtual-display-3d.md` | New v10 true‑3D virtual display: enabling the output, orbit controls, URL params, standalone mode, 3D asset upload | virtual-display-3d.png (needs 3D output + xLights map) |
 | 11 | `11-gpio-inputs.md` | GPIO input triggers | gpio-inputs.png |
 | 12 | `12-file-manager.md` | Uploading sequences, media, images, upload from xLights | filemanager.png |
 | 13 | `13-playlists.md` | Creating playlists, entry types, playlist editor | playlists.png |

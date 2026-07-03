@@ -195,5 +195,7 @@ previously combined in a single *Other* tab, which no longer exists):
   or single‑colour dimming.
 - **Control Signal** – configure control/trigger signal outputs.
 - **Virtuals** – virtual outputs such as the 2D/3D on‑screen virtual display.
+  Enabling **HTTP Virtual Display 3D** here is what activates the new browser‑based
+  3D preview — see the *3D Virtual Display* chapter.
 
 After any change, click **Save** and, when prompted, **Restart FPPD**.

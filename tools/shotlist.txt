@@ -63,6 +63,10 @@ pixel-overlay-models.png	pixeloverlaymodels.php	5000		1500
 # delete these two lines if you have no xLights-uploaded models.
 pov-model-preview.png	pixeloverlaymodels.php	5500	showModelPreview('Above_Bay_Matrix')	950
 pov-submodel-preview.png	pixeloverlaymodels.php	5500	showSubModelPreview('Lounge_Bay_Panel_1','Lounge_Bay_Panel_1_Horizontals')	950
+# 3D Virtual Display needs the "HTTP Virtual Display 3D" output enabled (Channel
+# Outputs -> Virtuals) and an xLights "Models" upload (virtualdisplaymap). Enable
+# on a device that has both; the WebGL scene needs extra settle time to render.
+virtual-display-3d.png	virtualdisplaywrapper3d.php	8000
 
 # ---- Help ----
 about.png	about.php	5000
