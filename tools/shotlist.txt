@@ -71,6 +71,9 @@ virtual-display-3d.png	virtualdisplaywrapper3d.php	8000
 # ---- Help ----
 about.png	about.php	5000
 help.png	help.php	4000
+# API explorer (Help -> REST API). Rendered by Scalar inside an iframe, so it
+# needs a long settle for the spec to load and the reference to draw.
+api-explorer.png	api/	9000
 credits.png	credits.php	4000
 system-health.png	system-stats.php	5000
 troubleshooting.png	troubleshooting.php	4500

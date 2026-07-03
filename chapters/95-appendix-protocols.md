@@ -33,9 +33,39 @@ Audio/Video*.)
 
 FPP exposes a **REST/HTTP API** on port 80 for status and control — starting and
 stopping playlists, reading status, setting channel data, controlling overlay
-models, and more. The interactive API help is available in the FPP UI (the
-`api.php` / API help page), and the same actions are available through
-**Commands**, **MQTT** and the **Scheduler**.
+models, and much more. The same actions are also available through **Commands**,
+**MQTT** and the **Scheduler**, but the API lets you drive FPP directly from
+scripts, home‑automation platforms, or your own applications.
+
+### The interactive API explorer
+
+New in FPP 10 is a built‑in, interactive **API explorer**. Open it from
+**Help → REST API**, or browse directly to `http://<fpp-host>/api/`.
+
+![The interactive API explorer (Help → REST API).](images/api-explorer.png)
+
+The explorer is a live, browsable reference for every endpoint on *this* device:
+
+- Endpoints are grouped into sections by area — **player**, **playlist**,
+  **playlists**, **command**, **commandPresets**, **channel**, **models**,
+  **overlays**, **media**, **files**, **network**, **pipewire**, **gpio**,
+  **backups**, **plugin**, and more.
+- Selecting an endpoint shows its HTTP method and path, its parameters, and the
+  request and response **schemas** with example values.
+- A built‑in client lets you **send a request to the device and see the response
+  inline** — a quick way to discover exactly what a call returns before you wire
+  it into a script.
+
+> **Note:** The FPP API has **no authentication**. Requests you send from the
+> explorer (or anywhere else) act on the device immediately, so take care with
+> `POST`/`PUT`/`DELETE` calls — especially against a player that is running a
+> live show.
+
+> **Tip:** The raw specification is served at
+> `http://<fpp-host>/api/openapi.json` (OpenAPI 3.0.3). You can import that URL
+> into tools such as Postman or Insomnia, or feed it to a client‑code generator.
+> Endpoints added by installed **plugins** are merged into the live spec
+> automatically, under `/plugin/<name>/`.
 
 ## MQTT
 

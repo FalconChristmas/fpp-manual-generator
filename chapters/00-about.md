@@ -44,5 +44,8 @@ The most visible and important changes since 9.x include:
   about storage, services, audio/video, temperature and configuration issues.
 - **Expanded plugin and package management** – a reworked Plugin Manager and a
   Packages page for installing optional software.
+- **Interactive API explorer** – a built‑in, browsable reference for FPP's REST
+  API (**Help → REST API**), letting you inspect and try every endpoint on the
+  device. See the *Protocols, Ports and the API* appendix.
 
 Each of these areas is covered in detail in the relevant chapter.
