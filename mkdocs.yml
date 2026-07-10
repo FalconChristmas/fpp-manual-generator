@@ -13,6 +13,9 @@ use_directory_urls: true
 
 theme:
   name: material
+  # Adds the persistent "Download PDF / Word" announcement bar (web/overrides/
+  # main.html) to the top of every page. Path is relative to this config file.
+  custom_dir: web/overrides
   features:
     - navigation.top        # back-to-top button
     - navigation.tracking   # update URL with the active anchor

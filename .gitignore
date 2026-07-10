@@ -4,8 +4,10 @@
 *.docx
 !tools/reference.docx
 
-# Generated web edition (staged docs + built static site)
-/web/
+# Generated web edition: the staged docs and the built static site are artifacts.
+# web/overrides/ (the hand-written "Download" bar theme partial) stays tracked.
+/web/docs/
+/web/site/
 
 # Annotated screenshots baked from images/ + annotations/ at build time
 /build/

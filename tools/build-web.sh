@@ -68,6 +68,18 @@ if [ -d "$SRC_IMAGES" ]; then
     cp -r "$SRC_IMAGES" "$DOCS_DIR/images"
 fi
 
+# If the .docx/.pdf deliverables have already been built (./generate.sh), publish
+# them alongside the site so the web edition offers a stable download URL
+# (…/FPP_Manual_v10.pdf). MkDocs copies any non-Markdown file in docs_dir straight
+# into the built site. They're optional here: if they're missing (web-only build)
+# the site still builds and the header "Download" links simply 404 until a full
+# build runs — CI always builds the .docx/.pdf first, so Pages always has them.
+for deliverable in FPP_Manual_v10.docx FPP_Manual_v10.pdf; do
+    if [ -f "$MANUAL_DIR/$deliverable" ]; then
+        cp "$MANUAL_DIR/$deliverable" "$DOCS_DIR/$deliverable"
+    fi
+done
+
 echo "Staged $count chapters -> web/docs/"
 
 # --- Build or serve --------------------------------------------------------

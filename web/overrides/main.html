@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+<!--
+  Persistent "Download" bar shown at the top of every page (MkDocs Material's
+  announcement bar). It links to the .docx/.pdf deliverables that the build
+  publishes alongside this site, so the URLs never change:
+      <site>/FPP_Manual_v10.pdf
+      <site>/FPP_Manual_v10.docx
+  `base_url` is MkDocs' relative path from the current page back to the site root,
+  so the links resolve on GitHub Pages, in a subfolder, or a local file:// preview
+  regardless of use_directory_urls.
+-->
+{% block announce %}
+  📘 Download the full manual:
+  <a href="{{ base_url }}/FPP_Manual_v10.pdf"><strong>PDF</strong></a>
+  &nbsp;·&nbsp;
+  <a href="{{ base_url }}/FPP_Manual_v10.docx"><strong>Word (.docx)</strong></a>
+{% endblock %}

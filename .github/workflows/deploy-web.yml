@@ -1,22 +1,19 @@
-# Build the web edition of the manual and publish it to GitHub Pages.
+# Build all three manual deliverables on every push to main and publish them:
+#   - the web edition -> GitHub Pages
+#   - FPP_Manual_v10.docx + FPP_Manual_v10.pdf are published *inside* the site, so
+#     they live at a stable URL (…/FPP_Manual_v10.pdf, …/FPP_Manual_v10.docx) that
+#     the "Download" bar on every web page links to. They're also attached to the
+#     run as a downloadable workflow artifact.
 #
 # One-time setup: repo Settings → Pages → "Build and deployment" → Source =
-# "GitHub Actions". After that, every push to main that touches manual content
-# rebuilds and republishes the site automatically. You can also run it on demand
-# from the Actions tab (workflow_dispatch).
-name: Deploy web manual
+# "GitHub Actions". After that, every push to main rebuilds and republishes the
+# site automatically. You can also run it on demand from the Actions tab
+# (workflow_dispatch).
+name: Build manual (web + docx/pdf)
 
 on:
   push:
     branches: [main]
-    paths:
-      - "chapters/**"
-      - "images/**"
-      - "mkdocs.yml"
-      - "tools/build-web.sh"
-      - "tools/webify.py"
-      - "generate-web.sh"
-      - ".github/workflows/deploy-web.yml"
   workflow_dispatch:
 
 # Permissions the deploy-pages action needs.
@@ -38,15 +35,31 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.x"
-      # CI installs from PyPI (the local ./install.sh uses the apt packages on the
-      # FPP OS image); both give the same libraries. pillow + pyyaml are needed to
-      # bake the screenshot annotations (annotations/); without them the build
-      # fails loudly rather than shipping un-annotated images.
+      # pandoc builds the .docx; libreoffice-writer (headless) converts it to .pdf.
+      - name: Install pandoc + LibreOffice
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc libreoffice-writer
+      # CI installs the Python libs from PyPI (the local ./install.sh uses the apt
+      # packages on the FPP OS image); both give the same libraries. pillow +
+      # pyyaml bake the screenshot annotations (annotations/); without them the
+      # build fails loudly rather than shipping un-annotated images.
       - run: pip install mkdocs-material pillow pyyaml
+      # Build the .docx + .pdf FIRST so build-web.sh can publish them alongside the
+      # site (stable …/FPP_Manual_v10.pdf URL the "Download" bar links to).
+      - run: ./generate.sh
       - run: ./generate-web.sh
-      - uses: actions/upload-pages-artifact@v5
+      - name: Upload web site (for Pages)
+        uses: actions/upload-pages-artifact@v5
         with:
           path: web/site
+      - name: Upload docx/pdf (downloadable artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: FPP_Manual_v10
+          path: |
+            FPP_Manual_v10.docx
+            FPP_Manual_v10.pdf
 
   deploy:
     needs: build
