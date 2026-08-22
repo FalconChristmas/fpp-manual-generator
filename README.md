@@ -1,12 +1,27 @@
 # FPP Manual Generator
 
-Tooling and source for building the **Falcon Player (FPP) User Manual** (v10) as a
-Microsoft Word `.docx`. This lives in its own repository so the manual and its
-build tooling can be installed *alongside* FPP on a device when the manual needs
-updating, without adding manual‑related churn to the core `fpp` repo.
+Tooling and source for building the **Falcon Player (FPP) User Manual** (v10) in
+three formats from a single set of Markdown chapters:
 
-The manual is authored in Markdown, illustrated with real screenshots captured
-from a running FPP web UI, and rendered to `.docx` with Pandoc.
+- a Microsoft Word `.docx` (Pandoc)
+- a `.pdf` (LibreOffice converts the `.docx`, so it inherits the Word styling)
+- a browsable **online web edition** — a searchable, sidebar-navigated site built
+  with MkDocs + Material and published live at **<https://manual.falconplayer.com/>**
+
+This lives in its own repository so the manual and its build tooling can be
+installed *alongside* FPP on a device when the manual needs updating, without
+adding manual‑related churn to the core `fpp` repo.
+
+The manual is authored in Markdown and illustrated with real screenshots captured
+from a running FPP web UI (optionally annotated with arrows, callouts and
+redactions at build time). The `chapters/` folder is the single source of truth:
+`./generate.sh` builds the `.docx` and `.pdf`, and `./generate-web.sh` builds the
+web edition, which also offers both documents as downloads.
+
+## Installing from Github
+
+cd /opt && git clone https://github.com/FalconChristmas/fpp-manual-generator
+cd /opt/fpp-manual-generator && ./install.sh
 
 ## Layout
 
@@ -78,8 +93,9 @@ edition — the `.docx`/`.pdf` keep the plain blockquotes.
 `.github/workflows/deploy-web.yml` builds and publishes the web edition on every
 push to `main` that changes manual content (and on demand from the Actions tab).
 Enable it once under **repo Settings → Pages → Build and deployment → Source =
-"GitHub Actions"**; the site then goes live at the `site_url` in `mkdocs.yml`
-(<https://falconchristmas.github.io/fpp-manual-generator/>).
+"GitHub Actions"**; the site then goes live at the public URL
+<https://manual.falconplayer.com/> (a custom domain in front of GitHub Pages, which
+also serves it at <https://falconchristmas.github.io/fpp-manual-generator/>).
 
 ## Annotating screenshots
 
