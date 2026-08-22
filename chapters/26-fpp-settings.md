@@ -64,6 +64,11 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
   Sound Reactive** / **WLED Audio Sync** options for driving sound‑reactive WLED
   devices. **Configure Sound Card Aliases** gives friendly names to audio
   devices.
+- **Suspend Audio Device When Idle** – lets PipeWire suspend the sound card while
+  nothing is playing. Left on (the default), it saves roughly 4–5% of a CPU core
+  on single‑core boards, because the audio graph would otherwise run continuously
+  and keep the card clocked. Turn it off if your sound card does not resume
+  cleanly when playback starts. *(Advanced; requires a reboot.)*
 - **PipeWire Routing** – **Open Routing Matrix** to patch audio sources to
   outputs, and **Visualise Current Pipeline** to see a live PipeWire graph.
 - **PipeWire Audio** – **Configure Input Mixing (Mix Buses)** and **Configure
@@ -119,6 +124,14 @@ Changes the appearance and behaviour of the web interface.
 
 **User Interface:**
 
+- **Temporary User Interface Level** – shown when you are at the **Basic** level.
+  The **Change to Advanced UI for 15 Minutes** button raises the interface to
+  *Advanced* for the rest of your browser session, without permanently changing
+  your UI Level — useful when you need to reach one Advanced setting and would
+  rather not leave the extra clutter switched on. While the override is active an
+  **unlock** icon appears in the page header showing roughly how many minutes are
+  left; click it, or **Exit Advanced Mode** here, to return to Basic immediately.
+  The override is per‑browser and expires by itself.
 - **User Interface Level** – four levels that tailor how much is shown:
     - **Basic** – all the settings most users need; the recommended setting.
     - **Advanced** – extra features/settings for unusual configurations.
@@ -199,7 +212,11 @@ FPP's developers are cautious about privacy and let you customise what is shared
   **Disabled**, or **Banner** (prompt on the Status page).
 - **Share Crash Data with FPP Developers** – choose what, if anything, is sent to
   help diagnose crashes. The default *Include settings and configurations* is
-  recommended.
+  recommended. FPP 10 also **keeps crash reports on the device** even when you
+  choose not to send them, so you can inspect one yourself or attach it to a
+  support bundle. The reports carry more useful detail than before — the context
+  around the crash, the versions of any installed plugins, and stack addresses
+  resolved to file and line on the device itself.
 - **Fetch cape logos from vendors** – a vendor logo shown in the header must be
   downloaded from the vendor, which exposes your IP to them (usually low risk).
 - **Send Cape serial numbers to vendors** – could identify you from purchase
@@ -322,12 +339,22 @@ separate Raspberry Pi and BeagleBone variants).
   after 10 minutes).
 - **BeagleBone LEDs** – control or disable the five on‑board LEDs (commonly
   disabled if distracting; defaults recommended). *(BeagleBone only.)*
+- **Reboot If USB WiFi Adapter Fails** – on by default. Some USB Wi‑Fi adapters
+  intermittently lose their USB connection while booting: the adapter is detected
+  and the interface appears, but the radio never connects, leaving FPP running
+  normally yet unreachable over the network. When FPP detects this specific
+  failure it reboots to recover. It will only do so when USB errors are present
+  *and* no other connection has an IP address — so an access point being switched
+  off or out of range will not trigger one — and it gives up after two attempts so
+  it can never boot‑loop. *(Advanced.)*
 - **OS Password** – the password for SSH and similar access; the default `falcon`
   is recommended.
 - **SSH Keys** – configure SSH keys to authenticate with a key instead of a
   password. *(Advanced.)*
 - **Reset FPP Config** – reset FPP to factory settings, either all options or
   selected areas — useful if a configuration or an xLights upload has gone wrong.
+  In FPP 10 the selectable areas include **clearing DHCP leases**, for when this
+  device has been acting as a DHCP server and you want to start its pool afresh.
 
 > **Warning:** Take an *FPP Backup* before **Reset FPP Config** (see *Backup,
 > Restore and Proxies*).
@@ -349,3 +376,12 @@ developer testing.
 - **Git Status** – show the status of your local FPP version.
 - **FPP Rebuild** – recompile all FPP files (useful after an interrupted install
   or corrupted files).
+- **Distributed Compile** – hand FPP's source compiles to a helper host to speed
+  up a full rebuild, such as after switching branch. The options are **Off**,
+  **distcc**, **distcc + zeroconf**, **nocc** and **nocc + mdns**. `distcc`
+  preprocesses locally then compiles on the helper; `nocc` does *not* preprocess
+  locally, which makes it far faster on slow single‑core boards such as a
+  BeagleBone Black or Pi Zero. The `zeroconf`/`mdns` variants discover helpers on
+  the LAN automatically. The helper must run the same major compiler version — set
+  one up with `scripts/setup_distcc_host.sh` or `scripts/setup_nocc_host.sh`. Any
+  distributed mode disables the precompiled header.

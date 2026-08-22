@@ -28,6 +28,28 @@ if a higher‑priority schedule ends while a lower‑priority one should still b
 playing, the lower‑priority schedule starts when the higher one finishes. Hover
 over a question mark for a summary of that entry.
 
+## Calendar View
+
+New in FPP 10, **Calendar View** shows the schedule as a familiar calendar rather
+than a week strip — useful for checking a whole season at a glance, or confirming
+that a holiday entry lands on the right date. Open it from the **Calendar View**
+button on the Scheduler page, or from the **Preview** drop‑down on the Status
+page.
+
+![The Schedule Preview calendar.](images/schedule-calendar.png)
+
+- Switch between **Month**, **Week**, **Day** and **List** views with the buttons
+  at the top right, and move around with the **‹** / **›** arrows and **Today**.
+- Entries are colour‑coded by type — **Playlist**, **Sequence**, **Command** — plus
+  **Overridden** (an entry a higher‑priority one preempts) and **Disabled**.
+- **Show disabled entries** adds inactive entries to the view; **Hide overridden**
+  (on by default) removes the ones that will not actually run, so you see what
+  will really happen.
+
+> **Note:** The calendar expands occurrences from your schedule *rules*, so you can
+> preview any month, however far ahead. FPPD itself only commits the next **28
+> days** to its run queue — dates beyond that are shown as planned, not queued.
+
 ## Page controls
 
 - **Reload** – reload the saved schedule (discarding unsaved changes).

@@ -47,9 +47,18 @@ sound-card-aliases.png	audio-card-aliases.php	5000
 filemanager.png	filemanager.php	4500
 playlists.png	playlists.php	4500
 scheduler.png	scheduler.php	4500
-scriptbrowser.png	scriptbrowser.php	4500
+# Calendar view of the schedule (new in FPP 10). scheduleCalendar.php is only a
+# fragment loaded into a modal, so shoot it via the Scheduler page's Calendar
+# View button; FullCalendar is lazy-loaded on first use, hence the long settle.
+schedule-calendar.png	scheduler.php	9000	ScheduleCalendar()	1200
+# The script list is fetched from the online repository, so it needs a longer
+# settle (and working DNS) before the page has anything to show.
+scriptbrowser.png	scriptbrowser.php	12000
 plugins.png	plugins.php	5000
 packages.png	packages.php	4500
+# New in FPP 10 (Advanced UI level): scripted variables and recurring tasks.
+variables.png	variables.php	4500
+recurring-tasks.png	recurringtasks.php	4500
 
 # ---- Input / Output Setup ----
 channel-inputs.png	channelinputs.php	4500
@@ -79,5 +88,8 @@ system-health.png	system-stats.php	5000
 troubleshooting.png	troubleshooting.php	4500
 
 # ---- Cape-hardware screens (capture on a cape-enabled device) ----
-# cape-info.png	cape-info.php	5000
-# current-monitor.png	currentmonitor.php	5000
+# Cape Info renders on any device with a cape/hat fitted.
+cape-info.png	cape-info.php	5000
+# Port Status (renamed from Current Monitor in FPP 10) only appears on capes
+# whose cape-info advertises "currentMonitoring".
+# port-status.png	currentmonitor.php	5000

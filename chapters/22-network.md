@@ -79,6 +79,13 @@ For **wlan0** there are additional settings:
 
 - **DHCP Pool Offset / Size** – the starting address and number of addresses the
   DHCP server may assign. *(Advanced, with DHCP enabled.)*
+
+  > **Note:** In FPP 10 — a change that comes from the move to a newer Debian
+  > base — **DHCP leases survive a reboot**. Restarting FPP no longer clears the
+  > leases it has handed out, so a device that had an address keeps it. Lease
+  > times are set to sensible values by default. If you need to start over with a
+  > clean pool, **FPP Settings → System → Reset FPP Config** now includes an option
+  > to **clear DHCP leases**.
 - **Update Interface** – saves the settings for the current interface. Click it
   before moving to another interface, and again when finished; then reboot.
 - **Add New Interface** – configure an `eth0` or `wlan0` interface even when the

@@ -1,4 +1,4 @@
-# Annotations for images/status.png (1440 x 1071).
+# Annotations for images/status.png (1440 x 1103).
 #
 # This is a WORKED STARTER you can copy for other images. The active annotations
 # below number the six elements of the header bar, matching the numbered list in
@@ -11,12 +11,12 @@
 annotations:
   # Numbered callouts sitting just below each header-bar element (left -> right),
   # so the elements themselves stay visible.
-  - {type: marker, at: [135, 72],  label: "1"}   # FPP logo + version
-  - {type: marker, at: [993, 72],  label: "2"}   # host name
-  - {type: marker, at: [1063, 72], label: "3"}   # player state
-  - {type: marker, at: [1122, 72], label: "4"}   # sensors (CPU temp)
-  - {type: marker, at: [1240, 72], label: "5"}   # IP addresses
-  - {type: marker, at: [1322, 72], label: "6"}   # time
+  - {type: marker, at: [101, 72],  label: "1"}   # FPP logo + version
+  - {type: marker, at: [1010, 72], label: "2"}   # host name
+  - {type: marker, at: [1078, 72], label: "3"}   # player state
+  - {type: marker, at: [1137, 72], label: "4"}   # sensors (CPU temp)
+  - {type: marker, at: [1242, 72], label: "5"}   # IP addresses
+  - {type: marker, at: [1315, 72], label: "6"}   # date and time (nudged left of centre so the badge clears the "Press F1 for help" hint)
 
   # --- Reference: the other annotation types (uncomment / adapt as needed) -----
   # - {type: box,       at: [x1, y1, x2, y2], color: red, label: "A"}  # outline (+badge)

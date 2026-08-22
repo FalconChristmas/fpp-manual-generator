@@ -25,6 +25,11 @@ callouts above correspond to:
 
 *Press F1 for help* (top right) opens context‑sensitive help for the current page.
 
+> **Note:** In FPP 10 the status shown on this page is **pushed** to your browser
+> over a WebSocket as it changes, rather than the browser polling for it every
+> second. The page reacts faster and puts less load on the device; if the
+> connection drops it reconnects on its own.
+
 ## Player Status Page
 
 There are several sections on the Player Status page.
@@ -51,7 +56,9 @@ that is playing.
    it will begin.
 6. **Preview** – shows a graphical representation of your schedule for the next 4
    weeks (extendable via an advanced setting in *FPP Settings*). A good way to
-   verify your schedule.
+   verify your schedule. In FPP 10 this is a drop‑down: as well as the week
+   preview it offers **Calendar View**, a month/week/day/list calendar of what is
+   scheduled to run (see the *Scheduler* chapter).
 7. **Start Next** – ends the current playlist immediately and starts the next
    scheduled playlist. That playlist still ends at its normally scheduled time.
 8. **Abnormal Conditions** – if FPP detects conditions that can affect
@@ -145,13 +152,17 @@ shows the configured universes / DDP data and packet statistics per row:
 Update Stats** refreshes every second, **Update** refreshes once, and **Reset**
 clears the counters.
 
-## Current Monitor
+## Port Status
 
 If your FPP device has eFuses (electronic fuses) and supports current‑monitoring,
-a **Current Monitor** tab is available under *Status/Control*. It shows the
-measured current draw per port, which is useful for spotting shorts and balancing
-power. (This requires cape hardware that reports current monitoring — see the
-*Capes* appendix.)
+a **Port Status** entry is available under *Status/Control*. It shows the measured
+current draw per port, which is useful for spotting shorts and balancing power.
+(This requires cape hardware that reports current monitoring — see the *Capes*
+appendix.)
+
+> **Note:** This page was called **Current Monitor** in earlier releases; it was
+> renamed to *Port Status* in FPP 10. The entry only appears if the fitted cape
+> advertises current monitoring, so on most devices it is not in the menu at all.
 
 ## Bottom action bar
 
@@ -167,3 +178,7 @@ The buttons along the bottom of the page apply to the whole device:
 
 > **Note:** When a change requires it, a banner appears prompting you to **Restart
 > FPPD** or **Reboot**. Output does not resume until the requested action is done.
+
+> **Note:** In FPP 10, a playlist you started **manually** (that is, one the
+> scheduler did not start) is resumed after FPPD restarts, rather than leaving the
+> device idle. Scheduled playlists continue to be governed by the schedule.

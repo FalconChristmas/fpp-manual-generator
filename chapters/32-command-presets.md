@@ -25,6 +25,33 @@ A Command Preset can be triggered in four ways:
   `StartMainPlaylist` or `StartOvernightPlaylist`.
 - **FPP Command** – choose from the many built‑in commands (plugins can add more).
 
+## How commands are organised
+
+FPP 10 groups the command list into **categories**, and ties each command to a
+**UI Level**, so the list you see matches how much of FPP you have chosen to
+expose (see *FPP Settings → UI*). The categories are:
+
+| Category | What it covers |
+|---|---|
+| **Playlist** | Start, stop, pause, insert and navigate playlists |
+| **Media** | Play and stop media files, and per‑slot media control |
+| **Effects** | Start/stop effects and FSEQ‑as‑effect, All Lights Off |
+| **Audio** | Volume control, per‑slot volume, and audio routing |
+| **Pixel Overlay** | Fill, clear, text and effects on overlay models |
+| **Outputs** | Test mode, GPIO output and MQTT publishing |
+| **Events** | Presets, scripts, URLs, and the *If* / *Set Variable* commands |
+| **System** | Reboot, shutdown, and switching between Player and Remote mode |
+
+At the **Basic** level you see the everyday commands — starting and stopping
+playlists, effects and media, and volume. Raising the level to **Advanced**
+unlocks the rest, including *If*, *Set Variable*, the preset‑slot and remote
+triggers, GPIO and MQTT commands, testing, pixel‑overlay commands, and the
+**Reboot** and **Shutdown** commands.
+
+> **Tip:** Each command *argument* now has its own help tooltip, so you can hover a
+> field in the FPP Command Editor to find out what it expects — including the
+> newer *ifNotRunning* and MultiSync arguments.
+
 ## Available FPP Commands (selection)
 
 The command list is extensive; commonly used commands include:
@@ -35,8 +62,13 @@ The command list is extensive; commonly used commands include:
 - **Extend Schedule** – extend (or, with a negative number, shorten) the currently
   playing scheduled playlist by a number of minutes.
 - **FSEQ Effect Start / Stop** – start or stop any stored `.fseq` file; can loop,
-  and can run in the **Background** (resuming after a playlist finishes).
+  and can run in the **Background** (resuming after a playlist finishes). An
+  **ifNotRunning** option starts it only if that sequence is not already playing,
+  and it can restart an already‑running effect in place instead of starting a
+  duplicate.
 - **GPIO** – set GPIO pins on or off.
+- **If** – run one set of commands when a condition is true and another when it is
+  false. See *Variables and Recurring Tasks*.
 - **Insert Playlist After Current** – queue a playlist to run after the current one
   finishes (with optional start/stop items), then resume.
 - **Insert Playlist Immediate** – start a playlist immediately, stopping the
@@ -48,14 +80,21 @@ The command list is extensive; commonly used commands include:
 - **Overlay Model Clear / Fill / State** – clear an overlay model, fill it with a
   colour, or set its state (Enabled, Disabled, Transparent, Transparent RGB).
 - **Overlay Model Effect** – apply an effect to an overlay model: **Bars**,
-  **Blink**, **Color Fade**, **Text**, **WLED Effects** (some sound‑reactive,
-  marked with a musical note), or **Stop Effects**.
+  **Blink**, **Color Fade**, **Text**, **Images** (draw or scroll an image across
+  the model — new in FPP 10), **WLED Effects** (some sound‑reactive, marked with a
+  musical note), or **Stop Effects**.
 - **Pause / Resume Playlist** – pause or resume the current playlist.
-- **Play Media** – play a media file (optionally onto an overlay model).
+- **Play Media** – play a media file (optionally onto an overlay model). It can
+  also target a specific **video output**, so a non‑primary slot can drive a second
+  display.
+- **Reboot** / **Shutdown** – restart or power down the device from a command, so a
+  schedule entry or GPIO button can do it (Advanced UI level).
 - **Remote Effect / FSEQ / Playlist / Script / Command Preset** – trigger effects,
   sequences, playlists, scripts or presets stored on a **remote** device (enter the
   name/slot exactly as stored on the remote).
 - **Run Script** – run a script stored on this device.
+- **Set Variable** – store a value (fixed, counter, random or calculated) in a
+  named variable for other commands to read. See *Variables and Recurring Tasks*.
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
 

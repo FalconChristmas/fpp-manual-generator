@@ -17,7 +17,7 @@ your sequencing software. The output types are:
   pixels driven directly by a Pi hat or BeagleBone cape, or from the GPIO pins. FPP
   uses the attached cape's EEPROM to build the correct page; without a programmed
   EEPROM the section is blank and you must install a **Virtual EEPROM** (below). On
-  a Pi 5 the pixel‑string type must be the **DPI** protocol.
+  a Raspberry Pi, FPP 10 drives these pins with **DPI** on every model.
 - **LED Panel Matrices** – P10/P5 panels via a BeagleBone Octoscroller‑type cape, a
   Pi matrix hat, or a ColorLight card.
 - **DMX / Serial** – DMX, Pixelnet and Renard over a USB/serial adapter.
@@ -94,8 +94,9 @@ to the hat/cape or GPIO. Common controls:
 - **Testing** – output test patterns (stays active until turned off): **Port
   Number** (white pixels at the start of each string indicate its port), **Pixel
   Count by Port**, **Pixel Count by String**, and **Red/Green/Blue/White Fade**.
-- **Pixel Timing** – normal **ws281x** or the slower **1903** protocol
-  (BeagleBone only).
+- **Pixel Timing** – selects the timing group the ports run at. Changing it
+  re‑offers each port's protocol list; a port set to a protocol the new group does
+  not contain moves to that group's first protocol.
 - **Clone String** – copy a string's settings to others, advancing the start
   channel.
 
@@ -112,6 +113,14 @@ Per port:
 - **Group Count** – group pixels that always display identically.
 - **End Channel** – the ending channel (calculated).
 - **Direction** – **Reverse** feeds data as if from the end of the string.
+- **Protocol** – the pixel chipset the port drives. FPP 10 added **per‑port
+  protocols**, so one cape can drive different pixel types on different ports.
+  Besides the usual **ws2811** / **ws2801**, the list covers the **TM18xx** family
+  (tm1803, tm1804, tm1809, tm1812, tm1814, tm1814a), the **UCS** family (ucs1903,
+  ucs1904, ucs1912, ucs2903, ucs2904, and the 16‑bit ucs7604, ucs8903, ucs8904),
+  **GS8206** / **GS8208**, and **SK6812** / **SK6812RGBW**. The column is hidden on
+  capes where every port offers only one protocol, so you will not see it on a
+  ws281x‑only cape.
 - **Color Order** – match your pixels' colour order.
 - **Start Nulls / End Nulls** – number of null nodes used to boost transmission
   distance at each end.
@@ -129,15 +138,28 @@ From FPP 6 onward, the advanced pixel output protocols require an EEPROM. If you
 hat/cape has none, configure a **Virtual EEPROM**, choosing the type for your
 output. Examples:
 
-- **PiHat** – two ports (two GPIO pins):
-    - **PiHat** – uses the same PWM as the on‑board audio, so on‑board audio is
-      disabled (a USB audio card still works).
-    - **PiHat (DPIPixels – allows onboard audio)** – keeps on‑board audio; limited
-      to 50 pixels per port without a licence.
+- **PiHat** – two ports (two GPIO pins), driven via DPIPixels so on‑board audio
+  keeps working; limited to 50 pixels per port without a licence.
 - **DPIPixels‑24** – up to 24 ports without disabling on‑board audio; 50 pixels per
   port without a licence.
 - **rPi‑28D / rPi‑MFC** – Hanson Electronics boards.
 - **F16‑B / F32‑B / F4‑B / F8‑B / F8‑Bv2 / F8‑PB** – Falcon/Kulp DIY boards.
+
+> **Note:** FPP 10 removed the old `rpi_ws281x` driver on Raspberry Pi and drives
+> those pins with **DPIPixels** instead. DPI uses the same GPIO pins, works on
+> every supported Pi model, and does not conflict with the on‑board audio — so the
+> variants that used to disable on‑board audio are gone, and RPIWS281X capes are
+> no longer offered in the UI.
+>
+> **Existing configurations migrate themselves**, with no action needed from you:
+> FPP remaps the output type when the config loads, rewrites
+> `co-pixelStrings.json` on disk at boot, and writes the migrated version back out
+> the next time you save the page. A third‑party cape with a physically burned
+> RPIWS281X EEPROM is used as‑is (the pin format is the same); any pin DPI cannot
+> drive is skipped with a warning rather than failing the whole cape. The
+> **rPi‑28D** is a special case — its third output is ws2801 over SPI, which DPI
+> cannot drive, so it maps to the 4‑output variant and that protocol is rewritten
+> to ws2811.
 - **RGB‑123 / PB‑16 / PocketScroller / Spixel** – various boards (Spixel drives 16
   strings of APA102/LPD6803/LPD8806 directly from the Pi GPIO).
 
@@ -161,9 +183,13 @@ performance.
 > **Note:** For any output beyond a hat/cape you need a **dedicated Ethernet port
 > for each ColorLight receiver**.
 
-Click **Add Panel Matrix** and choose **Hat/Cape** or **ColorLight** (one Hat/Cape
-matrix, but multiple ColorLight panels). There are three settings screens —
-BeagleBone Hat/Cape, ColorLight, and Pi Hat/Cape. Common settings:
+Click **Add Panel Matrix** and choose **Hat/Cape** or **ColorLight**. There are
+three settings screens — BeagleBone Hat/Cape, ColorLight, and Pi Hat/Cape. Common
+settings:
+
+> **Note:** FPP 10 allows **several panel matrices to share one cape**, so a
+> cape‑driven setup is no longer limited to a single matrix the way it was in
+> earlier releases. Multiple ColorLight panels were already supported.
 
 - **Enable LED Panels** – enable panel output.
 - **Interface** – for ColorLight, the dedicated Ethernet port for that receiver.

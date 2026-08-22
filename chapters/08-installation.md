@@ -222,5 +222,10 @@ configure common or required settings:
 - **Email Address** — if you share crash data, providing an email lets the
   developers follow up if needed.
 
+The Initial Setup page also offers to **restore a previous configuration**, which
+saves setting a replacement or rebuilt device up from scratch. As well as
+restoring from an FPP backup file, FPP 10 adds a **File Copy Restore** option that
+brings the configuration across directly. See *Backup, Restore and Proxies*.
+
 After completing initial setup, work through the *Initial Network Configuration*
 and the rest of this manual to finish setting up your show.

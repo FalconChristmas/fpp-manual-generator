@@ -59,6 +59,8 @@ Below Version Info the page also shows **System Utilization**, **Player Stats** 
 If a cape/hat is installed, **Help → Cape Info** shows information about it and
 lets you upgrade or sign the EEPROM.
 
+![The Cape Info page.](images/cape-info.png)
+
 - **About** – **Name**, **Version**, **Serial Number**, **Designer**, **Licensed
   Outputs** (and licence status), **Output Driver**, and **Vendor Name/URL/E‑mail**.
 - **EEPROM Signature** – sign your EEPROM once you have an **Order number** and
@@ -70,8 +72,8 @@ lets you upgrade or sign the EEPROM.
 - **EEPROM Upgrade** – upgrade the EEPROM from a file, or restore it from a
   previous backup.
 
-> **Screenshots pending — cape hardware required.** This page only appears when a
-> cape is detected; it will be captured on a cape‑enabled system.
+> **Note:** This page only appears when a cape or hat is detected, so it is absent
+> on a bare device. The fields shown vary with what the cape's EEPROM reports.
 
 ## Get Help
 
@@ -98,6 +100,8 @@ lets you upgrade or sign the EEPROM.
 
 **Help → Credits** lists the people and projects behind FPP. If FPP has been
 useful, **Donate to FPP** links to support the developers.
+
+![The Credits page.](images/credits.png)
 
 ## System Health Check
 
@@ -126,6 +130,23 @@ and configuration dumps — so you can inspect the device (and copy the output i
 support request) without a shell.
 
 ![The Troubleshooting Commands page.](images/troubleshooting.png)
+
+### Download Support Bundle
+
+Rather than copying individual command output by hand, use **Download Support
+Bundle (Logs / Config / Troubleshooting)**. It packages the device's logs, its
+configuration, the troubleshooting command output and the **System Health Check**
+results into a single `.zip` you can attach to a forum post or bug report. FPP
+shows progress while the zip is generated, since gathering everything takes a few
+moments.
+
+> **Tip:** Attaching a support bundle is the single most useful thing you can do
+> when asking for help — it saves a long back‑and‑forth about versions, settings
+> and log contents.
+
+> **Note:** A support bundle contains your configuration and logs, which may
+> include your host name, network details, Wi‑Fi SSID, file names and email
+> settings. Look through it before posting it somewhere public.
 
 ## SSH Shell
 

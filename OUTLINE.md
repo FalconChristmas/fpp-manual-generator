@@ -23,15 +23,16 @@ them in filename order and renders `FPP_Manual_v10.docx` via Pandoc.
 | 11 | `11-gpio-inputs.md` | GPIO input triggers | gpio-inputs.png |
 | 12 | `12-file-manager.md` | Uploading sequences, media, images, upload from xLights | filemanager.png |
 | 13 | `13-playlists.md` | Creating playlists, entry types, playlist editor | playlists.png |
-| 14 | `14-scheduler.md` | Schedule entries, repeats, sun-based times, granular scheduling | scheduler.png |
+| 14 | `14-scheduler.md` | Schedule entries, repeats, sun-based times, granular scheduling, calendar view | scheduler.png, schedule-calendar.png |
 | 15 | `15-command-presets-effects.md` | Command presets, effects, testing | command-presets.png, effects.png, testing.png |
 | 16 | `16-plugins-packages-scripts.md` | Plugin manager, packages, script repo browser | plugins.png, packages.png, scriptbrowser.png |
+| 16a | `49-variables-recurring-tasks.md` | Variables page, Set Variable / If commands, Recurring Tasks (Advanced UI level) | variables.png, recurring-tasks.png |
 | 17 | `17-backup-restore.md` | FPP Backup/restore, proxies | backup.png, proxies.png |
 | 18 | `18-help-troubleshooting.md` | System Upgrade/about, Help, System Health Check, Troubleshooting, Credits | about.png, system-health.png, troubleshooting.png |
-| A | `90-appendix-cape.md` | Capes & Current Monitor (cape hardware required — screenshots pending) | (placeholder) |
+| A | `90-appendix-cape.md` | Capes & Port Status (renamed from Current Monitor in v10; Port Status needs a current-monitoring cape) | cape-info.png |
 | B | `91-appendix-protocols.md` | Protocol reference, ports, API pointer | — |
 
 ## Notes / decisions
 - Screenshots captured at 1440px wide from the running v10 instance (`v10.x-master`), dark theme, UI level = Developer (shows all settings with level markers 🎓/🧪/</>).
-- Cape-dependent pages (Cape Info, Current Monitor, per-cape string ports, PWM on real hardware) get placeholders to fill on a cape-enabled machine later.
+- Cape-dependent pages get placeholders to fill on a cape-enabled machine later. Cape Info is captured (any cape/hat); Port Status (ex-Current Monitor), per-cape string ports and PWM on real hardware still need matching hardware.
 - Where a v9 concept is unchanged, we still re-shoot to reflect the new v10 header/theme/layout.

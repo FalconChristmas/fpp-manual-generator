@@ -46,6 +46,39 @@ The most visible and important changes since 9.x include:
   Packages page for installing optional software.
 - **Interactive API explorer** – a built‑in, browsable reference for FPP's REST
   API (**Help → REST API**), letting you inspect and try every endpoint on the
-  device. See the *Protocols, Ports and the API* appendix.
+  device. It replaces the old static API help page, and plugins can now document
+  their own HTTP routes alongside FPP's. See the *Protocols, Ports and the API*
+  appendix.
+- **Variables and Recurring Tasks** – FPP can now store named **Variables** and
+  act on them: a **Set Variable** command stores values (fixed, counter, random,
+  or a calculated expression), an **If** command branches on them, and any
+  command's text field can substitute one with `%VAR:name%`. **Recurring Tasks**
+  run a command or preset on a repeating interval and can capture its result into
+  a variable. Both are on the *Content Setup* menu at the **Advanced** UI level
+  and have their own chapter, *Variables and Recurring Tasks*.
+- **Categorised FPP Commands** – the command list is now grouped (Audio, Effects,
+  Events, Media, Playlist, Pixel Overlay, Outputs, System) and each command is
+  tied to a UI Level, so the Basic level shows only everyday commands. Command
+  arguments now carry their own help tooltips.
+- **Temporary Advanced UI level** – you no longer have to change your UI Level
+  permanently to reach one Advanced setting. A button on *FPP Settings → UI*
+  unlocks the Advanced UI for 15 minutes, with an unlock icon in the header while
+  it is active.
+- **Reworked Plugins page** – a card/grid layout with plugin icons, categories,
+  popularity, live counters and filtering, an *Installed / Available / Updates*
+  tab strip, and a single search box that also accepts a `pluginInfo.json` URL.
+  Plugins can now be loaded and unloaded without restarting FPP.
+- **Playlist improvements** – the entry editor has been redesigned into labelled
+  sections with help tooltips, and a media entry can now carry **companion
+  media** that lives and dies with it.
+- **Calendar view of the schedule** – alongside the weekly preview, the Scheduler
+  offers a month/calendar view of what will actually run.
+- **Support bundle** – *Help → Troubleshooting Commands* can package the logs,
+  configuration and health-check data into a single zip to attach to a support
+  request.
 
 Each of these areas is covered in detail in the relevant chapter.
+
+> **Note:** FPP 10 continues to be developed after release, so a very recent
+> build may show items this manual does not yet describe. The version you are
+> running is shown at the top-left of every page and on *Help → System Upgrade*.

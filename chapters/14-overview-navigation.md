@@ -8,9 +8,23 @@ you only see what is relevant and things are less confusing. FPP also has
 different **UI Levels** so that more advanced settings and functions do not
 clutter the screens (see *FPP Settings → UI*).
 
+The four levels are **Basic**, **Advanced**, **Experimental** and **Developer**.
+Basic shows the settings most users need; Advanced exposes most of FPP's
+features; Experimental is for experts only and can expose settings that hurt
+performance or cause problems if misused; Developer is for developers and beta
+testers. In FPP 10 the level also governs which **FPP Commands** and which menu
+entries you see, not just which settings.
+
+> **Tip:** If you only need one Advanced item, you do not have to change your UI
+> Level permanently. On *FPP Settings → UI* the **Change to Advanced UI for 15
+> Minutes** button raises the level for the rest of your session. While it is
+> active, an **unlock** icon appears in the header showing roughly how long is
+> left; click it (or **Exit Advanced Mode** on the UI settings page) to drop back
+> straight away.
+
 Many settings have a **Help popup**, identified by a blue question‑mark icon.
 Hovering over the question mark brings up additional information specific to that
-item.
+item. In FPP 10, individual **FPP Command arguments** carry these tooltips too.
 
 ## Program Settings and Navigation
 
@@ -53,7 +67,18 @@ At the top of every page is a status/navigation bar:
 8. **Vendor logo** – may show your cape vendor's logo.
 9. **Section indicator** – which area of FPP you are in.
 10. **Main navigation toolbar** – on every page; clicking a heading reveals the
-    options for that category (each is covered in its own chapter).
+    options for that category (each is covered in its own chapter). The headings
+    are *Status/Control*, *Content Setup*, *Input/Output Setup* and *Help*.
+
+Some menu entries only appear in certain circumstances:
+
+- **Variables** and **Recurring Tasks** (under *Content Setup*) require the
+  **Advanced** UI Level or higher — see *Variables and Recurring Tasks*.
+- **Port Status** (under *Status/Control*) only appears on devices whose cape
+  reports current monitoring. It was called *Current Monitor* before FPP 10.
+- **Cape Info** (under *Help*) only appears when a cape or hat is fitted.
+- Plugins add their own entries at the bottom of whichever menu their author
+  chose.
 
 In the upper‑right corner, **Press F1 for help** (or the F1 key) opens help
 specific to the current page.

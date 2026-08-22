@@ -27,7 +27,9 @@ a notice. Click **Upgrade FPP**.
 > *Help and Troubleshooting* chapter.
 
 You will get a progress screen; the update can take several minutes. When it
-finishes, click **Close** at the bottom.
+finishes, click **Close** at the bottom. In FPP 10 the progress pop‑up also shows
+the current stage in its **title**, so you can tell how far along an FPP or FPPOS
+upgrade is at a glance — useful when the window is in the background.
 
 Sometimes an additional **major** update is offered — if so, click **Upgrade**.
 You will usually see a **Release Notes** page; some updates need a matching
@@ -45,6 +47,11 @@ to date, the **Local Git Version** matches the **Remote Git Version**.
 Your FPP software is now installed and up to date. There are many ways to use FPP,
 and the settings needed to run your show vary with your particular setup — refer
 to the appropriate chapters that follow for details.
+
+> **Note:** After an **FPPOS** upgrade, FPP 10 prompts you to reinstall your
+> plugins — an OS upgrade replaces the underlying system, so plugins need to be
+> put back. Accept the prompt, or reinstall them yourself from the *Plugins* page
+> (the **Reinstall All** button does the lot).
 
 > **Tip:** Always take an **FPP Backup** (see the *Backup, Restore and Proxies*
 > chapter) before a major upgrade, so you can roll back if needed.

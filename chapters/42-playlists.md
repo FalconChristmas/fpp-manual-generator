@@ -45,7 +45,12 @@ A playlist has three sections, each showing its item count and total duration:
 ## Adding entries
 
 Adding to any section is the same: click **Add a Sequence/Entry** and choose a
-**Type**:
+**Type**. FPP 10 redesigned this editor: instead of one long list of fields, the
+entry's options are grouped into labelled **sections**, and individual fields
+carry **help tooltips** explaining what they expect — hover the question mark
+beside a field to read it.
+
+The available types are:
 
 - **Sequence and Media** – the most common entry: an `.fseq` plus its associated
   audio and/or video (with a **Video Out** option).
@@ -65,8 +70,8 @@ Adding to any section is the same: click **Add a Sequence/Entry** and choose a
   reused by several daily playlists).
 - **Remap** – remap channels to another range, handy if you move a prop to a
   different port and cannot rebuild the sequence.
-- **Script** – run a script (pre‑written or your own; see *Script Repository
-  Browser*).
+- **Script** – run a script from the File Manager's *Scripts* tab (see *Plugins,
+  Packages and Scripts*).
 - **Sequence Only** – sequence data with no media (e.g. an animation).
 - **URL** – send URL commands to outside programs (e.g. switch a smart power strip,
   or post the current song to a website).
@@ -74,3 +79,23 @@ Adding to any section is the same: click **Add a Sequence/Entry** and choose a
 Drag items to reorder them, including between sections. Hover over an item for
 **Edit** and **delete** options. Save the playlist when done; it is then available
 on the Status page and to the Scheduler.
+
+## Companion media
+
+New in FPP 10, a media entry can carry **companion media** — extra audio or video
+that starts and stops with it, on its own stream slot. A playlist item that shows
+a badge for extra media is running one or more companions.
+
+The usual reasons to want this are a second audio feed (an alternate‑language
+soundtrack, or a feed for a lobby or indoor speaker) or a second display running
+alongside the main show. Each companion names its own media file and slot, and can
+be told to stay in sync with the main entry or to target a particular video
+output.
+
+Before FPP 10 you could approximate this by firing a *Play Media* command from a
+start‑of‑entry hook and a matching *Stop Media Slot* from a stop hook — but
+anything that ended the entry another way (the media finishing by itself, **Stop
+Now**, a playlist change, or a pause) left the companion still playing. Declaring
+the companion on the entry gives it exactly the entry's lifetime instead: it stops
+when the entry stops however that happens, and it is restarted at the right offset
+when the entry is paused and resumed.

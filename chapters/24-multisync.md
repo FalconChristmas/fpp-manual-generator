@@ -63,6 +63,17 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
 - **Export** – download a spreadsheet of all connected devices and their stats at
   the time of export.
 
+> **Important:** **FPP 10 defaults new installs to Unicast**, not Multicast.
+> Multicast needs both IP Multicast and IGMP Snooping to be working across your
+> network, which many home switches and access points do not handle well, so
+> unicast is the more reliable starting point. If you *upgraded* an existing
+> device — whether by an FPP upgrade or an FPPOS upgrade — your previous
+> multicast setting is preserved, so nothing changes underneath a working show.
+
+> **Tip:** In FPP 10 a change to the sync destinations is applied without
+> restarting FPPD, so you can switch between unicast and multicast and see the
+> effect immediately.
+
 > **Note:** At the time of writing, Falcon controllers in remote mode do not
 > support Multicast (expected in a future controller update), and not all home
 > networking equipment supports Multicast.
