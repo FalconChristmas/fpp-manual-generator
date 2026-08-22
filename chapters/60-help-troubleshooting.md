@@ -61,16 +61,23 @@ lets you upgrade or sign the EEPROM.
 
 ![The Cape Info page.](images/cape-info.png)
 
+The page has four tabs:
+
 - **About** – **Name**, **Version**, **Serial Number**, **Designer**, **Licensed
   Outputs** (and licence status), **Output Driver**, and **Vendor Name/URL/E‑mail**.
 - **EEPROM Signature** – sign your EEPROM once you have an **Order number** and
-  **License Key** for the pixel‑string outputs (see *Pixel Port Licensing*).
+  **License Key** for the pixel‑string outputs (see *Pixel Port Licensing*). This
+  is also where **Off‑Line Signing** is done, for a device with no internet access
+  (see *Pixel Port Licensing → Off‑Line Signing*).
 - **Voucher Redemption** – redeem a voucher from your vendor or
   shop.falconplayer.com to sign your EEPROM.
-- **Off‑Line Signing** – sign the EEPROM when the device has no internet (see
-  *Pixel Port Licensing → Off‑Line Signing*).
-- **EEPROM Upgrade** – upgrade the EEPROM from a file, or restore it from a
-  previous backup.
+- **EEPROM Upgrade** – upgrade the cape's firmware/EEPROM from a file, or restore
+  it from a previous backup. An option lets you **reset the configuration to
+  defaults** as part of the restore. FPP streams the progress and keeps the dialog
+  open until the flash finishes.
+
+  > **Warning:** Do not power off or reboot the device while a cape firmware
+  > flash is running — an interrupted flash can leave the EEPROM unusable.
 
 > **Note:** This page only appears when a cape or hat is detected, so it is absent
 > on a bare device. The fields shown vary with what the cape's EEPROM reports.
@@ -116,8 +123,9 @@ Issues**, including: **FPPD Daemon** and **FPPD Warnings**; **Unique Hostname** 
 **PipeWire Audio** and **GStreamer**; **Scheduler**; and network checks (**Default
 Gateway**, **Gateway Reachable**, **Internet Access**, **DNS Resolution**). Use
 **Re‑run** to check again. Live panels below show **CPU Usage**, **Memory Usage**,
-**Temperature**, **Disk Utilization**, **System Uptime**, **System Busyness** and
-**Player Statistics**.
+**Temperature**, **Fan Monitoring** (on devices with a controllable fan — see *FPP
+Settings → System*), **Disk Utilization**, **System Uptime**, **System Busyness**
+and **Player Statistics**.
 
 > **Tip:** This is the first page to open when something is not working — a red
 > **Issue** or amber **Warning** usually points straight at the cause.
@@ -130,6 +138,33 @@ and configuration dumps — so you can inspect the device (and copy the output i
 support request) without a shell.
 
 ![The Troubleshooting Commands page.](images/troubleshooting.png)
+
+The output is grouped into tabs by subject, so you can go straight to the area you
+are investigating:
+
+| Tab | What it shows |
+|---|---|
+| **Networking** | Interfaces, addresses, routes, DNS and connectivity |
+| **Disk** | Mounted file systems, free space and partition layout |
+| **Date / Time** | System clock, time zone and time-sync (chrony) status |
+| **Memory / CPU** | Memory use, load and processor information |
+| **USB** | Connected USB devices — the place to confirm a dongle or adapter was detected |
+| **Audio** | Sound cards, ALSA/PipeWire devices and current audio routing |
+| **Media Backend** | The media backend's state (PipeWire/GStreamer) |
+| **Midi** | Detected MIDI devices |
+| **Video** | Video outputs, displays and modes |
+| **OS, Kernel, and SD image** | OS release, kernel version and the image FPP was installed from |
+| **i2c** | Devices on the I2C bus — useful for OLED displays and capes |
+| **Processes** | Running processes, including whether `fppd` is up |
+| **Boot** | Boot configuration and boot-time messages |
+| **Git** | The FPP source checkout's branch and status |
+| **GPIO** | GPIO pin state and configuration |
+| **PHP** | The PHP environment behind the web UI |
+| **RPI Utils** | Raspberry Pi specific tools — throttling, voltage and firmware |
+| **Webserver** | Apache configuration and error logs |
+
+> **Note:** Every command here is **read‑only** — opening a tab inspects the
+> device, it does not change anything.
 
 ### Download Support Bundle
 

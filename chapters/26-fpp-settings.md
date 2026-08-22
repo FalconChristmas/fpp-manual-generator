@@ -39,7 +39,23 @@ Configures general playback behaviour.
 - **Blank between sequences** – send blanking data to turn the pixels off between
   items.
 - **Blank screen on startup** – turn all channels off at boot.
+- **Inactivity timeout for screen blanking** – when *Blank screen on startup* is
+  enabled, blank the screen after this many minutes with no activity.
+  *(Developer.)*
 - **Open/Start Delay** – a delay (ms) before playback begins.
+- **Local Media/Sequence Offset** – trims the synchronisation between media and
+  sequences on *this* device, in milliseconds. A positive value moves the media
+  ahead, a negative value moves it back. Requires an FPPD restart. *(Advanced.)*
+- **Remote Media/Sequence Offset** – the same trim applied to an FPP **remote**,
+  in milliseconds. Requires an FPPD restart on the remote. *(Advanced.)*
+
+  > **Warning:** Both offsets apply to **every** media file, not one at a time. If
+  > individual files need different offsets, fix the audio files or sequences
+  > themselves rather than using these settings.
+
+- **Ignore Media Sync Packets** – on a remote, start and stop media when the
+  player says so, but make no attempt to keep it in sync during playback. The
+  media runs more smoothly but may drift away from the player. *(Advanced.)*
 
 **Scheduler** sub‑settings:
 
@@ -59,11 +75,54 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 
 - **A/V Mode → Media Backend** – selects the media backend; **PipeWire
   (Advanced)** enables the full routing capabilities below.
+- **Audio Output Device** – which device audio plays through: on‑board analogue
+  audio, a Raspberry Pi's HDMI output, or a USB sound card. FPP stores the choice
+  by the sound card's stable ALSA name rather than its index, so it survives cards
+  being probed in a different order (for example a USB device being added or
+  removed).
+- **Default Video Output Device** – where video plays by default. On every FPP
+  system a video in a playlist can be shown on a Pixel Overlay model; on a
+  Raspberry Pi it can also go to the HDMI or composite outputs.
+- **Audio Sample Rate** – the rate PipeWire's audio graph runs at. **Default**
+  uses 44100 unless the selected sound card clocks at something else; 44100, 48000
+  and 96000 can be forced. The bit depth is not set here — FPP probes the card and
+  uses the widest format that holds the rate. *(Advanced.)*
+- **Audio Period Size** – how many samples PipeWire hands the sound card at a time
+  (the graph quantum), from 1024 up to 8192. Smaller values lower latency; larger
+  values are less likely to glitch on a busy player. *(Advanced.)*
+
+  > **Note:** In **PipeWire (Advanced)** mode these two are set *per card* in the
+  > PipeWire Audio Groups settings instead — see *The PipeWire Audio & Video
+  > Pipeline*.
+
+- **Force Audio Card ID** – override the card ID that FPP normally reads from the
+  sound card's `id` file. Occasionally that ID is wrong; setting it by hand can
+  clear the error *"Could not open audio device — ALSA: Couldn't open audio
+  device: Invalid argument"*. *(Experimental.)*
+- **Hardware Decoding** – use the hardware video decoder. Turning it off greatly
+  increases CPU use but can give finer control over the video output.
+  *(Advanced.)*
+- **Force HDMI Display** – force a Raspberry Pi to treat HDMI as the default
+  display. Sometimes needed when the display is not detected properly, or is not
+  powered on when the Pi boots. While this is on, the Pi's composite output cannot
+  be used.
+- **Force HDMI Resolution** (and **Force Port 2 HDMI Resolution** on a Pi with two
+  HDMI ports) – pin the output to a given resolution instead of whatever the
+  monitor reports at boot.
 - **General Audio** – master audio behaviour, including **Global Audio/Sequence
-  Offset** (a fine sync trim in ms), **Disable Volume Slider**, and the **WLED
-  Sound Reactive** / **WLED Audio Sync** options for driving sound‑reactive WLED
-  devices. **Configure Sound Card Aliases** gives friendly names to audio
-  devices.
+  Offset** (a fine sync trim in ms) and **Disable Volume Slider**. **Configure
+  Sound Card Aliases** gives friendly names to audio devices.
+- **WLED Sound Reactive** – drives sound‑reactive effects on WLED devices from
+  FPP's audio:
+    - **WLED Sound Reactive Source** – where the sound‑reactive data comes from;
+      the default is the media FPP is currently playing. *(Advanced.)*
+    - **WLED Audio Sync Address** – where sync packets are sent, and in receive
+      mode the multicast group to join. **239.0.0.1** is WLED's default multicast
+      group; use a unicast address (e.g. `192.168.1.70`) or a broadcast address
+      (e.g. `192.168.1.255`) on networks where multicast is filtered.
+      *(Advanced.)*
+    - **WLED Audio Sync Port** – the UDP port, default **11988**. Only change it
+      if you have reconfigured your WLED devices. *(Experimental.)*
 - **Suspend Audio Device When Idle** – lets PipeWire suspend the sound card while
   nothing is playing. Left on (the default), it saves roughly 4–5% of a CPU core
   on single‑core boards, because the audio graph would otherwise run continuously
@@ -101,6 +160,9 @@ Clock (RTC) or internet the time resets on reboot.
 - **Set Date / Set Time** – set these manually when there is no network.
 - **Real Time Clock** – if a cape/hat with an RTC is attached, select it from the
   list (FPP tries to detect it), reboot, then set the time here.
+- **Use NTP Server from DHCP** – let your DHCP server supply the time server,
+  overriding the one configured below. Off by default, in which case only the
+  configured NTP server is used. *(Advanced.)*
 - **Override default NTP Server** – normally left blank; enter a different time
   server's IP only in special cases. *(Advanced.)*
 - **Time Zone** – required so an NTP‑synced clock shows the correct local time.
@@ -148,6 +210,13 @@ Changes the appearance and behaviour of the web interface.
   *(Advanced.)*
 - **File Manager Enable Filter** – toggle the File Manager's sort/filter header to
   free up screen space.
+- **Theme** – controls the web interface's appearance. **System Default** follows
+  your browser or operating system's dark‑mode preference; **Light** and **Dark**
+  override it and always use that theme.
+- **Disable UI Popover Event Alerts** – suppress the alert popovers that appear at
+  the top right when an event fires. These alerts are useful feedback, so turn
+  them off only for special cases such as a kiosk or a display screen.
+  *(Advanced.)*
 
 **UI Password:**
 
@@ -193,10 +262,21 @@ Connects FPP to an MQTT broker for automation (e.g. a home‑automation system).
 - **Username** / **Password** – broker authentication.
 - **CA File** – optional CA to validate the broker's certificate (only for SSL
   with self‑signed certificates).
-- **Publish Frequency** – how often to publish status; `0` publishes on demand
-  only.
-- **Subscribe Topic** – a topic to subscribe to (`#` for all, or a filter such as
-  `smartthings`).
+- **Publish Playlist Frequency** – how often, in seconds, to publish playlist
+  status to the broker. **0** means it is not published on a timer, but is still
+  available on demand.
+- **Publish FPPD Status Frequency** – how often, in seconds, to publish the FPPD
+  status JSON. **0** disables periodic publishing.
+- **Publish Port Status Frequency** – how often, in seconds, to publish port
+  monitoring status JSON (on capes that report it). **0** disables it.
+- **Subscribe Topics** – one or more additional topics to subscribe to. Use `#` on
+  its own to subscribe to everything the broker publishes, a prefix filter such as
+  `smartthings/#` for a whole tree, or an exact topic for just one. Separate
+  several with a semicolon (`;`).
+
+> **Tip:** Anything received on a subscribed topic shows up on the **Variables**
+> page under *MQTT Read‑only Variables*, so you can act on it with an **If**
+> command — see *Variables and Recurring Tasks*.
 
 ## Privacy
 
@@ -240,6 +320,17 @@ Global input/output settings *(Advanced UI Level or higher)*.
       is used only when nothing is playing (usually what you want during show
       season, so bridging does not interrupt the show).
 
+- **Bridge Input Source Priority** – when several senders transmit to the same
+  input universe, lock onto one source and suppress the others. For **E1.31** the
+  priority byte in the packet header is honoured, so a higher‑priority source
+  always wins; for **ArtNet**, which has no priority field, the first source seen
+  wins. In both cases, if the active source stops sending for longer than the
+  input timeout, the next packet from any source takes over. **DDP** is
+  unaffected. *(Advanced.)*
+- **Hide Cape Controlled GPIO Pins** – on by default. Hides GPIO pins the fitted
+  cape is already using from the GPIO pin control page, so you cannot change a pin
+  the cape depends on by accident. *(Advanced.)*
+
 **Output Control** *(Advanced)*:
 
 - **Automatically turn on/off outputs** – for controllers that can cut output
@@ -266,7 +357,12 @@ otherwise or you are an advanced user.
 
 ![Settings — Logging tab.](images/settings-logging.png)
 
-You can set the level per subsystem. The five levels are:
+You can set the level per subsystem. The subsystems include **ChannelData**
+(serial and LOR output), **ChannelOut** (channel testing and overlays),
+**E131Bridge** (E1.31 and DDP input bridging), **MediaOut** (audio and video
+output), and others covering the scheduler, playlists, plugins and MultiSync.
+
+The five levels are:
 
 - **Errors Only** – only items identified as errors.
 - **Warn** – only warnings.
@@ -300,27 +396,68 @@ supported):
 
 - **Kiosk Start URL** – the page shown at startup (default: the Status page).
 - **Kiosk Screen DPMS Timeout** – seconds before the display sleeps.
+- **Rotate Kiosk** – tick this if you are using the **Raspberry Pi Touch Display
+  2** (7 inch), which needs the output rotated to appear the right way up.
 - **Enable Kiosk** installs and enables Kiosk mode.
 
 ## Storage
 
-Configures where sequences and media are stored *(Advanced UI Level or higher)*.
+Configures where sequences and media are stored, and manages the device's storage
+media *(Advanced UI Level or higher)*.
 
 ![Settings — Storage tab.](images/settings-storage.png)
 
-> **Note:** USB thumb drives are **not** recommended for storage — they have been
-> shown to cause lags and other playback problems, and modern backup methods make
-> them unnecessary.
+**SD Card Actions:**
 
-**eMMC Actions** *(BeagleBone with eMMC, Advanced)* – a BeagleBone Black/Green has
-on‑board eMMC and you can copy the OS to it (not usually recommended):
+- **Grow Filesystem** – expand the file system to fill the whole SD card. Useful
+  after writing a small image to a larger card, since the unused space is
+  otherwise wasted.
+- **New Partition** – create a new partition in the unused area of the SD card.
+  After a reboot that partition can be selected as a storage location and
+  formatted as **BTRFS** or **ext4**. *(Only offered when there is free space to
+  use.)*
 
-- **Flash to eMMC** – copy FPP to the eMMC.
-- **Flash to eMMC (BTRFS)** – copy using BTRFS, which compresses but may slow the
-  device slightly.
+**Flash FPP to Another Device:**
 
-> **Note:** If an SD card with an OS is inserted, FPP uses the OS from the SD
-> card.
+FPP 10 replaced the old platform-specific eMMC/USB flashing pages with one flow
+that works on Raspberry Pi, BeagleBone and BeagleBone 64 alike. Each detected
+target device is listed with its own buttons:
+
+- **Create** – write a clean FPP install to the target, leaving your media,
+  sequences and settings behind.
+- **Copy** – the same, but bring your media, sequences and settings along.
+- **Create (BTRFS)** – as *Create*, using BTRFS, which compresses the file system
+  but may slow the device slightly.
+
+Either way the copy is given its **own SSH host keys**, so it can safely run as a
+separate player alongside this one.
+
+> **Warning:** Flashing **erases everything** currently on the target device.
+> Check you have selected the right one — the confirmation dialog names the
+> device and its `/dev/` path.
+
+**Storage Device:**
+
+Selects which device holds the media directory (sequences, audio, video, images,
+logs). A device that is not yet mounted can be formatted from here, and when you
+change the location FPP offers to copy all existing files across.
+
+> **Warning:** On a **Raspberry Pi 4 or 5**, moving storage to a USB or NVMe
+> device is **strongly discouraged**. It can introduce network lag, packet drops,
+> audio clicks and pops, high CPU usage and longer boot times, and many advanced
+> features and several capes/hats are known **not** to work with USB storage. It
+> is also far less tested, so even patch upgrades carry a higher risk. Prefer an
+> SD partition.
+
+> **Note:** A Raspberry Pi 5 limits its USB ports to 600 mA in total unless it
+> detects a 5 A (27 W) supply, which matters if you are powering storage from the
+> USB ports.
+
+**Mounted USB Device Actions:**
+
+- **Force Unmount** – unmount a USB device that is still mounted. If files are
+  open on it, FPP lists the processes holding them so you can see what is in the
+  way.
 
 ## System
 
@@ -330,6 +467,15 @@ separate Raspberry Pi and BeagleBone variants).
 ![Settings — System tab.](images/settings-system.png)
 
 - **GPIO 14 Fan Control** – PWM fan control on GPIO 14. *(Pi only, Advanced.)*
+- **Fan On Temperature** – the temperature above which that cooling fan switches
+  on (default 70). Fan state is reported on the *System Health Check* page.
+  *(Advanced.)*
+- **Disable IP announcement** – during boot FPP announces its IP addresses over
+  the audio output. Turn this off for production use, when the audio output feeds
+  an FM transmitter or your show speakers.
+- **Override UUID** – set the UUID FPP uses for FPP Connect de‑duplication, stats
+  and services, instead of deriving it from the board's serial number. Only needed
+  when two devices end up reporting the same identity. *(Advanced.)*
 - **Status Display** – configure an OLED screen on the I2C bus (usually
   auto‑detected at boot); it shows IP addresses, status and the playing sequence.
   Select your OLED model here.
@@ -337,6 +483,13 @@ separate Raspberry Pi and BeagleBone variants).
   together and want routers/switches to initialise first. The **Auto** setting
   waits for a valid time source before booting (falling back to internal time
   after 10 minutes).
+- **Enable HDMI Display** – enable the HDMI port on a BeagleBone.
+  *(BeagleBone only, Advanced.)*
+
+  > **Warning:** Enabling the BeagleBone's HDMI port **disables many GPIO pins**,
+  > which will stop most capes working. Only turn it on if you are not using a
+  > cape.
+
 - **BeagleBone LEDs** – control or disable the five on‑board LEDs (commonly
   disabled if distracting; defaults recommended). *(BeagleBone only.)*
 - **Reboot If USB WiFi Adapter Fails** – on by default. Some USB Wi‑Fi adapters
@@ -369,6 +522,8 @@ developer testing.
 - **UI Platform Masq** – display settings for a different platform than the one
   detected (for plugin/feature development). Take care, as changes can adversely
   affect your device.
+- **Git Remote Repository** – which git remote branch selection uses: **origin**
+  is the main FPP repository, **newfeatures** is for new‑feature testing.
 - **Git Branch** – choose which FPP version/branch to run, e.g. **Master** for the
   latest improvements ahead of release. Note that some upgrades require an OS
   rebuild to get all benefits (see *Final Configuration and Updating*).
@@ -376,6 +531,11 @@ developer testing.
 - **Git Status** – show the status of your local FPP version.
 - **FPP Rebuild** – recompile all FPP files (useful after an interrupted install
   or corrupted files).
+- **GitHub User Name** and **GitHub Personal Access Token** – credentials used to
+  install or upgrade plugins hosted in **private** GitHub repositories. The token
+  needs read access to those repositories and is stored locally in
+  `/home/fpp/media/settings`. They are only used when *Use Credentials* is
+  selected on the Plugins page.
 - **Distributed Compile** – hand FPP's source compiles to a helper host to speed
   up a full rebuild, such as after switching branch. The options are **Off**,
   **distcc**, **distcc + zeroconf**, **nocc** and **nocc + mdns**. `distcc`
@@ -385,3 +545,7 @@ developer testing.
   the LAN automatically. The helper must run the same major compiler version — set
   one up with `scripts/setup_distcc_host.sh` or `scripts/setup_nocc_host.sh`. Any
   distributed mode disables the precompiled header.
+- **Compile Hosts** – the space‑separated list of helper hosts to compile on. For
+  distcc use `host[:port][/jobs][,options]`, e.g. `fpppi5:3632/6,lzo`; for nocc use
+  `host[:port]` (default port 43210), e.g. `fpppi5`. Leave it empty for the
+  *zeroconf* / *mdns* modes, which discover their helpers automatically.

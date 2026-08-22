@@ -47,7 +47,9 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
 
 - **Send MultiSync Packets** *(Player mode)* – send MultiSync packets to devices
   configured as remotes.
-- **Auto Refresh stats of FPP Systems** – refresh the screen every 2 seconds.
+- **Auto refresh Multisync Screen** – refresh the systems table automatically
+  (every 2 seconds) so status, elapsed time and version stay current without
+  reloading the page.
 - **More Settings** – additional display and sending options:
     - **Send MultiSync to all Remotes via Multicast** *(Player, with Send enabled)*
       – send via IP Multicast.
@@ -57,9 +59,13 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
       not found by normal discovery. *(Advanced.)*
     - **HTTP Discovery IPs & subnets** – add devices on a different subnet so they
       appear on the MultiSync page. *(Advanced.)*
-    - **Hide 10.x/8, 172.x/12, 192.168.x/16 Subnets** – hide private‑range subnets
-      from the list, useful when a device is on both a show network and your home
-      network and you only want to see one. *(Developer‑oriented.)*
+    - **Hide 10.x.x.x/8**, **Hide 172.16.x.x/12** and **Hide 192.168.x.x/16
+      Subnets** – three separate toggles that hide those private ranges from the
+      systems list, useful when a device sits on both a show network and your home
+      network and you only want to see one of them.
+    - **External IP Address For MultiSync Packets** – the address other hosts see
+      for this FPP instance. Leave blank unless NAT or a router means this device
+      is reached on a different address from the one it knows about.
 - **Export** – download a spreadsheet of all connected devices and their stats at
   the time of export.
 
@@ -89,10 +95,20 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
 - **Restart FPPD** – restart the FPP software without a full OS reboot.
 - **Reboot** / **Shutdown** – full OS reboot or shutdown of the selected devices.
 - **Copy Show Files** – copy show files from this device to others. You cannot
-  pick individual files; all files of the selected **type** are copied. Take care
-  with sequences, as some are only compatible with the device they were built for.
-    - **Compress FSEQ Files** – compress FSEQ files before sending, mainly for
-      older V1 FSEQ files (newer V2 files are usually already compressed).
+  pick individual files; all files of the selected **type** are copied. Tick the
+  types to include: **Copy Sequences**, **Copy Music**, **Copy Videos**, **Copy
+  Effects**, **Copy Scripts** and **Copy Events**.
+    - **Compress files during copy to Remotes** – compress files before sending,
+      mainly useful for older V1 FSEQ files. Newer xLights versions already write
+      a compressed FSEQ format, so for those this option can actually *slow the
+      transfer down* as FPP tries to recompress already-compressed data.
+
+  > **Warning:** Take care when copying **sequences**. Newer xLights versions
+  > create host-specific `.fseq` files containing only the channels each
+  > individual FPP instance needs — so the `.fseq` sitting on your player may not
+  > hold all the channel data a remote requires to play correctly. Where you use
+  > host-specific files, upload to each device from xLights instead of copying
+  > them between devices here.
 
   > **Note:** `rsync` must be enabled on any remote you send files to.
 

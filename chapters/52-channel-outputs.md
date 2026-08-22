@@ -20,18 +20,19 @@ your sequencing software. The output types are:
   a Raspberry Pi, FPP 10 drives these pins with **DPI** on every model.
 - **LED Panel Matrices** – P10/P5 panels via a BeagleBone Octoscroller‑type cape, a
   Pi matrix hat, or a ColorLight card.
-- **DMX / Serial** – DMX, Pixelnet and Renard over a USB/serial adapter.
-- **PWM** – PWM outputs (servos, single‑colour dimming) on supported hardware.
-- **Control Signal** – control/trigger signal outputs.
-- **Virtuals** – virtual outputs such as the on‑screen 2D/3D virtual display.
+- **PWM** – PWM outputs (servos, single‑colour dimming) on a cape that provides
+  them and has a signed EEPROM.
+
+Every other output type — **DMX / Serial**, **GPIO**, **Virtuals**, **SPI**,
+**PWM** (via PCA9685) and **Control Signal** — is added on demand with the **+ Add
+Output Group** button, described under *Additional output groups* at the end of
+this chapter.
 
 > **Changed in v10:** The Channel Outputs screen was redesigned. The old single
-> **Other** tab (which held DMX, serial, control and virtual types together) has
-> been **removed**, and those outputs now have their own dedicated tabs —
-> **DMX/Serial**, **PWM**, **Control Signal** and **Virtuals** — shown according to
-> your platform and UI Level.
-
-Use **Add Output Group** to combine outputs so several are treated as one.
+> **Other** tab, which held DMX, serial, control and virtual types together, has
+> been **removed**. Those outputs are now organised into categories that you add
+> as tabs with **+ Add Output Group**, so the page shows only the output types you
+> actually use.
 
 ## E1.31 / ArtNet / DDP / KiNet
 
@@ -191,6 +192,10 @@ settings:
 > cape‑driven setup is no longer limited to a single matrix the way it was in
 > earlier releases. Multiple ColorLight panels were already supported.
 
+Each matrix you add gets its own sub‑tab — **Panel Matrix 1**, **Panel Matrix 2**
+and so on — so every matrix keeps its own layout, start channel and settings. Work
+through them one tab at a time; the settings below apply per matrix.
+
 - **Enable LED Panels** – enable panel output.
 - **Interface** – for ColorLight, the dedicated Ethernet port for that receiver.
 - **Matrix Name** – names each matrix (shown on its Panel Tab).
@@ -210,18 +215,49 @@ settings:
 
 > **Screenshots pending — cape hardware required.**
 
-## DMX / Serial, PWM, Control Signal and Virtuals
+## Additional output groups (Add Output Group)
 
-In the redesigned v10 screen these output types each have their own tab (they were
-previously combined in a single *Other* tab, which no longer exists):
+The tabs above (E1.31/ArtNet/DDP/KiNet, the cape's Pixel Strings, PWM and LED
+Panels) appear automatically based on your hardware. Every *other* output type
+lives in an **output group** that you add yourself: click **+ Add Output Group**
+at the right of the tab strip and pick a category. That category then becomes a
+new tab, where you add and configure individual outputs.
 
-- **DMX / Serial** – DMX Pro, LOR, Renard and Pixelnet over a USB/serial adapter.
-  Select the serial device and protocol and map the channel range to it.
-- **PWM** – map channels to PWM pins/outputs (hardware dependent), e.g. for servos
-  or single‑colour dimming.
-- **Control Signal** – configure control/trigger signal outputs.
-- **Virtuals** – virtual outputs such as the 2D/3D on‑screen virtual display.
-  Enabling **HTTP Virtual Display 3D** here is what activates the new browser‑based
-  3D preview — see the *3D Virtual Display* chapter.
+The categories, and the output types in each, are:
+
+| Category (tab) | Output types |
+|---|---|
+| **DMX / Serial** | DMX-Open, DMX-Pro, Generic Serial, uDMX, Pixelnet-Lynx, Pixelnet-Open, Renard, LOR, LOR Enhanced, Generic UDP |
+| **GPIO** | GPIO, GPIO-595, PCF8574, MCP23017 |
+| **Virtuals** | HTTP Virtual Display, HTTP Virtual Display 3D, Virtual Display, Virtual Matrix |
+| **SPI** | Generic SPI, SPI-nRF24L01, SPI ws2801, MAX7219 Matrix |
+| **PWM** | PCA9685 |
+| **Control Signal** | MQTT Output, Control Channel, USB Relay |
+
+A category disappears from the **+ Add Output Group** menu once you have added it,
+and the menu reads *All groups already added* when every category is on screen.
+
+What each category is for:
+
+- **DMX / Serial** – DMX, Pixelnet, Renard and LOR over a USB/serial adapter.
+  Select the serial device and protocol and map the channel range to it. *Generic
+  UDP* sends raw channel data to an arbitrary UDP destination.
+- **GPIO** – drive GPIO pins, or an I/O expander (PCF8574, MCP23017) or shift
+  register (GPIO-595), from channel data — typically for relays.
+- **Virtuals** – on-screen outputs rather than physical ones. Enabling **HTTP
+  Virtual Display 3D** here activates the browser-based 3D preview, and **HTTP
+  Virtual Display** the 2D one — see the *3D Virtual Display* chapter. *Virtual
+  Matrix* renders channel data to a framebuffer/display.
+- **SPI** – devices on the SPI bus, including ws2801 pixels and MAX7219 matrices.
+- **PWM** – PCA9685 PWM controllers, for servos and single-colour dimming.
+  (A cape with its own PWM hardware gets a dedicated PWM tab instead, provided the
+  cape's EEPROM is signed.)
+- **Control Signal** – outputs that signal rather than light: publish channel
+  values over **MQTT**, drive a **USB Relay**, or use a **Control Channel** to
+  trigger FPP behaviour from channel data.
 
 After any change, click **Save** and, when prompted, **Restart FPPD**.
+
+> **Note:** Adding an output group only creates the tab. You still add individual
+> outputs inside it, and each output needs its own start channel and channel
+> count.

@@ -12,6 +12,9 @@ Configuring inputs lets you control your lights/props directly from **xLights**,
 will not send pixel data from an outside device, you do not need to configure
 inputs.
 
+The page has two tabs: **E1.31/ArtNet/DDP Inputs** for network input, and **DMX**
+for receiving DMX over a serial adapter.
+
 To pass incoming E1.31/ArtNet/DDP data through to a connected controller or other
 device, enable the input (and, for E1.31/ArtNet, configure it). Any events or
 output processes triggered by channel data are still processed.
@@ -20,7 +23,9 @@ output processes triggered by channel data are still processed.
 > input, and FPP receives and recognises DDP packets automatically. Do not enter
 > E1.31/ArtNet universes that other FPPs are already using.
 
-## Settings
+## E1.31/ArtNet/DDP Inputs
+
+### Settings
 
 - **Enable Input** – allow FPP to process incoming channel data.
 - **Timeout** – seconds after which, if no E1.31/DDP/ArtNet signal is received, a
@@ -51,7 +56,7 @@ player and controller.
 > Universe Size after configuring, adjust the other universe lines too — FPP does
 > **not** auto‑correct them.
 
-## Adding E1.31/ArtNet inputs
+### Adding E1.31/ArtNet inputs
 
 Normally enter **1** for Inputs Count, click **Set**, and fill in the fields. The
 **Clone** button copies a selected line's settings (Universe #, Count, Size, Type)
@@ -65,3 +70,22 @@ to clone; there must be enough lines below). **Delete** removes a selected line.
 > xLights sends DDP, which needs no configuration. Bridge mode is independent of
 > playing local sequences — a common workflow is to bridge during sequencing, then
 > switch to **Player** mode to run the show from uploaded FSEQ files.
+
+## DMX
+
+The **DMX** tab receives DMX from a serial adapter rather than over the network —
+for example, to drive FPP's outputs from a lighting desk or another DMX source.
+
+FPP lists each serial device it detects, one row per device:
+
+- **Enable** – receive DMX on this serial port.
+- **Serial Port** – the detected adapter (for example a USB‑to‑DMX dongle).
+- **Start Channel** – the FPP channel the first received DMX channel maps to.
+- **Num Channels** – how many channels to read from the DMX stream (a full DMX
+  universe is 512).
+
+Click **Save** when done, then **Restart FPPD** when prompted.
+
+> **Note:** Serial ports only appear here when FPP detects the adapter, so plug it
+> in before loading the page. If the row you expect is missing, check the adapter
+> is recognised under *Help → Troubleshooting Commands → USB*.

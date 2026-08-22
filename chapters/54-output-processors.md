@@ -36,6 +36,13 @@ The available processors are:
 - **Scale Value** – scale values up or down (useful for servo control).
 - **Three to Four** – convert 3‑channel RGB data to 4‑channel RGBW, for when your
   sequencing is RGB but some strings are RGBW.
+    - **Output Color Order** – how the four output channels are ordered: **RGBW**
+      or **WRGB**. Match your pixels.
+    - **White Algorithm** – how the white channel is derived: **No White** leaves
+      it at zero; **R=G=B->W** lights white only where the RGB values are equal
+      (so greys and whites use the white element, and colours are untouched);
+      **Advanced** extracts the white component from every colour, which gives a
+      cleaner result on pixels with a good white element.
 - **Override Zero** – force any zero RGB values to a remapped value.
 - **Fold** – similar to a zig‑zag.
 

@@ -21,6 +21,23 @@ The result is a faithful three‑dimensional preview you can orbit around.
 Both displays are driven from the same source: the **virtualdisplaymap** that
 xLights uploads to FPP.
 
+### Using the 2D Virtual Display
+
+The 2D display is enabled the same way as the 3D one, but with a different output
+type. Open **Input/Output Setup → Channel Outputs → Virtuals**, add an **HTTP
+Virtual Display** output, set **Enabled** to Yes, then **Save** and **Restart
+FPPD**. A **2D Virtual Display** entry then appears in the **Status/Control**
+menu; it is hidden whenever the output is disabled.
+
+The 2D view shows your display as a flat plane of pixels and needs no WebGL, so it
+is the lighter option on an older browser or a low‑powered device, and it is
+perfectly adequate for confirming that a sequence is playing and that the right
+props are lighting. Use the 3D display when depth matters.
+
+> **Note:** You can enable both outputs at once — each adds its own menu entry —
+> but each one costs the device a little CPU while a browser is watching it. Turn
+> off whichever you are not using before running a show.
+
 ## Requirements
 
 The 3D display needs two things in place before its menu link appears:

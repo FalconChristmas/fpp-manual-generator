@@ -41,9 +41,21 @@ and **Delete**; the type‑specific options are noted below.
 - **Logs** – system logs for troubleshooting. **Zip** bundles all logs into a
   download; **View** shows a log; **Tail** shows just the last 50 lines.
 - **Uploads** – files that do not fit the standard formats, including `.fppos`
-  upgrade files; supports **Copy**. A **Crash Report** tab holds any generated
-  crash reports.
-- **Backups** – any manual backups you have created.
+  upgrade files; supports **Copy**.
+- **Crash Reports** – crash reports FPP has generated. FPP 10 keeps these on the
+  device even when you have chosen not to send crash data to the developers (see
+  *FPP Settings → Privacy*), so you can inspect one yourself or attach it to a
+  support request.
+- **Backups** – any manual backups you have created (see *Backup, Restore and
+  Proxies*).
+- **Config** – FPP's own configuration files. **View** shows a file and **Edit**
+  opens it in an in‑browser editor to change and save directly. This is the same
+  content the JSON configuration backup captures.
+
+  > **Warning:** Editing configuration files by hand bypasses every check the
+  > normal settings pages make, and a malformed file can stop FPP starting. Take
+  > an *FPP Backup* first, and prefer the proper settings page whenever one
+  > exists.
 
 > **Tip:** Watch free space (shown in the header warnings and on *FPP Settings →
 > Storage*). Large video files and many sequences can fill smaller SD cards.
