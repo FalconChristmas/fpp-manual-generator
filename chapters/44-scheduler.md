@@ -56,7 +56,16 @@ page.
 - **Clear Selection** – deselect any selected rows.
 - **Delete** – delete selected rows (not final until you **Save**).
 - **Clone** – copy selected rows to the bottom of the list.
-- **Edit Holidays** – define holidays used by the *Holidays* day option.
+- **Edit Holidays** – opens the **Edit User-Defined Holidays** dialog, where you
+  define your own holidays in addition to the standard ones that come from your
+  configured **Locale**. They can then be picked by name in an entry's Start/End
+  Date.
+
+  ![Editing user-defined holidays.](images/holiday-editor.png)
+
+  **+ Add Holiday** adds a row, where you give the holiday a **Display Name** (what
+  you see in the date lists), a **Config Name** (the identifier FPP stores), and
+  the **Month** and **Day** it falls on. **Save** stores them.
 - **Save** – must be clicked to store any additions or changes.
 - **Add** – create a new entry, then fill in its columns.
 

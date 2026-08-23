@@ -8,6 +8,21 @@ software, though you can use a full `.fseq` file as an effect (uncommon). Open
 
 ![The Effects page.](images/effects.png)
 
+The **Effects Library** on the left lists every `.eseq` and `.fseq` on the device
+with a **Start** button; **Running Effects** and **Overlay Model Effects** on the
+right show what is currently playing, so you can stop them again.
+
+Clicking **Start** opens a small dialog with the options for that effect:
+
+![Starting an effect.](images/start-effect-modal.png)
+
+- **Loop Effect** – repeat the effect until it is stopped, instead of playing once.
+- **Run in Background** – let the effect keep running underneath a playlist, so it
+  resumes when the playlist finishes rather than being cut off.
+- **Start Channel Override** – play the effect at a different start channel from
+  the one it was saved with, which is how you point an effect built for one model
+  at another (see *Redirecting an effect to another model*).
+
 A special use is a **Background Effect**: if you name an effect `background.eseq`,
 FPP plays it whenever it is not receiving sequence data. (Whether a background
 effect is paused during FSEQ playback is controlled on *FPP Settings → Playback*.)

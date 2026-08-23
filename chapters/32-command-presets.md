@@ -98,8 +98,32 @@ The command list is extensive; commonly used commands include:
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
 
-Each command opens the **FPP Command Editor**, where you fill in its arguments
-(for example choosing the playlist for *Start Playlist*).
+## The FPP Command Editor
+
+Wherever FPP lets you choose a command — a preset, a playlist entry, a GPIO
+trigger, a scheduler entry — it opens the same **FPP Command Editor** dialog.
+
+![The FPP Command Editor, with the *Start Playlist* command selected.](images/command-editor-modal.png)
+
+Pick the **Command** at the top and the dialog rebuilds itself to show just that
+command's arguments — in the example above, *Start Playlist* offers **Playlist
+Name**, **Repeat**, **If Not Running** and **Protected from Schedule Override**.
+Hover the **?** beside any argument for help on what it expects.
+
+- **Multisync** – also send this command to your remotes rather than running it
+  only here. It appears on commands that can be multisynced.
+- **Accept Changes** – keep the command and close the dialog.
+- **Run Now** – execute it immediately without leaving the dialog, which is the
+  quickest way to check a command does what you expect before saving it.
+- **Cancel Edit** – discard and close.
+
+> **Tip:** The bottom bar's **Run FPP Command** button opens a cut‑down version of
+> this dialog on any page, for firing a command by hand.
+>
+> ![The Run FPP Command popup.](images/run-command-popup.png)
+>
+> Choose a **Command** and the same argument fields appear beneath it. **Run Now**
+> runs it and leaves the popup open, **Run and Close** runs it and closes.
 
 **Preset Slot** – a number from 1–255 that identifies the preset, so it can be
 triggered by slot (from GPIO, a remote, the API, etc.).
@@ -113,14 +137,17 @@ To make a GPIO button start a "Thank You" playlist:
 3. Choose the **Start Playlist** command; in the FPP Command Editor select the
    *Thank You* playlist and click **Accept Changes**.
 4. Enter a **Preset Slot** (1–255) — say **5**.
-5. Go to **Input/Output Setup → GPIO Inputs**.
-6. Tick **En.** (Enabled) next to the pin you are using (check a pinout chart for
-   valid GPIO pins) — e.g. HDR pin **P8‑04**.
-7. Set **Pull Up/Down** to match your wiring (e.g. internal Pull Down, or
-   None/External if you fit your own resistor).
-8. For the **Rising** or **Falling** trigger you are using, select **Trigger
-   Command Preset slot** and choose slot **5** (e.g. Rising Edge).
-9. Click **Save**, then **Restart FPPD** at the top of the page.
+5. Go to **Input/Output Setup → GPIO Inputs** and click **+ Add GPIO Trigger**.
+6. In the dialog, choose the **GPIO Pin** you are using (check a pinout chart for
+   valid pins), tick **Enabled**, and give it a **Description**.
+7. Set **Pull Up / Down** to match your wiring — *Pull Down* for a button wired to
+   3.3 V, *Pull Up* for one wired to ground, or *None / External Pull* if you fit
+   your own resistor.
+8. Under **Rising Edge Commands** (or **Falling Edge Commands**, depending on your
+   wiring) click **Add Command**, choose **Trigger Command Preset slot**, and
+   select slot **5**.
+9. Click **Apply**, then **Save** on the page, then **Restart FPPD** when
+   prompted.
 
 > **Note:** Because *Start Playlist* is itself an FPP Command, you could also
 > enter it directly on the GPIO Inputs page and skip creating a preset — the

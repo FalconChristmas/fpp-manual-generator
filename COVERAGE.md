@@ -89,6 +89,33 @@ chapter 26.
 
 `cronjobs.php` exists in the tree but nothing links to it — not documented, deliberately.
 
+## Modal / dialog coverage
+
+Configuration that lives in a dialog rather than on the page itself. Each is
+described in the chapter shown, and the ones carrying real configuration options
+are also screenshotted.
+
+| Dialog | Opened from | Chapter | Shot |
+|---|---|---|---|
+| Configure / Edit GPIO Trigger | GPIO Inputs → Add / Edit | 58 | `gpio-edit-modal.png` |
+| FPP Command Editor | anywhere a command is chosen | 32 | `command-editor-modal.png` |
+| Run FPP Command | bottom bar, every page | 32 | `run-command-popup.png` |
+| Playlist entry (New / Edit Entry) | Playlists → Add a Sequence/Entry | 42 | `playlist-entry-modal.png` |
+| Reset FPP Config | Settings → System | 26 | `reset-config-modal.png` |
+| Edit User-Defined Holidays | Scheduler → Edit Holidays | 44 | `holiday-editor.png` |
+| Start Effect | Effects → Start | 34 | `start-effect-modal.png` |
+| Schedule Preview: Calendar View | Scheduler / Status → Preview | 44 | `schedule-calendar.png` |
+| Overlay model / submodel preview | Pixel Overlay Models | 56 | `pov-*-preview.png` |
+| Add New Interface, Create Persistent Names | Network → Interface Settings | 22 | described in text |
+| Sequence Info / Video Info | File Manager → Sequences / Video | 40 | described in text |
+| Plugin detail | Plugins → a plugin card | 48 | described in text |
+| Confirmations (Reboot, Shutdown, Delete Playlist, plugin install/uninstall, Save & Apply Audio) | various | — | not screenshotted; they only confirm an action |
+
+Modal shots are reproducible: `tools/shotlist.txt` opens each one with a
+`js_after_load` expression and a clip height. Two depend on this device's data —
+the playlist entry dialog names a playlist, and the GPIO dialog edits an existing
+trigger — and are commented as such.
+
 ## Settings coverage
 
 Every setting FPP actually renders on a settings page is described in chapter 26

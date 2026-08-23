@@ -506,11 +506,37 @@ separate Raspberry Pi and BeagleBone variants).
   password. *(Advanced.)*
 - **Reset FPP Config** – reset FPP to factory settings, either all options or
   selected areas — useful if a configuration or an xLights upload has gone wrong.
-  In FPP 10 the selectable areas include **clearing DHCP leases**, for when this
-  device has been acting as a DHCP server and you want to start its pool afresh.
+  See *The Reset FPP Config dialog* below.
 
 > **Warning:** Take an *FPP Backup* before **Reset FPP Config** (see *Backup,
 > Restore and Proxies*).
+
+### The Reset FPP Config dialog
+
+**Reset FPP Config** opens a dialog where you choose exactly what to clear, rather
+than resetting everything blindly.
+
+![Choosing what to reset.](images/reset-config-modal.png)
+
+Three shortcut buttons set the tick boxes for you: **Everything** (everything
+below *except* network), **Common** (sequences, media and playlists), and
+**Nothing** (clears all the boxes so you can pick your own). The areas are:
+
+- **Configuration** – **Configuration Files**, **Network Config Files**, **Channel
+  Outputs**, **EEPROM / String Config**, **Settings**, **Schedule**.
+- **Content** – **Sequences**, **Media**, **Effects**, **Playlists**.
+- **Plugins** – **Installed Plugins**, **Plugin Config Files**.
+- **OS / System Files** – **Logs**, **Backups**, **Uploads**, **Caches**,
+  **Scripts**, **Root/FPP User Files** (ssh keys, history), **Audio Backend
+  (PipeWire)**.
+
+Click **Reset** to apply, or **Close** to back out.
+
+> **Note:** **Network Config Files** is deliberately excluded from *Everything*, so
+> a reset cannot cut off your own access to the device. Tick it explicitly if you
+> really do want the network configuration cleared — and note that any DHCP server
+> leases this device has issued are then cleared on the **next reboot**, not
+> immediately.
 
 ## Developer
 

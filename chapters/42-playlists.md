@@ -44,11 +44,33 @@ A playlist has three sections, each showing its item count and total duration:
 
 ## Adding entries
 
-Adding to any section is the same: click **Add a Sequence/Entry** and choose a
-**Type**. FPP 10 redesigned this editor: instead of one long list of fields, the
-entry's options are grouped into labelled **sections**, and individual fields
-carry **help tooltips** explaining what they expect — hover the question mark
-beside a field to read it.
+Adding to any section is the same: click **Add a Sequence/Entry**, which opens the
+entry dialog. FPP 10 redesigned it: instead of one long list of fields, the
+options are grouped into labelled **sections**, and individual fields carry help
+tooltips — hover the **?** beside a field to read it.
+
+![Adding a playlist entry.](images/playlist-entry-modal.png)
+
+Two options at the top make building a playlist quicker:
+
+- **Auto‑Select Matching Media/Sequence** – when you pick a sequence, FPP selects
+  the media file with a matching name for you (and vice versa).
+- **Hide sequences already in playlist** – filter out anything already added, so
+  you can see what is left.
+
+The sections shown depend on the **Type** you choose. For a *Sequence and Media*
+entry they are **Sequence**, **Primary Media**, **Extra Media** and **Entry
+Properties**:
+
+- **Sequence** – the `.fseq` to play.
+- **Primary Media** – the **Media** file, the **Video Out** it should use, and its
+  **Stream Slot**.
+- **Extra Media** – companion media that plays alongside the primary (see below).
+- **Entry Properties** – a free‑text **Note**, the **Display Mode** used when
+  showing the entry in lists, and an optional **Time Code**.
+
+**Add** appends the entry to the section; the **Insert** drop‑down beside it places
+it at a chosen position instead.
 
 The available types are:
 
@@ -83,14 +105,20 @@ on the Status page and to the Scheduler.
 ## Companion media
 
 New in FPP 10, a media entry can carry **companion media** — extra audio or video
-that starts and stops with it, on its own stream slot. A playlist item that shows
-a badge for extra media is running one or more companions.
+that starts and stops with it, on its own stream slot. You configure it in the
+**Extra Media** section of the entry dialog:
 
-The usual reasons to want this are a second audio feed (an alternate‑language
-soundtrack, or a feed for a lobby or indoor speaker) or a second display running
-alongside the main show. Each companion names its own media file and slot, and can
-be told to stay in sync with the main entry or to target a particular video
-output.
+- **Extra Media** – the additional media file to play, or *-- None --*.
+- **Extra Media Video Out** – which video output it should use, so a second video
+  can drive a second display.
+- **Extra Media Slot** – the stream slot it plays on (the primary media uses slot
+  1, so a companion defaults to 2).
+
+A playlist item carrying one shows an extra‑media badge in the entry list.
+
+The usual reasons to want this are a second audio feed — an alternate‑language
+soundtrack, or a feed for a lobby or indoor speaker — or a second display running
+alongside the main show.
 
 Before FPP 10 you could approximate this by firing a *Play Media* command from a
 start‑of‑entry hook and a matching *Stop Media Slot* from a stop hook — but

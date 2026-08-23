@@ -83,14 +83,22 @@ For **wlan0** there are additional settings:
   > **Note:** In FPP 10 — a change that comes from the move to a newer Debian
   > base — **DHCP leases survive a reboot**. Restarting FPP no longer clears the
   > leases it has handed out, so a device that had an address keeps it. Lease
-  > times are set to sensible values by default. If you need to start over with a
-  > clean pool, **FPP Settings → System → Reset FPP Config** now includes an option
-  > to **clear DHCP leases**.
+  > times are set to sensible values by default. To start over with a clean pool,
+  > run **FPP Settings → System → Reset FPP Config** with **Network Config Files**
+  > ticked; the saved leases are then cleared on the **next reboot** rather than
+  > immediately, which avoids disturbing addresses on interfaces that are still in
+  > use.
 - **Update Interface** – saves the settings for the current interface. Click it
   before moving to another interface, and again when finished; then reboot.
 - **Add New Interface** – configure an `eth0` or `wlan0` interface even when the
   physical hardware is not yet present (e.g. configuring wlan0 for a BeagleBone
-  before its Wi‑Fi adapter/cape is attached). *(Advanced.)*
+  before its Wi‑Fi adapter/cape is attached). A small dialog asks for the
+  interface name — enter it exactly as the system will name it, such as `wlan0` or
+  `eth1` — and the new interface then appears as its own tab to configure.
+  *(Advanced.)*
+- **Create Persistent Names** – give the detected network adapters fixed names, so
+  they do not swap around between boots when more than one is fitted.
+  *(Advanced.)*
 - **Create Persistent Name** – when using more than one Ethernet interface
   (common with a ColorLight board) and you need the adapters to keep their order,
   create persistent names. Best practice:

@@ -6,6 +6,13 @@
 #
 # Requires a running FPP reachable at the base URL (default http://localhost).
 # Screens that need cape hardware or an xLights-uploaded show are noted below.
+#
+# MODALS: a configuration dialog is captured by running the JS that opens it in the
+# js_after_load column, plus a clip height that frames it. Most take a helper
+# function (ShowResetConfigPopup(), openEditModal(0)); where none exists, click the
+# button that opens it ($('.someBtn').first().click()). Modals that depend on this
+# device's own data - a playlist name, an existing GPIO trigger - are commented
+# accordingly; edit them to match your device.
 
 # ---- Status / Control ----
 status.png	index.php	4500
@@ -14,7 +21,14 @@ multisync.png	multisync.php	4500
 backup.png	backup.php	4500
 proxies.png	proxies.php	4000
 command-presets.png	commandPresets.php	4000
+# The FPP Command Editor, opened directly with a command pre-selected so its
+# argument fields are visible.
+command-editor-modal.png	commandPresets.php	6000	ShowCommandEditor('demo',{command:'Start Playlist'},function(){})	1150
+# The bottom bar's Run FPP Command popup (opens with an empty command list).
+run-command-popup.png	index.php	9000	ShowRunCommandPopup()	1050
 effects.png	effects.php	4000
+# The Start Effect dialog - clicks the first Start button in the effects library.
+start-effect-modal.png	effects.php	5500	$('#tblEffectLibraryBody .buttons').first().click()	900
 testing.png	testing.php	4500
 
 # ---- FPP Settings (one shot per tab, via hash) ----
@@ -30,6 +44,8 @@ settings-logging.png	settings.php#settings-logs	4000
 settings-services.png	settings.php#settings-services	4000
 settings-storage.png	settings.php#settings-storage	4000
 settings-system.png	settings.php#settings-system	4500
+# The Reset FPP Config dialog (Settings -> System -> Reset FPP Config).
+reset-config-modal.png	settings.php#settings-system	5500	ShowResetConfigPopup()	1150
 settings-developer.png	settings.php#settings-developer	4000
 
 # ---- PipeWire audio/video pipeline (Settings -> Audio/Video buttons) ----
@@ -46,7 +62,12 @@ sound-card-aliases.png	audio-card-aliases.php	5000
 # ---- Content Setup ----
 filemanager.png	filemanager.php	4500
 playlists.png	playlists.php	4500
+# The playlist entry dialog. ?playlist= must name a playlist that exists on this
+# device - change it to one of yours.
+playlist-entry-modal.png	playlists.php?playlist=test	7000	$('.playlistEntriesAddNewBtn').first().click()	1300
 scheduler.png	scheduler.php	4500
+# The Edit User-Defined Holidays dialog.
+holiday-editor.png	scheduler.php	5500	$('#holidayEditorModal').modal('show')	1000
 # Calendar view of the schedule (new in FPP 10). scheduleCalendar.php is only a
 # fragment loaded into a modal, so shoot it via the Scheduler page's Calendar
 # View button; FullCalendar is lazy-loaded on first use, hence the long settle.
@@ -65,6 +86,9 @@ channel-inputs.png	channelinputs.php	4500
 channel-outputs.png	channeloutputs.php	5000
 output-processors.png	outputprocessors.php	4500
 gpio-inputs.png	gpio.php	4500
+# The Configure GPIO Trigger dialog. Needs at least one trigger already defined
+# (openEditModal(0) edits the first); use openAddModal() on a device with none.
+gpio-edit-modal.png	gpio.php	5500	openEditModal(0)	1250
 # Overlay models page clipped to the top (full page can be >12000px tall):
 pixel-overlay-models.png	pixeloverlaymodels.php	5000		1500
 # Overlay preview modals below are EXAMPLES using model names from the reference
