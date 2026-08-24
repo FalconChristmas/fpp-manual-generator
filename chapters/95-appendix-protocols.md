@@ -25,9 +25,14 @@ cape/hat rather than a network protocol (see *Capes* appendix).
 | 4048 | DDP | Distributed Display Protocol |
 | 32320 / 32328 | FPP MultiSync | Player→remote sync and discovery |
 | 1883 | MQTT | Broker connection (configurable) |
+| 5004 | AES67 (RTP) | Uncompressed audio‑over‑IP (default, per instance) |
+| 5005 | Opus RTP | Compressed audio streaming (default, per instance) |
+| 9875 | SAP | AES67 stream announcement/discovery |
+| 319 / 320 | PTP (IEEE 1588) | AES67 clock synchronisation |
 
-(Ports for AES67 and Opus RTP audio streaming are configured on *FPP Settings →
-Audio/Video*.)
+(The audio streaming ports are per instance and are set on the AES67 and Opus RTP
+pages reached from *FPP Settings → Audio/Video*; PTP's domain and clock role are
+set there too.)
 
 ## The FPP API
 

@@ -106,15 +106,88 @@ confirming that audio and video are flowing where you expect.
 
 *Audio/Video → Configure AES67 Instances.*
 
-![AES67 Audio‑over‑IP configuration.](images/aes67-config.png)
+![AES67 Audio‑over‑IP configuration: the global PTP clock settings above a send and
+a receive instance.](images/aes67-config.png)
 
 **AES67** streams uncompressed, PTP‑synchronised audio over the network as
-multicast RTP — the professional standard used by many audio devices. Each **AES67
-instance** you define appears as a virtual sink you can add to an audio output
-group (so per‑card **delay and EQ apply to it too**). FPP announces streams via SAP
-and derives RTP timestamps from a PTP clock, so compliant receivers discover and
-lock to them automatically. Typical settings per instance are the **multicast
-address** and **port** (default `239.69.0.x:5004`), channel count and format.
+multicast RTP — the professional standard used by many consoles, DSPs and powered
+speakers. Each **AES67 instance** you define appears in the PipeWire graph as a
+virtual sink (Send) or a virtual source (Receive), so you can add it to an audio
+output group and per‑card **delay and EQ apply to it too**. FPP announces streams
+via SAP and derives RTP timestamps from a PTP clock, so compliant receivers
+discover and lock to them automatically.
+
+Click **Add AES67 Instance** to create one, and **Save & Apply** to rebuild the
+pipeline. The page requires **Media Backend** to be set to **PipeWire (Advanced)**;
+otherwise it shows a notice instead of the settings.
+
+### Stream status
+
+The status line at the top of the page reports PipeWire's state, **how many of the
+configured streams are actually running**, the PTP clock state, and how many AES67
+streams have been **discovered** on the network. It refreshes every ten seconds, so
+it is worth watching for the first minute after FPPD starts — PTP moves from
+*listening* to master or follower as the clock election settles.
+
+### PTP clock synchronisation
+
+**PTP** (IEEE 1588 Precision Time Protocol) provides sample‑accurate clock
+synchronisation between AES67 devices. These settings apply to the whole device,
+not to a single instance:
+
+- **Enable PTP** – run the PTP clock. Enable it when you need tight sync between
+  several FPP instances or with professional AES67 gear.
+- **Network Interface** – which interface the PTP clock runs on. Choose the wired
+  Ethernet interface; **(Default)** uses the system's primary route.
+- **Domain** – the PTP domain number, **0–127**. Every device that must share a
+  clock has to be on the same domain. AES67 gear normally uses domain **0**, so
+  leave this alone unless your console or DSP is set otherwise.
+- **Clock Role** – who provides the clock:
+    - **Auto (prefer other devices)** – the default. FPP joins the election at a
+      low priority: it becomes the clock when it is the only device on the domain,
+      but yields to a console or DSP that wants the role.
+    - **Follower only (never master)** – FPP never becomes the clock.
+    - **Prefer master** – FPP tries to win the election. Use this only if FPP is
+      meant to be the master clock for the network.
+
+Once PTP is running the status line shows either **PTP master (this device)**, or
+**PTP synced to** the grandmaster's clock ID together with the current offset
+(shown in ns, µs or ms as it settles). If it has not locked yet you get **PTP not
+synced** plus the port state, which is normal for the first few seconds.
+
+> **Tip:** If FPP keeps announcing itself as the clock when you have a proper
+> master on the network, check that both are on the same **Domain** and set FPP's
+> **Clock Role** to *Follower only*.
+
+> **Note:** FPP marks its own traffic for QoS automatically — RTP audio as **AF41**
+> (DSCP 34) and PTP messages as **EF** (DSCP 46), the codepoints AES67 recommends.
+> There is nothing to configure. If the installed PTP software is too old to accept
+> DSCP settings, FPP retries without them and notes it in the log.
+
+### Per‑instance settings
+
+Each instance has a checkbox to enable it, an editable name, a badge showing the
+PipeWire node it creates, and a delete button. Its settings are:
+
+- **Stream Mode** – **Send (Transmit)**, **Receive**, or **Both (Send &
+  Receive)**. Send creates a virtual sink; Receive creates a virtual source.
+- **Multicast IP Address** – the multicast group, from the AES67 `239.69.x.x`
+  range. Give each instance its own address to avoid conflicts.
+- **RTP Port** – the UDP port for RTP traffic; the AES67 default is **5004**. Use
+  different ports if several instances share one multicast address.
+- **Audio Channels** – channels in this stream (standard AES67 allows up to 8;
+  most setups use 2).
+- **Network Interface** – the interface used for the multicast traffic. Wired
+  Ethernet gives the best results.
+- **Packet Time (ptime)** – the packetisation interval: **1 ms** (lower latency,
+  more CPU) or **4 ms** (the default, more widely compatible). It must match at
+  both ends.
+- **Session Name** – the name other devices see in the SAP announcement.
+- **Network Latency** – the target buffer for *receive* streams, in milliseconds
+  (AES67's minimum is 1 ms; 1–20 ms is typical). Lower means less delay but more
+  risk of dropouts on a busy network.
+- **SAP Discovery** – announce sent streams, and auto‑create receive streams from
+  announcements heard on the network.
 
 ## Opus RTP Audio Streaming
 
@@ -122,10 +195,45 @@ address** and **port** (default `239.69.0.x:5004`), channel count and format.
 
 ![Opus RTP audio streaming configuration.](images/opus-rtp-config.png)
 
-**Opus RTP** streams **compressed** (Opus‑encoded) audio over the network — lower
-bandwidth than AES67, useful for distributing audio to remote players or listeners
-where bandwidth is limited. As with AES67, each instance is configured with its
-network address/port and appears in the audio routing.
+**Opus RTP** streams **compressed** (Opus‑encoded) audio over the network — far
+lower bandwidth than AES67 and tolerant of packet loss, which makes it the right
+choice for WiFi links and for remote players or listeners. Like AES67, each
+instance appears in the PipeWire graph and can be used in the audio routing.
+
+Use **unicast** (the receiver's own IP address) over WiFi: most access points send
+multicast at the lowest data rate with no retransmission. On wired networks both
+unicast and multicast (`239.x.x.x`) work well, and multicast lets one sender feed
+several receivers.
+
+The status line next to the PipeWire indicator shows **how many of the configured
+streams are running**, along with the error text for any pipeline that failed to
+start; it refreshes every ten seconds. Previously the page reported only PipeWire's
+own state, so a stream that never started looked the same as a healthy one.
+
+Each instance has:
+
+- **Stream Mode** – **Send (Transmit)**, **Receive** or **Both**.
+- **Destination IP** – the receiver's IP for unicast, or a shared multicast group
+  address for wired multicast.
+- **RTP Port** – the UDP port; the default is **5005**.
+- **Audio Channels** – Opus handles mono and stereo natively; higher counts use
+  multiple Opus streams.
+- **Network Interface** – the interface to send or receive on (e.g. `wlan0` with
+  unicast, `eth0` for either).
+- **Bitrate** – 32 kbps to 320 kbps; **128 kbps** is the default and is ample for
+  stereo music, while 64–96 kbps copes where bandwidth is tight.
+- **Jitter Buffer** – receive‑side buffering in milliseconds: around 50 ms for
+  wired unicast, 100–150 ms for WiFi unicast, more again if you must use WiFi
+  multicast. Higher values add delay but ride out network timing variations.
+- **Forward Error Correction** – Opus in‑band FEC, which adds redundancy so lost
+  packets can be reconstructed. Recommended on WiFi.
+- **Discontinuous Transmission (DTX)** – send fewer packets during silence to save
+  bandwidth, at the cost of slight artefacts when audio resumes.
+- **Expected Packet Loss** – tunes the FEC encoder for the loss rate you expect;
+  5% is typical for WiFi, 0–1% for wired.
+
+> **Note:** Opus RTP audio is marked **AF41** (DSCP 34) automatically, so switches
+> and access points that honour QoS give it priority over bulk traffic.
 
 ## Video Output Groups
 

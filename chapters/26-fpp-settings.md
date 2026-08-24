@@ -133,7 +133,9 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 - **PipeWire Audio** – **Configure Input Mixing (Mix Buses)** and **Configure
   Output Audio Groups** to combine and split audio across multiple outputs.
 - **PipeWire Network Streams** – **AES67 Audio‑over‑IP** and **Opus RTP Audio
-  Streaming** for sending/receiving audio over the network.
+  Streaming** for sending/receiving audio over the network. The AES67 page also
+  holds the device‑wide **PTP clock** settings (enable, interface, domain and
+  clock role), and both pages show live per‑stream status.
 - **PipeWire Video** – **Configure Video Input Sources** and **Configure Video
   Output Groups** for HDMI/video routing and video‑to‑pixel mapping.
 
