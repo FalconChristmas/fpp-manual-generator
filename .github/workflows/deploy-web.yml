@@ -36,10 +36,13 @@ jobs:
         with:
           python-version: "3.x"
       # pandoc builds the .docx; libreoffice-writer (headless) converts it to .pdf.
+      # python3-uno lets build.sh drive LibreOffice over its UNO API to
+      # recalculate the .docx's table of contents before PDF export (a plain
+      # headless conversion leaves it empty).
       - name: Install pandoc + LibreOffice
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc libreoffice-writer
+          sudo apt-get install -y pandoc libreoffice-writer python3-uno
       # CI installs the Python libs from PyPI (the local ./install.sh uses the apt
       # packages on the FPP OS image); both give the same libraries. pillow +
       # pyyaml bake the screenshot annotations (annotations/); without them the

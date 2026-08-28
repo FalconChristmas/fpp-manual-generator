@@ -1,10 +1,10 @@
-# Variables and Recurring Tasks
+# Variables and Recurring Tasks {#variables-and-recurring-tasks}
 
 FPP 10 can store named **Variables** and act on them, so a show can remember
 things between commands — a counter of how many times a button has been pressed,
 a value fetched from a web service, a mode you set at the start of the night.
 Two pages under *Content Setup* manage this, and both appear once your **UI
-Level** is **Advanced** or higher (see *FPP Settings → UI*).
+Level** is **Advanced** or higher (see [FPP Settings → UI](#ui)).
 
 > **Note:** These pages were introduced during FPP 10 and were briefly at the
 > *Experimental* UI level; they are now **Advanced**. If you cannot see them,
@@ -40,7 +40,7 @@ Tasks**, by plugins, and by FPP itself. The page is split into three sections:
   clipboard.
 - **MQTT Read‑only Variables** – values from MQTT topics this device has received
   messages on. Nothing appears until you connect to a broker and subscribe to a
-  topic (use `#` to subscribe to everything) — see *FPP Settings → MQTT*.
+  topic (use `#` to subscribe to everything) — see [FPP Settings → MQTT](#mqtt).
 
 ### Using a variable
 

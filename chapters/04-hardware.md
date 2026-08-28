@@ -1,4 +1,4 @@
-# Hardware Needed
+# Hardware Needed {#hardware-needed}
 
 The Raspberry Pi and BeagleBone series SBCs have different requirements and setup
 instructions. Follow the instructions for your specific case. These are the

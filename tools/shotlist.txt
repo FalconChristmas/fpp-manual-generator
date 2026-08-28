@@ -14,6 +14,9 @@
 # device's own data - a playlist name, an existing GPIO trigger - are commented
 # accordingly; edit them to match your device.
 
+# ---- Initial Setup ----
+initial-setup.png	initialSetup.php	4500
+
 # ---- Status / Control ----
 status.png	index.php	4500
 network.png	networkconfig.php	4500
@@ -91,11 +94,12 @@ gpio-inputs.png	gpio.php	4500
 gpio-edit-modal.png	gpio.php	5500	openEditModal(0)	1250
 # Overlay models page clipped to the top (full page can be >12000px tall):
 pixel-overlay-models.png	pixeloverlaymodels.php	5000		1500
-# Overlay preview modals below are EXAMPLES using model names from the reference
-# instance; edit the model/submodel names to ones present on your device, or
-# delete these two lines if you have no xLights-uploaded models.
-pov-model-preview.png	pixeloverlaymodels.php	5500	showModelPreview('Above_Bay_Matrix')	950
-pov-submodel-preview.png	pixeloverlaymodels.php	5500	showSubModelPreview('Lounge_Bay_Panel_1','Lounge_Bay_Panel_1_Horizontals')	950
+# Overlay preview modals below use model/submodel names present on this device;
+# edit them if your reference device's models differ.
+pov-model-preview.png	pixeloverlaymodels.php	5500	showModelPreview('PixelMatrix')	950
+# No model on this device has a submodel defined yet, so there's nothing for
+# showSubModelPreview() to show. Re-enable once one exists:
+# pov-submodel-preview.png	pixeloverlaymodels.php	5500	showSubModelPreview('<model>','<submodel>')	950
 # 3D Virtual Display needs the "HTTP Virtual Display 3D" output enabled (Channel
 # Outputs -> Virtuals) and an xLights "Models" upload (virtualdisplaymap). Enable
 # on a device that has both; the WebGL scene needs extra settle time to render.

@@ -1,6 +1,6 @@
 # Introduction
 
-The **Falcon Player (FPP)** is a lightweight, optimised, feature‑rich sequence
+The **Falcon Player (FPP)** is a lightweight, optimized, feature‑rich sequence
 player designed to run on low‑cost Single Board Computers (SBCs). It was
 originally created to run on the $35 Raspberry Pi — hence the middle 'P' in the
 short name — but FPP now supports many more systems. The "FPP" shorthand is still
@@ -34,8 +34,9 @@ Raspberry Pi outputs, or 24 strings using the DPIPixels outputs (approximately
 1600 pixels per string at 20 fps, or 800 pixels per string at 40 fps; note that
 DPIPixels only supports 20 and 40 fps).
 
-> **Note:** The DPIPixels string outputs require a licence to control more than 50
-> pixels per port. See the *Pixel Port Licensing* chapter.
+> **Note:** The DPIPixels string outputs require a license to control more than 50
+> pixels per port on more than 2 ports, The first two ports are fully functional without a license. 
+> See the [Pixel Port Licensing](#pixel-port-licensing) chapter.
 
 The BeagleBone series SBCs have been used extensively with a cape to drive up to
 128 P10 or 64 P5 panels (depending on the cape and BeagleBone type — check with
@@ -45,8 +46,8 @@ F32‑B/K32A‑B, F8‑PB/K8‑PB, F40D‑PB, K40D‑PB, OctoPlus, and so on.
 
 This manual covers the functional aspects of installing, configuring and
 operating FPP — the most popular show player for animated holiday lighting
-displays. It has been updated for **FPP version 10**; see *About This Manual →
-What's new in FPP 10* for a summary of the changes since the 9.x series.
+displays. It has been updated for **FPP version 10**; see [About This Manual →
+What's new in FPP 10](#whatsnew) for a summary of the changes since the 9.x series.
 
 ## Supported hardware
 
@@ -68,19 +69,18 @@ possible, while still providing much of the flexibility required by a diverse
 group of enthusiasts. The FPP software is free to download and use, and is
 provided and supported by a number of volunteers.
 
-Please refer to the Falcon Christmas website (`https://FalconChristmas.com`) for
+Please refer to the Falcon Christmas website ([https://FalconChristmas.com](https://FalconChristmas.com)) for
 the latest news and discussions. In particular, the FPP forum is a great resource
 for help.
 
 ## Acknowledgments
 
 FPP exists thanks to the work of a large community of volunteers. This manual
-builds on the Falcon Player Manual written by **Rick Harris (Poporacer)** with
-contributions from **Mark Amber (Pixelpuppy)**.
+builds on the Falcon Player Manual written by **Rick Harris (Poporacer)** 
 
 FPP's ongoing development is led by a small core team, including **Chris Pinkham
-(CaptainMurdoch)**, **Daniel Kulp (dkulp)** and **Stuart Ledingham
-(OnlineDynamic)** — now one of the project's most active core developers — along
+(CaptainMurdoch)**, **Daniel Kulp (dkulp)**, **Stuart Ledingham (OnlineDynamic)**,
+**Daryl Collins (darylc) **, and **Pat Delaney (patdelaney)**.— along
 with the many contributors and users who report issues, test releases and help
 one another on the forums. This v10 edition would not have been possible without
 them.

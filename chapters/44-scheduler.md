@@ -1,4 +1,4 @@
-# Scheduler
+# Scheduler {#scheduler}
 
 The **Scheduler** runs predefined playlists (or FPP Commands, or single
 sequences) automatically on a preset schedule — the heart of an unattended show.
@@ -15,8 +15,8 @@ times of the same day. The scheduler supports **priority scheduling**: an entry
 higher in the list has a higher priority and preempts lower ones.
 
 > **Important:** For schedules to start at the right time, your time settings must
-> be correct — including Latitude/Longitude for sun‑based times (see *FPP Settings
-> → Localization*).
+> be correct — including Latitude/Longitude for sun‑based times (see
+> [FPP Settings → Localization](#localization)).
 
 ## Understanding the schedule (Preview)
 

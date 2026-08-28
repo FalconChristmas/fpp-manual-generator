@@ -1,4 +1,4 @@
-# The Status Page
+# The Status Page {#the-status-page}
 
 The **Status/Control** menu holds the day‑to‑day settings, status reports and
 playback control of your FPP device. Its first entry — and the default page that
@@ -55,15 +55,15 @@ that is playing.
 5. **Next Playlist** – the next scheduled playlist, with the start time and day
    it will begin.
 6. **Preview** – shows a graphical representation of your schedule for the next 4
-   weeks (extendable via an advanced setting in *FPP Settings*). A good way to
+   weeks (extendable via an advanced setting in [FPP Settings](#fpp-settings)). A good way to
    verify your schedule. In FPP 10 this is a drop‑down: as well as the week
    preview it offers **Calendar View**, a month/week/day/list calendar of what is
-   scheduled to run (see the *Scheduler* chapter).
+   scheduled to run (see the [Scheduler](#scheduler) chapter).
 7. **Start Next** – ends the current playlist immediately and starts the next
    scheduled playlist. That playlist still ends at its normally scheduled time.
 8. **Abnormal Conditions** – if FPP detects conditions that can affect
    performance, the messages are listed here. These almost always need to be
-   remedied for your show to run properly; see the *Help and Troubleshooting*
+   remedied for your show to run properly; see the [Help and Troubleshooting](#help-and-troubleshooting)
    chapter for common messages and fixes.
 
 ### Player Status
@@ -105,7 +105,7 @@ Two display options refine the view during playback:
 ### Playlist Details
 
 This section shows the details of the currently selected playlist (see the
-*Playlists* chapter for more).
+[Playlists](#playlists) chapter for more).
 
 1. **Lead In** – any Lead In items, with total items and per‑item durations.
 2. **Playlist Status** – how long the current item has been playing and how much
@@ -144,7 +144,7 @@ synchronisation with a player:
 
 ## Channel Inputs Status Section
 
-If you have **Channel Inputs** enabled (see the *Channel Inputs* chapter) and FPP
+If you have **Channel Inputs** enabled (see the [Channel Inputs](#channel-inputs) chapter) and FPP
 has received input data, an additional panel appears in the lower part of the
 Status page — the **E1.31 / DDP / ArtNet Packets and Bytes Received** table. It
 shows the configured universes / DDP data and packet statistics per row:
@@ -152,7 +152,7 @@ shows the configured universes / DDP data and packet statistics per row:
 Update Stats** refreshes every second, **Update** refreshes once, and **Reset**
 clears the counters.
 
-## Port Status
+## Port Status {#port-status}
 
 If your FPP device has eFuses (electronic fuses) and supports current‑monitoring,
 a **Port Status** entry is available under *Status/Control*. It shows the measured
@@ -161,7 +161,7 @@ current draw per port, which is useful for spotting shorts and balancing power.
 appendix.)
 
 > **Note:** This page was called **Current Monitor** in earlier releases; it was
-> renamed to *Port Status* in FPP 10. The entry only appears if the fitted cape
+> renamed to [Port Status](#port-status) in FPP 10. The entry only appears if the fitted cape
 > advertises current monitoring, so on most devices it is not in the menu at all.
 
 ## Bottom action bar

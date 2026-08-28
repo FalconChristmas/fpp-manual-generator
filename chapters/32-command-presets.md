@@ -1,4 +1,4 @@
-# Command Presets
+# Command Presets {#command-presets}
 
 **Command Presets** replace the earlier *Events* feature (greatly enhanced). A
 preset is a saved way to run an **FPP Command**. Because FPP Commands can now be
@@ -29,7 +29,7 @@ A Command Preset can be triggered in four ways:
 
 FPP 10 groups the command list into **categories**, and ties each command to a
 **UI Level**, so the list you see matches how much of FPP you have chosen to
-expose (see *FPP Settings → UI*). The categories are:
+expose (see [FPP Settings → UI](#ui)). The categories are:
 
 | Category | What it covers |
 |---|---|
@@ -68,7 +68,7 @@ The command list is extensive; commonly used commands include:
   duplicate.
 - **GPIO** – set GPIO pins on or off.
 - **If** – run one set of commands when a condition is true and another when it is
-  false. See *Variables and Recurring Tasks*.
+  false. See [Variables and Recurring Tasks](#variables-and-recurring-tasks).
 - **Insert Playlist After Current** – queue a playlist to run after the current one
   finishes (with optional start/stop items), then resume.
 - **Insert Playlist Immediate** – start a playlist immediately, stopping the
@@ -94,7 +94,7 @@ The command list is extensive; commonly used commands include:
   name/slot exactly as stored on the remote).
 - **Run Script** – run a script stored on this device.
 - **Set Variable** – store a value (fixed, counter, random or calculated) in a
-  named variable for other commands to read. See *Variables and Recurring Tasks*.
+  named variable for other commands to read. See [Variables and Recurring Tasks](#variables-and-recurring-tasks).
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
 

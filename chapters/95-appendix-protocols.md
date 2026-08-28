@@ -31,7 +31,7 @@ cape/hat rather than a network protocol (see *Capes* appendix).
 | 319 / 320 | PTP (IEEE 1588) | AES67 clock synchronisation |
 
 (The audio streaming ports are per instance and are set on the AES67 and Opus RTP
-pages reached from *FPP Settings → Audio/Video*; PTP's domain and clock role are
+pages reached from [FPP Settings → Audio/Video](#audio-video); PTP's domain and clock role are
 set there too.)
 
 ## The FPP API
@@ -74,7 +74,7 @@ The explorer is a live, browsable reference for every endpoint on *this* device:
 
 ## MQTT
 
-When configured (*FPP Settings → MQTT*), FPP connects to an MQTT broker and both
+When configured ([FPP Settings → MQTT](#mqtt)), FPP connects to an MQTT broker and both
 publishes status and subscribes to command topics under a configurable prefix,
 making it easy to integrate with home‑automation platforms such as Home
 Assistant or Node‑RED. See the FPP MQTT documentation for the full topic list.

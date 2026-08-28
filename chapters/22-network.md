@@ -1,4 +1,4 @@
-# Network
+# Network {#network}
 
 The **Network** page (**Status/Control → Network**) is where you set up
 networking so your FPP devices and controllers can all communicate as needed.
@@ -12,9 +12,9 @@ Because there are so many ways to configure a network, these settings cause many
 people difficulty. The basic setup earlier in this manual will get you running,
 though it may not be the best long‑term arrangement; the sections below should
 give you a better understanding for your situation. For deeper background on IP
-addressing, see *Advanced Options → Networking Considerations*.
+addressing, see [Advanced Options → Networking Considerations](#networking-considerations).
 
-## Interface Settings
+## Interface Settings {#interface-settings}
 
 Depending on the device, FPP may have up to two built‑in network interfaces (more
 if you add adapters, though that is uncommon): **eth0** for wired Ethernet and
@@ -129,7 +129,7 @@ This tab assigns the device's **host name** and DNS settings.
   > cause confusion.
 
 - **Host Description** – additional, free‑form text (no host‑name restrictions)
-  shown on the *MultiSync* page and the xLights FPP Connect screen.
+  shown on the [MultiSync](#multisync) page and the xLights FPP Connect screen.
 - **DNS servers** – with any static interface, set DNS to **Manual** and enter
   servers; typically your router's IP for one and an internet server such as
   `8.8.8.8` for the other.
@@ -162,6 +162,6 @@ There are three Wi‑Fi tethering modes:
 ### USB Tethering
 
 USB Tethering connects FPP directly to your computer with a USB cable, as
-described in *Installing the FPP Software → USB Tethering Installation*. It is
+described in [Installing the FPP Software → USB Tethering Installation](#usb-tethering-installation). It is
 often the easiest way to reach a device for setup, on the hardware that supports
 it.

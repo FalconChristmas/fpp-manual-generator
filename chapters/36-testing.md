@@ -1,4 +1,4 @@
-# Display Testing
+# Display Testing {#display-testing}
 
 The **Display Testing** page tests your channel outputs and lets you quickly test
 stored sequences without defining playlists — a very useful troubleshooting tool.

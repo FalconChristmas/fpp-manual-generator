@@ -279,7 +279,7 @@ network.
 When FPP runs as a **remote**, the GStreamer pipeline continuously fine‑adjusts its
 playback rate to converge on the player's position, keeping audio and video
 frame‑accurate over long shows. This is automatic; the *remoteIgnoreSync* setting
-disables it if ever needed. See the *MultiSync* chapter for the player/remote
+disables it if ever needed. See the [MultiSync](#multisync) chapter for the player/remote
 setup.
 
 > **Note:** This chapter covers the configuration UI. The full technical

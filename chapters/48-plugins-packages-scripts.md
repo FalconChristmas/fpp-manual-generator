@@ -68,8 +68,8 @@ cluttering the grid.
 ### Plugin logs and health
 
 All plugin activity is written to a single unified **plugin.log**, which makes
-install and runtime problems much easier to trace — see *Help → Troubleshooting
-Commands*. FPP also tracks whether each installed plugin is official, community or
+install and runtime problems much easier to trace — see
+[Help → Troubleshooting Commands](#troubleshooting-commands). FPP also tracks whether each installed plugin is official, community or
 unknown, and surfaces that in the **System Health Check**.
 
 ## Packages
@@ -88,7 +88,7 @@ within a playlist, from a Command Preset, the Scheduler or a GPIO input, or as
 part of a plugin.
 
 You write, upload, edit and run your own scripts from the **Scripts** tab of the
-**File Manager** (*Content Setup → File Manager*). That is unaffected by the
+**File Manager** ([Content Setup → File Manager](#file-manager)). That is unaffected by the
 change described below.
 
 ### The Script Repository is deprecated
@@ -118,5 +118,5 @@ install it via the **Scripts** tab in the File Manager.
 > **Note:** Scripts run on the device with full access to it, so only install
 > scripts you trust — the same caution that applies to plugins.
 
-> **Tip:** Take an *FPP Backup* before installing plugins, packages or scripts, so
+> **Tip:** Take an [FPP Backup](#fpp-backup) before installing plugins, packages or scripts, so
 > you can roll back if something misbehaves.

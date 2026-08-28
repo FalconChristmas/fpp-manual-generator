@@ -1,4 +1,4 @@
-# Playlists
+# Playlists {#playlists}
 
 A playlist can be far more than a list of songs — it is one of FPP's most
 versatile features. A **playlist** is an organised group of sequences, commands,
@@ -80,7 +80,7 @@ The available types are:
   based on test conditions (e.g. lowering the volume at a certain time of day).
   Several test conditions and settings are available.
 - **Dynamic** – items created on the fly by an outside script, plugin or process.
-- **FPP Command** – run any FPP Command as a playlist item (see *Command Presets*).
+- **FPP Command** – run any FPP Command as a playlist item (see [Command Presets](#command-presets)).
 - **Image** – display images through the HDMI port (a virtual "picture frame").
   Enter `/home/fpp/media/images` to use all images (played in random order), or an
   individual file name; choose a transition, and add a **Pause** entry for how long

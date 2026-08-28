@@ -1,4 +1,4 @@
-# Channel Inputs
+# Channel Inputs {#channel-inputs}
 
 The **Input/Output Setup** section defines the channel/universe configuration of
 the controllers connected to FPP, and other input/output settings. The **Channel

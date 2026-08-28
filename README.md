@@ -44,6 +44,8 @@ tools/
   annotate.py       Bakes annotations/ onto images/ at build time (Pillow)
   shoot.py          Headless-Chromium screenshot driver (Chrome DevTools
                     Protocol; Python standard library only)
+  filter_shotlist.py  Resolves capture.sh --only tokens (image name or page)
+                      to shotlist lines
   shotlist.txt      The list of pages to screenshot
   reference.docx    Pandoc reference document (Word styles/template)
 ```
@@ -61,6 +63,7 @@ remote):
 ```bash
 ./capture.sh                      # captures from http://localhost
 ./capture.sh http://192.168.1.50  # ...or a remote FPP
+./capture.sh --only network.png   # ...or just one (or a few) shots, by name
 ./generate.sh                     # rebuild with the new images
 ```
 
@@ -128,6 +131,10 @@ sidecars. (A repo with no sidecars skips the step entirely and needs neither.)
 - **libreoffice** – converts the `.docx` → `.pdf` (headless) so the PDF matches the
   Word styling. Optional: if it's missing, `generate.sh` still builds the `.docx`
   and skips the PDF (or run `PDF=0 ./generate.sh` to skip it deliberately).
+- **python3-uno** – lets `build.sh` drive LibreOffice over its UNO API to
+  recalculate the .docx's table of contents before PDF export (a plain headless
+  conversion leaves it empty). Optional like libreoffice itself: without it the
+  PDF step is skipped with a hint.
 - **mkdocs-material** – builds the web edition (`./generate-web.sh`). Only needed
   for the web output; the `.docx`/`.pdf` build doesn't use it.
 - **python3-pil** / **python3-yaml** – render the screenshot annotations. Only
@@ -149,6 +156,19 @@ sidecars. (A repo with no sidecars skips the step entirely and needs neither.)
   resource path.
 - Each chapter file should have a single top-level `#` heading (its chapter
   title); use `##`/`###` for sections.
+- To link to a section — in the same chapter or a different one — tag its
+  heading with an explicit id and link to that id with a plain anchor link:
+  ```markdown
+  ## Localization {#localization}
+  ...
+  see [FPP Settings → Localization](#localization)
+  ```
+  This works unmodified in the `.docx`/PDF (Pandoc resolves it directly).
+  `tools/webify.py` additionally rewrites it for the web edition, where each
+  chapter is a separate page, so the link points at the right page there too.
+  A heading also needing Pandoc's "unnumbered" marker merges both into one
+  attribute block — `{- #localization}`, not two separate `{-} {#localization}`
+  blocks (Pandoc only honours the last one).
 - **Always run `./generate.sh` to rebuild `FPP_Manual_v10.docx` after any change to
   manual content** (a chapter, an image, or the build config). The `.docx` is the
   deliverable, so a content change isn't finished until it's regenerated. The build
@@ -170,6 +190,26 @@ outfile.png <TAB> path_or_url <TAB> settle_ms [ <TAB> js_after_load [ <TAB> clip
 - an optional **`clip_height_px`** captures just that many pixels from the top of a
   fixed‑height viewport — used to frame a centred modal or the top of a very tall
   page.
+
+By default `./capture.sh` (re)captures *every* line in the shotlist. To touch up
+just one or a few shots without re-shooting (and potentially changing) everything
+else, pass `--only` with a comma-separated list of tokens — each can be the
+output image name *or* the page it's captured from (whichever you actually know
+at the time), resolved by `tools/filter_shotlist.py`:
+
+```bash
+./capture.sh --only network.png              # by output image name
+./capture.sh --only networkconfig.php        # by page (same shot either way)
+./capture.sh --only settings.php             # by page's base, no #tab -- every
+                                              # settings.php#... tab at once
+./capture.sh --only network.png,multisync.png http://192.168.1.50
+```
+
+A page can have more than one shotlist entry (a plain shot plus one or more
+modal shots, e.g. `scheduler.php` has three) — matching by page captures all of
+its entries, and `--only` always prints what each token resolved to before
+capturing, so that's never a silent surprise. A token matching nothing (neither
+an image name nor a page) prints a warning instead of failing silently.
 
 Some screens require hardware or data that a given device may not have:
 

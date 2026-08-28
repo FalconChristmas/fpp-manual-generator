@@ -1,14 +1,14 @@
 # About This Manual {-}
 
-This manual describes **Falcon Player (FPP) version 10**. FPP 10 introduces a
+This manual covers **Falcon Player (FPP) version 10**. FPP 10 introduces a
 significant number of changes over the 9.x series, including a refreshed user
-interface, a reorganised Settings page, a new audio/video pipeline based on
+interface, a reorganized Settings page, a new audio/video pipeline based on
 PipeWire and GStreamer, and expanded MultiSync and health‑monitoring features.
 
 The screenshots in this manual were taken from a running FPP 10 system. Your
 screens may differ slightly depending on your hardware platform (Raspberry Pi,
 BeagleBone, or a generic Linux/Docker host), the capes or hats you have
-installed, and your **UI Level** setting (see the *FPP Settings → UI* section).
+installed, and your **UI Level** setting (see the [FPP Settings → UI](#ui) section).
 Screens that require specialised cape hardware are noted where they appear.
 
 > **Tip:** Press **F1** on any FPP page to open context‑sensitive help.
@@ -19,7 +19,7 @@ Screens that require specialised cape hardware are noted where they appear.
 - Menu paths are written as **Menu → Sub‑item**, e.g. **Status/Control → FPP Settings**.
 - Notes and warnings are called out in indented blocks.
 
-## What's new in FPP 10 {-}
+## What's new in FPP 10 {#whatsnew -} 
 
 The most visible and important changes since 9.x include:
 
@@ -55,13 +55,13 @@ The most visible and important changes since 9.x include:
   command's text field can substitute one with `%VAR:name%`. **Recurring Tasks**
   run a command or preset on a repeating interval and can capture its result into
   a variable. Both are on the *Content Setup* menu at the **Advanced** UI level
-  and have their own chapter, *Variables and Recurring Tasks*.
-- **Categorised FPP Commands** – the command list is now grouped (Audio, Effects,
+  and have their own chapter, [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+- **Categorized FPP Commands** – the command list is now grouped (Audio, Effects,
   Events, Media, Playlist, Pixel Overlay, Outputs, System) and each command is
   tied to a UI Level, so the Basic level shows only everyday commands. Command
   arguments now carry their own help tooltips.
 - **Temporary Advanced UI level** – you no longer have to change your UI Level
-  permanently to reach one Advanced setting. A button on *FPP Settings → UI*
+  permanently to reach one Advanced setting. A button on [FPP Settings → UI](#ui)
   unlocks the Advanced UI for 15 minutes, with an unlock icon in the header while
   it is active.
 - **Reworked Plugins page** – a card/grid layout with plugin icons, categories,
@@ -73,7 +73,7 @@ The most visible and important changes since 9.x include:
   media** that lives and dies with it.
 - **Calendar view of the schedule** – alongside the weekly preview, the Scheduler
   offers a month/calendar view of what will actually run.
-- **Support bundle** – *Help → Troubleshooting Commands* can package the logs,
+- **Support bundle** – [Help → Troubleshooting Commands](#troubleshooting-commands) can package the logs,
   configuration and health-check data into a single zip to attach to a support
   request.
 

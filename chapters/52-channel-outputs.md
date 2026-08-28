@@ -1,4 +1,4 @@
-# Channel Outputs
+# Channel Outputs {#channel-outputs}
 
 The **Channel Outputs** page configures how FPP outputs channel data to the
 controllers, hats and capes connected to it. Open **Input/Output Setup → Channel
@@ -166,9 +166,9 @@ output. Examples:
 
 Some types offer additional board‑specific options — get the correct EEPROM and
 board type from your vendor. If a Virtual EEPROM needs a licence for its advanced
-features, a blue banner explains this; the **Cape Info** link opens the *Cape Info*
-page with more detail and a link to obtain the licence (see *Pixel Port
-Licensing*).
+features, a blue banner explains this; the **Cape Info** link opens the [Cape Info](#cape-info)
+page with more detail and a link to obtain the licence (see
+[Pixel Port Licensing](#pixel-port-licensing)).
 
 > **Screenshots pending — cape hardware required.** Full captures of the Pixel
 > Strings tab need the relevant cape fitted so the ports are shown; these will be
@@ -246,7 +246,7 @@ What each category is for:
   register (GPIO-595), from channel data — typically for relays.
 - **Virtuals** – on-screen outputs rather than physical ones. Enabling **HTTP
   Virtual Display 3D** here activates the browser-based 3D preview, and **HTTP
-  Virtual Display** the 2D one — see the *3D Virtual Display* chapter. *Virtual
+  Virtual Display** the 2D one — see the [3D Virtual Display](#3d-virtual-display) chapter. *Virtual
   Matrix* renders channel data to a framebuffer/display.
 - **SPI** – devices on the SPI bus, including ws2801 pixels and MAX7219 matrices.
 - **PWM** – PCA9685 PWM controllers, for servos and single-colour dimming.

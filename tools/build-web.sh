@@ -30,10 +30,11 @@ shopt -s nullglob
 count=0
 for md in "$CHAPTERS_DIR"/*.md; do
     base="$(basename "$md")"
-    # webify.py strips Pandoc's "{-}" markers and converts the "> **Note:** …"
-    # blockquotes into Material admonition callouts (web edition only; chapters/
-    # are never modified).
-    python3 "$HERE/webify.py" < "$md" > "$DOCS_DIR/$base"
+    # webify.py strips Pandoc's "{-}" markers, converts the "> **Note:** …"
+    # blockquotes into Material admonition callouts, and rewrites cross-chapter
+    # section links to point at the right page (web edition only; chapters/ are
+    # never modified).
+    python3 "$HERE/webify.py" "$CHAPTERS_DIR" "$base" < "$md" > "$DOCS_DIR/$base"
     count=$((count + 1))
 done
 

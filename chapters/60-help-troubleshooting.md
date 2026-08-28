@@ -1,4 +1,4 @@
-# Help and Troubleshooting
+# Help and Troubleshooting {#help-and-troubleshooting}
 
 The **Help** menu gathers FPP's information, upgrade, support and diagnostic tools.
 
@@ -54,7 +54,7 @@ least 5.5‑24 first). Major branch/OS changes otherwise require a re‑image.
 Below Version Info the page also shows **System Utilization**, **Player Stats** and
 **Disk Utilization** for the device.
 
-## Cape Info
+## Cape Info {#cape-info}
 
 If a cape/hat is installed, **Help → Cape Info** shows information about it and
 lets you upgrade or sign the EEPROM.
@@ -66,9 +66,9 @@ The page has four tabs:
 - **About** – **Name**, **Version**, **Serial Number**, **Designer**, **Licensed
   Outputs** (and licence status), **Output Driver**, and **Vendor Name/URL/E‑mail**.
 - **EEPROM Signature** – sign your EEPROM once you have an **Order number** and
-  **License Key** for the pixel‑string outputs (see *Pixel Port Licensing*). This
+  **License Key** for the pixel‑string outputs (see [Pixel Port Licensing](#pixel-port-licensing)). This
   is also where **Off‑Line Signing** is done, for a device with no internet access
-  (see *Pixel Port Licensing → Off‑Line Signing*).
+  (see [Pixel Port Licensing → Off‑Line Signing](#off-line-signing)).
 - **Voucher Redemption** – redeem a voucher from your vendor or
   shop.falconplayer.com to sign your EEPROM.
 - **EEPROM Upgrade** – upgrade the cape's firmware/EEPROM from a file, or restore
@@ -110,7 +110,7 @@ useful, **Donate to FPP** links to support the developers.
 
 ![The Credits page.](images/credits.png)
 
-## System Health Check
+## System Health Check {#system-health-check}
 
 The **System Health Check** (**Help → System Health Check**) is a consolidated
 dashboard, new in FPP 10, that checks the device and surfaces anything wrong.
@@ -130,7 +130,7 @@ and **Player Statistics**.
 > **Tip:** This is the first page to open when something is not working — a red
 > **Issue** or amber **Warning** usually points straight at the cause.
 
-## Troubleshooting Commands
+## Troubleshooting Commands {#troubleshooting-commands}
 
 **Help → Troubleshooting Commands** runs a set of read‑only system commands and
 shows their output on one page — logs, process/service status, network information
@@ -189,14 +189,14 @@ moments.
 
 ## General troubleshooting tips
 
-- **Raise log levels** for the relevant subsystem on *FPP Settings → Logging*,
+- **Raise log levels** for the relevant subsystem on [FPP Settings → Logging](#logging),
   reproduce the problem, then read the logs from *File Manager → Logs*.
-- **No output?** Check *Channel Outputs* are enabled and saved, that FPPD was
-  restarted after changes, and use *Display Testing* to isolate wiring from
+- **No output?** Check [Channel Outputs](#channel-outputs) are enabled and saved, that FPPD was
+  restarted after changes, and use [Display Testing](#display-testing) to isolate wiring from
   configuration.
 - **Audio/video issues?** Check the **PipeWire Audio** and **GStreamer** health
-  checks and the *Audio/Video* settings.
+  checks and the [Audio/Video](#audio-video) settings.
 - **Sync problems?** Confirm **Send MultiSync Packets** on the player, matching
   sequences on remotes, and a stable (ideally wired) network.
 - **Cannot reach FPP?** Most often a network/DNS problem — check the address, host
-  name, and the *Network* settings.
+  name, and the [Network](#network) settings.

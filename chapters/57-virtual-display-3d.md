@@ -1,4 +1,4 @@
-# 3D Virtual Display
+# 3D Virtual Display {#3d-virtual-display}
 
 New in FPP 10, the **3D Virtual Display** renders your entire show as a live,
 true‑3D model in the browser. It reads the geometry your props actually have —

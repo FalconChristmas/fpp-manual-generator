@@ -45,7 +45,7 @@ lives. It is organised into three panels.
 ### Trigger Commands
 
 Each pin can run commands on up to three events. Every list uses the same **Add
-Command** button, which opens the **FPP Command Editor** (see *Command Presets*),
+Command** button, which opens the **FPP Command Editor** (see [Command Presets](#command-presets)),
 and commands can be reordered or deleted once added.
 
 - **Rising Edge Commands** – run when the input goes HIGH (typically the button

@@ -1,6 +1,6 @@
-# Backup, Restore and Proxies
+# Backup, Restore and Proxies {#backup-restore-and-proxies}
 
-## FPP Backup
+## FPP Backup {#fpp-backup}
 
 FPP has several backup options. You can save just your configuration files (the
 **JSON Configuration Backup**), or your configuration **and** all relevant files
@@ -74,7 +74,7 @@ save to several locations.
 > during the process you will see an `rsync ... No space left on device` error. An
 > incomplete backup will not restore completely.
 
-## Proxy Settings
+## Proxy Settings {#proxy-settings}
 
 **Proxy Settings** route network traffic through an FPP device to a connected
 controller. Open **Status/Control → Proxy Settings**.

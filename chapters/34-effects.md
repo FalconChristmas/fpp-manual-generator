@@ -21,11 +21,11 @@ Clicking **Start** opens a small dialog with the options for that effect:
   resumes when the playlist finishes rather than being cut off.
 - **Start Channel Override** – play the effect at a different start channel from
   the one it was saved with, which is how you point an effect built for one model
-  at another (see *Redirecting an effect to another model*).
+  at another (see [Redirecting an effect to another model](#redirecting-an-effect-to-another-model)).
 
 A special use is a **Background Effect**: if you name an effect `background.eseq`,
 FPP plays it whenever it is not receiving sequence data. (Whether a background
-effect is paused during FSEQ playback is controlled on *FPP Settings → Playback*.)
+effect is paused during FSEQ playback is controlled on [FPP Settings → Playback](#playback).)
 
 ## Creating an effect sequence (in xLights)
 
@@ -34,8 +34,8 @@ effect is paused during FSEQ playback is controlled on *FPP Settings → Playbac
    only some, select those effects first and choose **Model → Render and Export
    Selected Model Effects**.
 2. Choose **FPP Compressed Sub Sequence** and save it somewhere memorable.
-3. Upload the resulting `.eseq` to the FPP device that will play it (see *File
-   Manager*).
+3. Upload the resulting `.eseq` to the FPP device that will play it (see
+   [File Manager](#file-manager)).
 
 ## Triggering an effect from within a sequence
 
@@ -50,7 +50,7 @@ effect is paused during FSEQ playback is controlled on *FPP Settings → Playbac
    your effect (e.g. *Thank You*). A yellow box with the effect name appears on the
    timeline.
 
-## Redirecting an effect to another model
+## Redirecting an effect to another model {#redirecting-an-effect-to-another-model}
 
 You can play an effect on a different model with the same attributes by supplying
 a **channel offset** — the absolute start channel of the target model. For

@@ -1,4 +1,4 @@
-# Pixel Port Licensing
+# Pixel Port Licensing {#pixel-port-licensing}
 
 Two pixel‑output protocols need a licence to use their advanced features:
 **DPIPixels** and **BBBStrings48**. No other use of FPP requires a licence. The
@@ -69,7 +69,7 @@ There are two ways to apply a licence:
 Once signed, the Pixel Strings tab shows the cape type as its name and the blue
 banner disappears.
 
-### Off‑Line Signing
+### Off‑Line Signing {#off-line-signing}
 
 1. As above, open **Channel Outputs → Pixel Strings** (installing the Virtual
    EEPROM if needed) and click the **Cape Info** link.

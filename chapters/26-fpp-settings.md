@@ -1,4 +1,4 @@
-# FPP Settings
+# FPP Settings {#fpp-settings}
 
 The **FPP Settings** page (**Status/Control → FPP Settings**) is where you set up
 administrative functions and settings. In FPP 10 the settings are organised into
@@ -25,14 +25,14 @@ Settings with no icon appear at all levels. Throughout this chapter, items marke
 *(Advanced)*, *(Experimental)* or *(Developer)* are only visible at that UI Level
 or higher. If a setting described here is not visible, raise your UI Level.
 
-## Playback
+## Playback {#playback}
 
 Configures general playback behaviour.
 
 ![Settings — Playback tab.](images/settings-playback.png)
 
 - **Send MultiSync Packets** *(Player only)* – send MultiSync packets to remote
-  devices (see *MultiSync*).
+  devices (see [MultiSync](#multisync)).
 - **Pause Background Effect Sequence during FSEQ playback** – effect sequences
   normally take priority over FSEQ files; select this if you want the FSEQ file to
   take priority over a background effect sequence.
@@ -66,7 +66,7 @@ Configures general playback behaviour.
   calculated (this governs the Status page's schedule *Preview* range).
 - **Granular Scheduling** – finer‑grained schedule control.
 
-## Audio/Video
+## Audio/Video {#audio-video}
 
 The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 **PipeWire**‑based audio/video pipeline (with GStreamer) for flexible routing.
@@ -147,7 +147,7 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 > Pipeline**, which immediately follows this one. (It replaces the simpler
 > Audio/Video settings of FPP 9.x.)
 
-## Localization
+## Localization {#localization}
 
 Configures time and location. For playlists to start automatically at scheduled
 times, the **scheduling** FPP (not the remotes) must keep accurate time. Without
@@ -180,7 +180,7 @@ Clock (RTC) or internet the time resets on reboot.
   `LatLong.net` or Google Maps (in Google Maps they follow the `@` in the address
   bar, latitude first; keep any minus sign).
 
-## UI
+## UI {#ui}
 
 Changes the appearance and behaviour of the web interface.
 
@@ -252,7 +252,7 @@ Lets FPP send email (via FPP commands or a script).
 > **Note:** Some providers (e.g. Gmail, Yahoo) block third‑party clients by
 > default; you may need to adjust their security settings to allow FPP to send.
 
-## MQTT
+## MQTT {#mqtt}
 
 Connects FPP to an MQTT broker for automation (e.g. a home‑automation system).
 
@@ -278,9 +278,9 @@ Connects FPP to an MQTT broker for automation (e.g. a home‑automation system).
 
 > **Tip:** Anything received on a subscribed topic shows up on the **Variables**
 > page under *MQTT Read‑only Variables*, so you can act on it with an **If**
-> command — see *Variables and Recurring Tasks*.
+> command — see [Variables and Recurring Tasks](#variables-and-recurring-tasks).
 
-## Privacy
+## Privacy {#privacy}
 
 FPP's developers are cautious about privacy and let you customise what is shared.
 
@@ -351,7 +351,7 @@ Global input/output settings *(Advanced UI Level or higher)*.
 - **Colorlight Firmware Version** – manually select the ColorLight receiver
   firmware version if FPP cannot detect it.
 
-## Logging
+## Logging {#logging}
 
 Sets the logging criteria for the device. FPP creates several logs that help with
 troubleshooting. Normally leave this at **Info** unless the development team asks
@@ -470,7 +470,7 @@ separate Raspberry Pi and BeagleBone variants).
 
 - **GPIO 14 Fan Control** – PWM fan control on GPIO 14. *(Pi only, Advanced.)*
 - **Fan On Temperature** – the temperature above which that cooling fan switches
-  on (default 70). Fan state is reported on the *System Health Check* page.
+  on (default 70). Fan state is reported on the [System Health Check](#system-health-check) page.
   *(Advanced.)*
 - **Disable IP announcement** – during boot FPP announces its IP addresses over
   the audio output. Turn this off for production use, when the audio output feeds
@@ -508,12 +508,12 @@ separate Raspberry Pi and BeagleBone variants).
   password. *(Advanced.)*
 - **Reset FPP Config** – reset FPP to factory settings, either all options or
   selected areas — useful if a configuration or an xLights upload has gone wrong.
-  See *The Reset FPP Config dialog* below.
+  See [The Reset FPP Config dialog](#the-reset-fpp-config-dialog) below.
 
-> **Warning:** Take an *FPP Backup* before **Reset FPP Config** (see *Backup,
+> **Warning:** Take an [FPP Backup](#fpp-backup) before **Reset FPP Config** (see *Backup,
 > Restore and Proxies*).
 
-### The Reset FPP Config dialog
+### The Reset FPP Config dialog {#the-reset-fpp-config-dialog}
 
 **Reset FPP Config** opens a dialog where you choose exactly what to clear, rather
 than resetting everything blindly.
@@ -554,7 +554,7 @@ developer testing.
   is the main FPP repository, **newfeatures** is for new‑feature testing.
 - **Git Branch** – choose which FPP version/branch to run, e.g. **Master** for the
   latest improvements ahead of release. Note that some upgrades require an OS
-  rebuild to get all benefits (see *Final Configuration and Updating*).
+  rebuild to get all benefits (see [Final Configuration and Updating](#final-configuration-and-updating)).
 - **Reset Local Changes** – revert any manual code changes to the original code.
 - **Git Status** – show the status of your local FPP version.
 - **FPP Rebuild** – recompile all FPP files (useful after an interrupted install

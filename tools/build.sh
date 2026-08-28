@@ -52,7 +52,7 @@ pandoc \
     --from=markdown+pipe_tables+backtick_code_blocks+implicit_figures \
     --reference-doc="$HERE/reference.docx" \
     --resource-path="$RESOURCE_PATH" \
-    --toc --toc-depth=3 \
+    --toc --toc-depth=4 \
     --number-sections \
     --top-level-division=chapter \
     -o "$OUT"
@@ -65,15 +65,19 @@ ls -la "$OUT"
 # from reference.docx exactly. Set PDF=0 to skip.
 if [ "${PDF:-1}" != "0" ]; then
     SOFFICE="$(command -v libreoffice || command -v soffice || true)"
-    if [ -n "$SOFFICE" ]; then
+    if [ -n "$SOFFICE" ] && python3 -c 'import uno' >/dev/null 2>&1; then
         PDF_OUT="${OUT%.docx}.pdf"
-        OUT_DIR="$(dirname "$OUT")"
         # Use a throwaway profile dir so headless runs don't clash with a desktop
         # LibreOffice session or a locked default profile.
         PROFILE="$(mktemp -d)"
-        echo "Converting to PDF with $(basename "$SOFFICE") ->"
-        "$SOFFICE" --headless --convert-to pdf --outdir "$OUT_DIR" \
-            -env:UserInstallation="file://$PROFILE" "$OUT" >/dev/null
+
+        # Pandoc's TOC is a Word field with no cached entries (Word/LibreOffice
+        # normally compute it when a human opens the file). A plain
+        # `--convert-to pdf` skips that step, so the exported PDF's table of
+        # contents comes out empty. update_toc_and_export_pdf.py drives
+        # LibreOffice over its UNO API to recalculate the TOC before exporting.
+        echo "Converting to PDF with $(basename "$SOFFICE") (updating TOC first) ->"
+        python3 "$HERE/update_toc_and_export_pdf.py" "$OUT" "$PDF_OUT" "$PROFILE"
         rm -rf "$PROFILE"
         if [ -f "$PDF_OUT" ]; then
             echo "Wrote $PDF_OUT"
@@ -82,6 +86,10 @@ if [ "${PDF:-1}" != "0" ]; then
             echo "PDF conversion did not produce $PDF_OUT" >&2
             exit 1
         fi
+    elif [ -n "$SOFFICE" ]; then
+        echo "Skipping PDF: python3-uno not found (needed to update the table of" \
+             "contents before export; install it with ./install.sh, or set PDF=0" \
+             "to silence this)." >&2
     else
         echo "Skipping PDF: LibreOffice not found (install it with ./install.sh," \
              "or set PDF=0 to silence this)." >&2

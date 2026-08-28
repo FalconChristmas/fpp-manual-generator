@@ -1,4 +1,4 @@
-# MultiSync
+# MultiSync {#multisync}
 
 The **MultiSync** page (**Status/Control → MultiSync**) is where you set up a
 MultiSync/Remote layout, but it has evolved into a much more useful interface for
@@ -117,7 +117,7 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
   systems, and vice versa). `rsync` must be enabled on the target.
 - **Set to Player** / **Set to Remote** – change the mode of the selected devices.
 - **Add as Proxy** – configure this device to act as a Proxy Host for the selected
-  device (see *Backup, Restore and Proxies → Proxy Settings*).
+  device (see [Backup, Restore and Proxies → Proxy Settings](#proxy-settings)).
 
 > **Note:** **FPP Connect** in xLights is a more robust way to upload files to
 > your FPP devices — it can upload in a sparse format that greatly reduces file

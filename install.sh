@@ -4,6 +4,9 @@
 #   pandoc         - converts the Markdown chapters into the .docx
 #   libreoffice    - converts the .docx into a matching .pdf (headless). Large; if
 #                    you only need the .docx you can skip it and build with PDF=0.
+#   python3-uno    - lets build.sh drive LibreOffice over its UNO API to
+#                    recalculate the .docx's table of contents before PDF export
+#                    (a plain headless conversion leaves it empty)
 #   mkdocs-material - builds the browsable web edition (sidebar nav + search)
 #                    from the same chapters (./generate-web.sh)
 #   chromium       - headless browser used to screenshot the FPP web UI
@@ -22,15 +25,15 @@ if [ "$(id -u)" -ne 0 ]; then SUDO="sudo"; fi
 echo "Updating package lists..."
 $SUDO apt-get update
 
-echo "Installing pandoc, poppler-utils, python3, python3-pil, python3-yaml, chromium, libreoffice-writer, mkdocs-material..."
+echo "Installing pandoc, poppler-utils, python3, python3-pil, python3-yaml, python3-uno, chromium, libreoffice-writer, mkdocs-material..."
 # libreoffice-writer (not the full suite) is enough for the headless docx->pdf
 # conversion and is much smaller.
 # mkdocs-material builds the web edition; it pulls in mkdocs itself as a dep.
 # python3-pil (Pillow) + python3-yaml render the screenshot annotations.
 # The Chromium package is named 'chromium' on Debian and 'chromium-browser' on
 # some Ubuntu releases; try both.
-$SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml libreoffice-writer mkdocs-material chromium \
-  || $SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml libreoffice-writer mkdocs-material chromium-browser
+$SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml python3-uno libreoffice-writer mkdocs-material chromium \
+  || $SUDO apt-get install -y pandoc poppler-utils python3 python3-pil python3-yaml python3-uno libreoffice-writer mkdocs-material chromium-browser
 
 echo
 echo "Install complete."

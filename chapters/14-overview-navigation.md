@@ -1,4 +1,4 @@
-# General Overview and Navigation
+# General Overview and Navigation {#general-overview-and-navigation}
 
 ## General Overview
 
@@ -6,7 +6,7 @@ The developers have built in several aids to explain the functionality of
 different settings. Most settings load based on the device FPP is running on, so
 you only see what is relevant and things are less confusing. FPP also has
 different **UI Levels** so that more advanced settings and functions do not
-clutter the screens (see *FPP Settings → UI*).
+clutter the screens (see [FPP Settings → UI](#ui)).
 
 The four levels are **Basic**, **Advanced**, **Experimental** and **Developer**.
 Basic shows the settings most users need; Advanced exposes most of FPP's
@@ -16,7 +16,7 @@ testers. In FPP 10 the level also governs which **FPP Commands** and which menu
 entries you see, not just which settings.
 
 > **Tip:** If you only need one Advanced item, you do not have to change your UI
-> Level permanently. On *FPP Settings → UI* the **Change to Advanced UI for 15
+> Level permanently. On [FPP Settings → UI](#ui) the **Change to Advanced UI for 15
 > Minutes** button raises the level for the rest of your session. While it is
 > active, an **unlock** icon appears in the header showing roughly how long is
 > left; click it (or **Exit Advanced Mode** on the UI settings page) to drop back
@@ -49,7 +49,7 @@ At the top of every page is a status/navigation bar:
    *Playing* (hover to see the current sequence); or a *Stopped* icon when FPP is
    stopped.
 4. **Sensors** – if the device has sensors, their readings appear here. Change
-   the units under *FPP Settings → Localization*. With more than one sensor,
+   the units under [FPP Settings → Localization](#localization). With more than one sensor,
    click to toggle between them.
 5. **Network interfaces** – a graphical status of each interface; hover for
    details. For example:
@@ -73,7 +73,7 @@ At the top of every page is a status/navigation bar:
 Some menu entries only appear in certain circumstances:
 
 - **Variables** and **Recurring Tasks** (under *Content Setup*) require the
-  **Advanced** UI Level or higher — see *Variables and Recurring Tasks*.
+  **Advanced** UI Level or higher — see [Variables and Recurring Tasks](#variables-and-recurring-tasks).
 - **Port Status** (under *Status/Control*) only appears on devices whose cape
   reports current monitoring. It was called *Current Monitor* before FPP 10.
 - **Cape Info** (under *Help*) only appears when a cape or hat is fitted.
@@ -95,7 +95,7 @@ At the bottom of every page are shortcuts to commonly used device functions:
   configuration changes without a full reboot.
 - **Stop FPPD** – stop the FPP daemon.
 
-## FPP Mode
+## FPP Mode {#fpp-mode}
 
 FPP runs in one of two primary modes:
 
@@ -114,9 +114,9 @@ FPP runs in one of two primary modes:
    cape) to a player, in one of two ways:
     a. **MultiSync** — the remote listens for MultiSync packets from a player and
        syncs its output to match. The remote needs a copy of every sequence
-       (`.fseq`) that will be played (see the *MultiSync* chapter).
+       (`.fseq`) that will be played (see the [MultiSync](#multisync) chapter).
     b. **E1.31/DDP/ArtNet** — the remote receives streamed data instead; this
-       requires the input to be configured (see *Channel Inputs* and *Advanced
+       requires the input to be configured (see [Channel Inputs](#channel-inputs) and *Advanced
        Options → Separate Show Network*).
 
 ## Update indicators
