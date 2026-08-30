@@ -284,7 +284,7 @@ Connects FPP to an MQTT broker for automation (e.g. a home‑automation system).
 
 > **Tip:** Anything received on a subscribed topic shows up on the **Variables**
 > page under *MQTT Read‑only Variables*, so you can act on it with an **If**
-> command — see [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+> command — see [Variables](#variables).
 
 ## Privacy {#privacy}
 
@@ -516,8 +516,8 @@ separate Raspberry Pi and BeagleBone variants).
   selected areas — useful if a configuration or an xLights upload has gone wrong.
   See [The Reset FPP Config dialog](#the-reset-fpp-config-dialog) below.
 
-> **Warning:** Take an [FPP Backup](#fpp-backup) before **Reset FPP Config** (see *Backup,
-> Restore and Proxies*).
+> **Warning:** Take an [FPP Backup](#fpp-backup) before **Reset FPP Config** (see
+> [Backup and Restore](#backup-restore)).
 
 ### The Reset FPP Config dialog {#the-reset-fpp-config-dialog}
 

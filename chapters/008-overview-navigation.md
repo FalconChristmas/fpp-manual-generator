@@ -74,7 +74,8 @@ At the top of every page is a status/navigation section:
 Some menu entries only appear in certain circumstances:
 
 - **Variables** and **Recurring Tasks** (under *Content Setup*) require the
-  **Advanced** UI Level or higher — see [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+  **Advanced** UI Level or higher — see [Variables](#variables) and
+  [Recurring Tasks](#recurring-tasks).
 - **Port Status** (under *Status/Control*) only appears on devices whose cape
   reports current monitoring. It was called *Current Monitor* before FPP 10.
 - **Cape Info** (under *Help*) only appears when a cape or hat is fitted.
@@ -117,8 +118,8 @@ FPP runs in one of two primary modes:
       syncs its output to match. The remote needs a copy of every sequence
       (`.fseq`) that will be played (see the [MultiSync](#multisync) chapter).
     - **b. E1.31/DDP/ArtNet** — the remote receives streamed data instead; this
-       requires the input to be configured (see [Channel Inputs](#channel-inputs) and *Advanced
-       Options → Separate Show Network*).
+       requires the input to be configured (see [Channel Inputs](#channel-inputs) and
+       [Separate Network](#separate-network)).
 
 ## Update indicators
 

@@ -23,24 +23,41 @@ web edition, which also offers both documents as downloads.
 cd /opt && git clone https://github.com/FalconChristmas/fpp-manual-generator
 cd /opt/fpp-manual-generator && ./install.sh
 
-## Layout
+## Directory Structure
 
 ```
 install.sh          Install the build/capture dependencies (Debian/Ubuntu)
 generate.sh         Build FPP_Manual_v10.docx (+ .pdf) from the chapters (no FPP needed)
 generate-web.sh     Build the browsable web edition into web/site/ (no FPP needed)
 annotate.sh         Render annotated screenshots into build/images/ for preview
-capture.sh          (Re)capture screenshots from a running FPP web UI
+capture.sh          (Re)capture screenshots from a running FPP web UI -- also
+                    supports touching up a single shot with --only; see
+                    "Quick start" and "Screenshots" below for the use cases
 metadata.yaml       Title-page metadata for the document
 mkdocs.yml          MkDocs config for the web edition (theme, nav, search)
 OUTLINE.md          Chapter plan / structure
+COVERAGE.md         Coverage audit: every FPP UI page/tab vs. the chapter that
+                    documents it; refreshed with tools/ui-inventory.py
 chapters/           The manual, one Markdown file per chapter (combined in
-                    filename order, e.g. 00-*, 02-*, 20-* ...)
+                    filename order, e.g. 000-*, 002-*, 100-* ...)
 images/             Raw screenshots referenced by the chapters (kept pristine)
 annotations/        Optional YAML sidecars that mark up screenshots (see README there)
+build/              Git-ignored: annotated screenshots baked by annotate.sh /
+                    generate.sh / generate-web.sh (raw images/ stays untouched)
+web/
+  overrides/        MkDocs theme partial for the "Download PDF/Word" bar (tracked)
+  css/              Extra stylesheet(s) for the web edition, e.g. nav indent (tracked)
+  docs/             Git-ignored: chapters staged for MkDocs by build-web.sh
+  site/             Git-ignored: the built static site (./generate-web.sh output)
 tools/
   build.sh          Pandoc build (invoked by generate.sh)
   build-web.sh      MkDocs build (invoked by generate-web.sh)
+  webify.py         Adapts a staged chapter for the web edition (strips Pandoc's
+                    {-} markers, turns Note/Tip blockquotes into admonitions,
+                    rewrites cross-chapter links); invoked by build-web.sh
+  update_toc_and_export_pdf.py  Drives LibreOffice over its UNO API to
+                    recalculate the .docx's table of contents before PDF
+                    export; invoked by build.sh
   annotate.py       Bakes annotations/ onto images/ at build time (Pillow)
   shoot.py          Headless-Chromium screenshot driver (Chrome DevTools
                     Protocol; Python standard library only)
@@ -48,12 +65,21 @@ tools/
                       to shotlist lines
   shotlist.txt      The list of pages to screenshot
   reference.docx    Pandoc reference document (Word styles/template)
+  settings-coverage.py  Reports FPP settings the manual doesn't mention yet, by
+                    diffing a local FPP checkout's settings.json against
+                    chapters/ (default /opt/fpp; no running FPP needed)
+  ui-inventory.py   Prints a running FPP's web UI page/tab tree, to re-check
+                    COVERAGE.md after an FPP release (needs a running FPP)
+.github/workflows/  CI: builds all three deliverables and publishes the web
+                    edition to GitHub Pages on every push to main
 ```
 
 ## Quick start
 
 ```bash
-./install.sh          # one-time: pandoc, libreoffice, chromium, poppler-utils, python3
+./install.sh          # one-time: pandoc, libreoffice, chromium, poppler-utils, python3,
+                       # plus python3-uno (PDF table of contents), python3-pil/python3-yaml
+                       # (screenshot annotations), and mkdocs-material (web edition)
 ./generate.sh         # build ./FPP_Manual_v10.docx (+ ./FPP_Manual_v10.pdf)
 ```
 
@@ -147,11 +173,23 @@ sidecars. (A repo with no sidecars skips the step entirely and needs neither.)
 - A **running FPP** reachable over HTTP is required for `capture.sh` (not for
   `generate.sh`).
 
+Two more scripts help audit manual coverage against FPP itself; neither is needed
+for the regular build:
+
+- **`tools/ui-inventory.py`** – walks a *running* FPP's web UI and prints its
+  page/tab tree, to re-check [`COVERAGE.md`](COVERAGE.md) after an FPP release.
+  Python standard library only.
+- **`tools/settings-coverage.py`** – diffs a *local FPP source checkout's*
+  `settings.json` (default `/opt/fpp`, no running instance needed) against
+  `chapters/` and reports settings the manual doesn't mention. Python standard
+  library only.
+
 ## Editing the manual
 
-- Edit the Markdown in `chapters/`. Files are combined in filename order, so the
-  numeric prefixes (`00-`, `02-`, `20-` …) set the book order — leave gaps so new
-  chapters can be inserted.
+- Edit the Markdown in `chapters/`. Files are combined in filename order (a plain
+  string sort, not numeric), so the 3-digit, zero-padded prefixes (`000-`, `002-`,
+  `100-` …) set the book order — leave gaps so new chapters can be inserted without
+  renumbering everything else.
 - Reference images as `images/<name>.png`; the build adds `images/` to Pandoc's
   resource path.
 - Each chapter file should have a single top-level `#` heading (its chapter
@@ -174,6 +212,29 @@ sidecars. (A repo with no sidecars skips the step entirely and needs neither.)
   deliverable, so a content change isn't finished until it's regenerated. The build
   needs only Pandoc — no running FPP — and a not‑yet‑captured screenshot is only a
   warning, so the build still succeeds.
+- **Adding, removing, or renaming a chapter also means updating `mkdocs.yml`'s
+  `nav:` list** for the web edition. Unlike the `.docx`/`.pdf` build (every file
+  in `chapters/` is picked up automatically in filename order), the web edition's
+  sidebar is an explicit tree in `mkdocs.yml`, grouped to mirror FPP's four web UI
+  menus (Status/Control, Content Setup, Input/Output Setup, Help) so related pages
+  nest under the right group. Add the new chapter's staged filename (its `chapters/`
+  name unchanged) under the matching group — or top-level for front-/back-matter —
+  or it simply won't appear in the web sidebar even though it's in the `.docx`.
+
+### Editing tips (VSCode)
+
+The [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+extension is handy for editing `chapters/*.md` — list auto-continuation, a table
+formatter, and these default shortcuts:
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl/Cmd+B` | Toggle **bold** |
+| `Ctrl/Cmd+I` | Toggle *italic* |
+| `Ctrl+Shift+]` / `Ctrl+Shift+[` | Increase / decrease heading level |
+| `Alt+C` | Check/uncheck a task list item |
+| `Ctrl/Cmd+Shift+V` | Toggle Markdown preview |
+| `Ctrl/Cmd+K V` | Open Markdown preview to the side |
 
 ## Screenshots
 

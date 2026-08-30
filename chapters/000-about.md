@@ -5,7 +5,7 @@ significant number of changes over the 9.x series, including a refreshed user
 interface, a reorganized Settings page, a new audio/video pipeline based on
 PipeWire and GStreamer, and expanded MultiSync and health‑monitoring features.
 
-If you need a manual for an older version, see the [Falcon Christmas.github]([If you are going to use a **Static** IP address, enter an **IP address** unique to this interface.](https://github.com/FalconChristmas/FalconChristmas.github.io)).
+If you need a manual for an older version, see the [Falcon Christmas.github repository](https://github.com/FalconChristmas/FalconChristmas.github.io).
 
 The screenshots in this manual were taken from a running FPP 10 system. Your
 screens may differ slightly depending on your hardware platform (Raspberry Pi,
@@ -57,7 +57,7 @@ The most visible and important changes since 9.x include:
   command's text field can substitute one with `%VAR:name%`. **Recurring Tasks**
   run a command or preset on a repeating interval and can capture its result into
   a variable. Both are on the *Content Setup* menu at the **Advanced** UI level
-  and have their own chapter, [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+  and have their own chapters, [Variables](#variables) and [Recurring Tasks](#recurring-tasks).
 - **Categorized FPP Commands** – the command list is now grouped (Audio, Effects,
   Events, Media, Playlist, Pixel Overlay, Outputs, System) and each command is
   tied to a UI Level, so the Basic level shows only everyday commands. Command

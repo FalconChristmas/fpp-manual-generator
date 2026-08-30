@@ -47,7 +47,7 @@ and **Delete**; the type‑specific options are noted below.
   [FPP Settings → Privacy](#privacy)), so you can inspect one yourself or attach it to a
   support request.
 - **Backups** – any manual backups you have created (see
-  [Backup, Restore and Proxies](#backup-restore-and-proxies)).
+  [Backup and Restore](#backup-restore)).
 - **Config** – FPP's own configuration files. **View** shows a file and **Edit**
   opens it in an in‑browser editor to change and save directly. This is the same
   content the JSON configuration backup captures.

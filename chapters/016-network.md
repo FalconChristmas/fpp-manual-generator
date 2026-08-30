@@ -6,48 +6,65 @@ Networking works similarly whether wired or wireless, and the two work together.
 The page has three tabs: **Interface Settings**, **Global Network Settings**
 (host and DNS), and **Tethering**.
 
-![Network — Interface Settings.](images/network.png)
+![Network — Interface Settings.](images/network-interface-settings-eth0.png)
 
 Because there are so many ways to configure a network, these settings cause many
 people difficulty. The basic setup earlier in this manual will get you running,
 though it may not be the best long‑term arrangement; the sections below should
 give you a better understanding for your situation. For deeper background on IP
-addressing, see [Advanced Options → Networking Considerations](#Network-overview).
+addressing, see [Networking → Overview](#networking-overview).
 
+There is a good video [here](https://youtu.be/68exxlJDox4) and Keith Westley, one of the 
+xLights developers, has a good video as well [here](https://youtu.be/g0fOZs6UgXw)
+ 
 ## Interface Settings {#interface-settings}
 
 Depending on the device, FPP may have up to two built‑in network interfaces (more
 if you add adapters, though that is uncommon): **eth0** for wired Ethernet and
 **wlan0** for wireless. If you have both, configure each separately.
 
-- **Wi‑Fi Regulatory Domain** – enter your country. Some jurisdictions have
-  regulations, and Wi‑Fi will not work correctly unless this is set right.
-- **Interface Name** – lists all interfaces (`eth0`, `eth1`, … wired; `wlan0`,
-  `wlan1`, … wireless). Select one to edit its settings.
+**eth0 Interface**
+![Network — eth0 Interface Settings.](images/network-interface-settings-eth0.png)
+
 - **Interface Mode:**
     - **Static** – you assign the IP address. You must ensure each address is
       unique and does not clash with one your router has already handed out via
-      DHCP. Many routers assign DHCP addresses from the low end of the range (not
+      DHCP. You also need to make sure that your router does not assign this IP address
+      to another device down the road. Many routers assign DHCP addresses from the low end of the range (not
       always), and some let you limit the DHCP range to avoid conflicts.
-    - **DHCP** – your router assigns and manages the address and gateway. This is
-      the easiest method, but your router may not retain the address if the device
+    - **DHCP** – your router assigns and manages the IP address and gateway. This is
+      the easiest method, but your router may not retain the IP address if the device
       is disconnected for a long time (you can usually still reach FPP by host
       name), and the interface must be on a network with a DHCP server.
 
-  > **Note:** If you use both interfaces they should be on **different subnets**,
-  > and only **one** interface should have a gateway — normally the one connected
-  > to your home network.
+> **Note:** If you use both interfaces they should be on **different subnets**,
+> and only **one** interface should have a gateway — normally the one connected
+> to your home network.
 
 - **IP address** – unique to this device/interface, in the same subnet as the
   network it talks to (usually the first three number groups). The **Ping** button
   checks whether an address is already in use.
 - **Netmask** – defines the network size; most consumer networks use
   `255.255.255.0`.
-- **Gateway** – configure **only** on the interface connected to your home/show
-  router, set to that router's IP. With two interfaces, only one has a gateway.
 
-For **wlan0** there are additional settings:
+**Create Persistent Name**-If you are using more than one Ethernet interface (common for users with a Color-Light board) 
+and you need the Ethernet adapter to keep the configuration order, then you can create a Persistent Name. The best practice would be: 
 
+- Power down the FPP device.
+- Make sure that only the primary Ethernet interface is installed.
+- Power up the FPP device.
+- Plug in the USB Ethernet adapter. 
+- Configure the eth0 and eth1 devices
+- Click on Update Interface
+- Click on Create Persistent Name
+
+This will save your eth0 and eth1 configurations so that they will load up in the correct order.
+
+**wlan0** Interface
+
+![Network — Interface Settings, wlan0.](images/network-interface-settings-wlan0.png)
+
+This page will have information about your current Wi-Fi connection such as **Connection Status** 
 - **WPA SSID** – your wireless network name (tick **Hidden** for a hidden SSID).
 - **WPA Pre‑Shared Key** – the password; use the eye icon to reveal it and check
   it is correct.
@@ -113,6 +130,8 @@ For **wlan0** there are additional settings:
 
 ## Global Network Settings (Host & DNS)
 
+![Network — Global Network Settings.](images/network-global-network-settings.png)
+
 This tab assigns the device's **host name** and DNS settings.
 
 - **Host Name** – the "human" name used to reach the device (like typing a domain
@@ -134,7 +153,17 @@ This tab assigns the device's **host name** and DNS settings.
   servers; typically your router's IP for one and an internet server such as
   `8.8.8.8` for the other.
 
-## Tethering
+- **Gateway** – configure **only** on the interface connected to your home/show
+  router, set to that router's IP. With two interfaces, only one has a gateway.
+
+  - **Wi‑Fi Regulatory Domain** – enter your country. Some jurisdictions have
+  regulations, and Wi‑Fi will not work correctly unless this is set right.
+- **Interface Name** – lists all interfaces (`eth0`, `eth1`, … wired; `wlan0`,
+  `wlan1`, … wireless). Select one to edit its settings.
+
+## Tethering {#tethering}
+
+![Network — Tethering.](images/network-tethering.png)
 
 FPP supports two kinds of tethering: **Wi‑Fi Tethering**, where FPP acts as its
 own access point, and **USB Tethering**, where FPP connects directly to a

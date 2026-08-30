@@ -69,7 +69,7 @@ possible, while still providing much of the flexibility required by a diverse
 group of enthusiasts. The FPP software is free to download and use, and is
 provided and supported by a number of volunteers.
 
-Please refer to the Falcon Christmas website ([https://FalconChristmas.com](https://FalconChristmas.com)) for
+Please refer to the Falcon Christmas website [https://FalconChristmas.com](https://FalconChristmas.com) for
 the latest news and discussions. In particular, the FPP forum is a great resource
 for help.
 

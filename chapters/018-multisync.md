@@ -10,7 +10,7 @@ system information for every device, and upgrade them all from one interface.
 
 You can use MultiSync on a wired setup too, to save network traffic, though the
 benefit there is usually small. For deeper background on layout and function, see
-*Advanced Options → MultiSync/Remote*.
+[Networking → Overview](#networking-overview).
 
 ![The MultiSync page listing discovered FPP systems.](images/multisync.png)
 
@@ -117,7 +117,7 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
   systems, and vice versa). `rsync` must be enabled on the target.
 - **Set to Player** / **Set to Remote** – change the mode of the selected devices.
 - **Add as Proxy** – configure this device to act as a Proxy Host for the selected
-  device (see [Backup, Restore and Proxies → Proxy Settings](#proxy-settings)).
+  device (see [Proxy Settings](#proxy-settings)).
 
 > **Note:** **FPP Connect** in xLights is a more robust way to upload files to
 > your FPP devices — it can upload in a sparse format that greatly reduces file

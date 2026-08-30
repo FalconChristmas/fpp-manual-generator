@@ -262,7 +262,7 @@ configure common or required settings:
 The Initial Setup page also offers to **restore a previous configuration**, which
 saves time in setting a replacement or rebuilt device up from scratch. As well as
 restoring from an FPP backup file, FPP 10 adds a **File Copy Restore** option that
-brings the configuration across directly. See [Backup, Restore and Proxies](#backup-restore-and-proxies).
+brings the configuration across directly. See [Backup and Restore](#backup-restore).
 
 After completing initial setup, work through the [Initial Network Configuration](#initial-network-configuration)
 and the rest of this manual to finish setting up your show.
@@ -274,7 +274,7 @@ main screen you will see a reboot warning — **do not reboot yet**. Instead ope
 **Status/Control → Network** to configure how the device connects.
 
 You should decide how you want your network configured before editing these
-settings (see [Advanced Options → Common Network Setups](#common-network-setups) if you are unsure). For a
+settings (see [Networking → Overview](#common-network-setups) if you are unsure). For a
 temporary arrangement you can use a **wired‑on‑home‑network** configuration so you
 can update the software and finish configuration before deploying the device in
 its final location — this is also a good testing configuration. If your device
@@ -292,7 +292,7 @@ better option.
 > recommended for their better range. To configure Wi‑Fi with no adapter fitted,
 > see [Network → Interface Settings](#interface-settings).
 
-![The Network Configuration page.](images/network.png)
+![The Network Configuration page.](images/network-interface-settings-eth0.png)
 
 1. Click the **wlan0** interface (the wireless interface).
    
@@ -399,5 +399,5 @@ to the appropriate chapters that follow for details.
 > put back. Accept the prompt, or reinstall them yourself from the *Plugins* page
 > (the **Reinstall All** button does the lot).
 
-> **Tip:** Always take an **FPP Backup** (see the [Backup, Restore and Proxies](#backup-restore-and-proxies)
+> **Tip:** Always take an **FPP Backup** (see the [Backup and Restore](#backup-restore)
 > chapter) before a major upgrade, so you can roll back if needed.

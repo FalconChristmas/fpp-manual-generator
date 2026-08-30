@@ -68,7 +68,7 @@ The command list is extensive; commonly used commands include:
   duplicate.
 - **GPIO** – set GPIO pins on or off.
 - **If** – run one set of commands when a condition is true and another when it is
-  false. See [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+  false. See [Variables](#variables).
 - **Insert Playlist After Current** – queue a playlist to run after the current one
   finishes (with optional start/stop items), then resume.
 - **Insert Playlist Immediate** – start a playlist immediately, stopping the
@@ -94,7 +94,7 @@ The command list is extensive; commonly used commands include:
   name/slot exactly as stored on the remote).
 - **Run Script** – run a script stored on this device.
 - **Set Variable** – store a value (fixed, counter, random or calculated) in a
-  named variable for other commands to read. See [Variables and Recurring Tasks](#variables-and-recurring-tasks).
+  named variable for other commands to read. See [Variables](#variables).
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
 

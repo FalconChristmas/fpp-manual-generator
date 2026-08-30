@@ -23,7 +23,19 @@ status.png	index.php	4500
 # (10-marker) annotation numbering for the header/nav-bar walkthrough in
 # 008-overview-navigation.md — see annotations/status-nav.yaml.
 status-nav.png	index.php	4500
-network.png	networkconfig.php	4500
+# networkconfig.php has three primary tabs (Interface Settings, Global Network
+# Settings, Tethering); Interface Settings has one secondary tab per detected
+# interface (eth0, wlan0, ...). Unlike settings.php this page does not read
+# location.hash to pick a tab on load, so non-default tabs are captured by
+# clicking the tab link via js_after_load. Naming convention:
+#   network-<primary tab>[-<secondary tab>].png
+network-interface-settings-eth0.png	networkconfig.php	4500
+# wlan0 sub-tab under Interface Settings (default tab is eth0). Clicking the
+# link (rather than driving bootstrap.Tab directly) also fires its onclick
+# handler, which AJAX-loads the wlan0 config -- give it a moment to arrive.
+network-interface-settings-wlan0.png	networkconfig.php	4500	document.getElementById('wlan0-tab').click()
+network-global-network-settings.png	networkconfig.php	4500	document.getElementById('tab-global-network-tab').click()
+network-tethering.png	networkconfig.php	4500	document.getElementById('tab-tethering-tab').click()
 multisync.png	multisync.php	4500
 backup.png	backup.php	4500
 proxies.png	proxies.php	4000
