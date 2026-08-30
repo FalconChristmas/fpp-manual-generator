@@ -65,7 +65,19 @@ ls -la "$OUT"
 # from reference.docx exactly. Set PDF=0 to skip.
 if [ "${PDF:-1}" != "0" ]; then
     SOFFICE="$(command -v libreoffice || command -v soffice || true)"
-    if [ -n "$SOFFICE" ] && python3 -c 'import uno' >/dev/null 2>&1; then
+    # python3-uno (apt) only binds to the system interpreter, but a CI step like
+    # actions/setup-python puts its own python3 first on PATH — that one is a
+    # different interpreter with no `uno` module. Try the PATH python3 first,
+    # then fall back to the system one, rather than silently skipping the PDF.
+    UNO_PYTHON=""
+    for candidate in python3 /usr/bin/python3; do
+        if command -v "$candidate" >/dev/null 2>&1 \
+            && "$candidate" -c 'import uno' >/dev/null 2>&1; then
+            UNO_PYTHON="$candidate"
+            break
+        fi
+    done
+    if [ -n "$SOFFICE" ] && [ -n "$UNO_PYTHON" ]; then
         PDF_OUT="${OUT%.docx}.pdf"
         # Use a throwaway profile dir so headless runs don't clash with a desktop
         # LibreOffice session or a locked default profile.
@@ -77,7 +89,7 @@ if [ "${PDF:-1}" != "0" ]; then
         # contents comes out empty. update_toc_and_export_pdf.py drives
         # LibreOffice over its UNO API to recalculate the TOC before exporting.
         echo "Converting to PDF with $(basename "$SOFFICE") (updating TOC first) ->"
-        python3 "$HERE/update_toc_and_export_pdf.py" "$OUT" "$PDF_OUT" "$PROFILE"
+        "$UNO_PYTHON" "$HERE/update_toc_and_export_pdf.py" "$OUT" "$PDF_OUT" "$PROFILE"
         rm -rf "$PROFILE"
         if [ -f "$PDF_OUT" ]; then
             echo "Wrote $PDF_OUT"

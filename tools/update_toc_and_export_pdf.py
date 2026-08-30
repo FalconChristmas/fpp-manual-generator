@@ -82,10 +82,15 @@ def main():
         doc = desktop.loadComponentFromURL(
             "file://" + src, "_blank", 0, (make_prop("Hidden", True),))
 
+        # Update twice: a TOC spanning several pages (ours does) shifts every
+        # later page number the moment it's populated, so the first update()
+        # computes entries/page numbers against the document's pre-TOC layout.
+        # The second pass recalculates against the now-correct pagination.
         indexes = doc.getDocumentIndexes()
-        for i in range(indexes.getCount()):
-            indexes.getByIndex(i).update()
-        doc.getTextFields().refresh()
+        for _ in range(2):
+            for i in range(indexes.getCount()):
+                indexes.getByIndex(i).update()
+            doc.getTextFields().refresh()
 
         doc.storeToURL("file://" + out, (make_prop("FilterName", "writer_pdf_Export"),))
         doc.close(False)
