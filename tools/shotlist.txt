@@ -19,6 +19,10 @@ initial-setup.png	initialSetup.php	4500
 
 # ---- Status / Control ----
 status.png	index.php	4500
+# Same page as status.png, captured separately so it can carry its own
+# (10-marker) annotation numbering for the header/nav-bar walkthrough in
+# 008-overview-navigation.md — see annotations/status-nav.yaml.
+status-nav.png	index.php	4500
 network.png	networkconfig.php	4500
 multisync.png	multisync.php	4500
 backup.png	backup.php	4500

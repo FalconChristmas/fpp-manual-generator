@@ -18,13 +18,13 @@ The essential steps are:
 4. **Set the network** – configure the network settings so that you can communicate
    with your devices (see [Initial Network Configuration](#initial-network-configuration)).
 5. **Choose the mode** – set **FPP Mode** to **Player** for your main controller,
-   or **Remote** for a follower (see [The Status Page](#the-status-page) and
-   [MultiSync](#multisync)).
+   or **Remote** for devices that are going to be controlled from another device.
+   (see [The Status Page](#status-page) and    [MultiSync](#multisync)).
 6. **Set the time zone** – on [FPP Settings → Localization](#localization), so
    schedules run at the right time.
 7. **Configure your outputs** – tell FPP how your lights are connected on
    *Input/Output Setup →* [Channel Outputs](#channel-outputs).
-8. **Add content** – upload sequences and media on *Content Setup →*
+8. **Add content** – (If needed) upload sequences and media on *Content Setup →*
    [File Manager](#file-manager).
 9.  **Build and schedule a playlist** – create a playlist on *Content Setup →*
    [Playlists](#playlists) and set it to run on *Content Setup →*
@@ -47,21 +47,17 @@ the card first.
 
 **An SD card formatter (optional):**
 
-- `https://www.sdcard.org/downloads/` — versions for Windows and Mac.
-- `https://gparted.org/` — for Linux systems.
+- ([https://www.sdcard.org/downloads/](https://www.sdcard.org/downloads/)) — versions for Windows and Mac.
+- ([https://gparted.org/](https://gparted.org/)) — for Linux systems.
 
 **An image‑writer program:**
 
 - **Raspberry Pi Imager** — can download the FPP image for both Raspberry Pi and
   BeagleBone hardware directly, as part of the installation process.
-- **Balena Etcher** (`https://www.balena.io/etcher/`) — Windows, Mac and Linux.
-- **dotNet Disk Imager** (`https://sourceforge.net/projects/dotnetdiskimager/`) —
+- **Balena Etcher** ([https://www.balena.io/etcher/](https://www.balena.io/etcher/)) — Windows, Mac and Linux.
+- **dotNet Disk Imager** ([https://sourceforge.net/projects/dotnetdiskimager/](https://sourceforge.net/projects/dotnetdiskimager/)) —
   a good option for Windows; it can also wipe the SD card, so you won't need a
   separate formatter.
-
-> **Note:** On some older BeagleBone Black boards (not other derivatives),
-> installing a version of FPP greater than 2.0 for the first time may require
-> holding down the boot button (**S2**) while powering up.
 
 ### Getting the FPP software
 
@@ -87,10 +83,10 @@ Depending on your imaging program, you may have to unzip the file before you can
 use it (uncommon). If your imaging software cannot write directly from a `.zip`,
 make sure you flash the `.img` file, not the `.zip`; if unsure, unzip first.
 
-The three most popular methods are covered below — Balena Etcher, dotNet Disk
-Imager, and Raspberry Pi Imager. Use the method for the software you have.
+The three most popular methods are covered below — Raspberry Pi Imager,dotNet Disk
+Imager, and Balena Etcher. Use the method for the software you have.
 
-> **Note:** Raspbery Pi Imager can be used for BeableBone images
+> **Note:** Raspbery Pi Imager can be used for BeableBone images as well.
 
 ### Formatting the micro‑SD card (optional)
 
@@ -98,33 +94,6 @@ Before writing the image you may format the card to remove any existing
 partitions. This is not usually needed with most imaging programs. Insert the
 card and do a **Quick Format** using the SD Card Formatter (not the Windows or Mac
 file manager).
-
-### Burning with Balena Etcher
-
-1. Open Balena Etcher and click **Select Image**; choose the downloaded image
-   file.
-2. Make sure the correct SD card is selected as the target.
-3. Click **Flash!** (confirm if prompted) and wait for the completion message.
-
-> **Note:** Some users have resolved Balena Etcher errors by running it as an
-> Administrator, or by unblocking the image file in its properties.
-
-The written image is not in a format Windows or Mac can read, so you may see an
-error after flashing. **Do not** format the card afterwards. Turn the Pi/BB off,
-insert the card, and proceed to [Software Installation](#software-installation).
-
-### Burning with dotNet Disk Imager
-
-1. Open dotNet Disk Imager (allow it to make changes if prompted).
-2. *(Optional wipe)* Select your SD card under **Device** and click **Wipe
-   Device**; confirm and wait for completion.
-3. Choose the downloaded image file via the file icon next to the **Image file**
-   box, and select the SD card as the target.
-4. Click **Write to Device** (confirm if prompted) and wait for the completion
-   message.
-
-As above, do **not** format the card after writing. Turn the device off and
-insert the card and proceed to [Software Installation](#software-installation).
 
 ### Burning with Raspberry Pi Imager
 
@@ -144,10 +113,37 @@ below match Imager 1.8.5; other versions differ slightly.)
 
 When finished, click **Continue** and proceed to [Software Installation](#software-installation).
 
+### Burning with dotNet Disk Imager
+
+1. Open dotNet Disk Imager (allow it to make changes if prompted).
+2. *(Optional wipe)* Select your SD card under **Device** and click **Wipe
+   Device**; confirm and wait for completion.
+3. Choose the downloaded image file via the file icon next to the **Image file**
+   box, and select the SD card as the target.
+4. Click **Write to Device** (confirm if prompted) and wait for the completion
+   message.
+
+As above, do **not** format the card after writing. Turn the device off and
+insert the card and proceed to [Software Installation](#software-installation).
+
+### Burning with Balena Etcher
+
+1. Open Balena Etcher and click **Select Image**; choose the downloaded image
+   file.
+2. Make sure the correct SD card is selected as the target.
+3. Click **Flash!** (confirm if prompted) and wait for the completion message.
+
+> **Note:** Some users have resolved Balena Etcher errors by running it as an
+> Administrator, or by unblocking the image file in its properties.
+
+The written image is not in a format Windows or Mac can read, so you may see an
+error after flashing. **Do not** format the card afterwards. Turn the Pi/BB off,
+insert the card, and proceed to [Software Installation](#software-installation).
+
 ### Software Installation {#software-installation}
 
-FPP is configured from a web interface — you do not need to connect a monitor to
-the device. You access it from a web browser on another computer.
+FPP is configured from a web interface — **you do not need to connect a monitor to
+the device.** You access it from a web browser on another computer.
 
 > **Note:** Google Chrome is recommended. Some versions of Internet Explorer /
 > Microsoft Edge have had trouble displaying the interface correctly.
@@ -166,11 +162,11 @@ router's IP address (commonly `192.168.0.1` or `192.168.1.1`, among others).
 There are three basic ways to install and configure FPP:
 
 - **USB Tethering** — probably the easiest method: connect your computer directly
-  to the device with a USB cable. Only a few devices support it: Raspberry Pi
+  to the device with a USB cable. Only a few devices support USB Tethering: Raspberry Pi
   Zero W, BeagleBone Black, PocketBeagle, BeagleBone Green, and BeagleBone Green
   Gateway. (The PocketBeagle 2 does **not** support USB tethering.)
 - **Network Connection** — connect the device to your **router** with an Ethernet
-  cable (not directly to your computer). Any Pi or BeagleBone with an Ethernet
+  cable **(not directly to your computer)**. Any Pi or BeagleBone with an Ethernet
   port or adapter can use this method.
 - **Wi‑Fi Tethering** — for devices with Wi‑Fi tethering capability (on‑board or
   via a supporting adapter), useful when no other method is available.
@@ -225,7 +221,7 @@ Use this if your device supports Wi‑Fi tethering, or to make changes when the
 device cannot otherwise connect to your network (without re‑imaging). You need a
 computer with a wireless connection.
 > **Note:** Many USB Wi‑Fi adapters do **not** support Wi‑Fi tethering
-   > (on‑board Wi‑Fi on Raspberry Pis usually does).
+> (on‑board Wi‑Fi on Raspberry Pis usually does).
    
 1. Insert the SD card with the correct image.
 2. Fit any network adapters you will need.
@@ -249,8 +245,8 @@ configure common or required settings:
   an advanced setting; the recommended choice is **No Password (default)**. See
   [FPP Settings → UI](#ui).
 - **OS Password** *(required choice)* — used for SSH and similar access. This is
-  an advanced setting; the recommended choice is **falcon (Default)**. See *FPP
-  Settings → System*.
+  an advanced setting; the recommended choice is **falcon (Default)**. See [FPP
+  Settings → System](#settingsSystem).
 - **FPP Player Mode** — set the mode this device will run in. If unsure, leave it
   at **Player**. See [The Status Page → FPP Mode](#fpp-mode).
 - **Host Name** — a meaningful name for this device. See *Network → Host
@@ -264,7 +260,7 @@ configure common or required settings:
   developers follow up if needed.
 
 The Initial Setup page also offers to **restore a previous configuration**, which
-saves setting a replacement or rebuilt device up from scratch. As well as
+saves time in setting a replacement or rebuilt device up from scratch. As well as
 restoring from an FPP backup file, FPP 10 adds a **File Copy Restore** option that
 brings the configuration across directly. See [Backup, Restore and Proxies](#backup-restore-and-proxies).
 
@@ -285,63 +281,61 @@ its final location — this is also a good testing configuration. If your device
 has no Ethernet port but has a Wi‑Fi adapter, a **separate show network** may be a
 better option.
 
-> The Network page is covered in full in the [Network](#network) chapter; this section
+> **Note:** The Network page is covered in full in the [Network](#network) chapter; this section
 > walks through the first‑time setup.
 
 ### Wi‑Fi network settings
 
-*(Skip to Ethernet if you do not need Wi‑Fi.)*
+*(Skip to Ethernet settings if you do not need Wi‑Fi.)*
 
 > **Note:** Many USB Wi‑Fi adapters do not support 5 GHz; 2.4 GHz networks are
 > recommended for their better range. To configure Wi‑Fi with no adapter fitted,
 > see [Network → Interface Settings](#interface-settings).
 
-1. Select the **country** where you will use the device.
-2. Click the **wlan0** interface (the wireless interface).
-3. Choose **Static** to assign the IP address yourself, or **DHCP** to have your
-   router assign it.
+![The Network Configuration page.](images/network.png)
+
+1. Click the **wlan0** interface (the wireless interface).
+   
+![Wlan0 Settings](images/Wlan0Initial.png)
+
+2. Enter your **WPA SSID** exactly as configured in your router (including
+   capitalization); you can usually pick it from the available networks.
+3. Enter the **WPA Pre‑Shared Key (PSK)** — your wireless password — exactly as
+    configured (use the show/hide button to check it).
+4. Select your **interface mode** (Static or DHCP)
 
    > **Note:** With DHCP, a correctly configured **host name** and **DNS server**
    > become important.
 
-4. For **Static**, enter an **IP address** unique to this interface.
-5. **Netmask** — for most consumer networks this is `255.255.255.0` (match your
+5. If you are going to use a **Static** IP address, enter an **IP address** unique to this interface.
+6. **Netmask** — for most consumer networks this is `255.255.255.0` (match your
    router).
-6. **Gateway** — usually the IP address of your home/show router; it is often
-   filled in automatically, but check it.
-7. **DNS Server Mode** — if any interface uses a static IP, set this to **Manual**
-   and configure the addresses.
-8. **DNS Server 1 / 2** — typically your router's IP for one, and an
-   internet‑based server for the other (`8.8.8.8` is Google's, commonly used).
-   Order does not matter.
-9. Enter your **WPA SSID** exactly as configured in your router (including
-   capitalisation); you can usually pick it from the available networks.
-10. Enter the **WPA Pre‑Shared Key (PSK)** — your wireless password — exactly as
-    configured (use the show/hide button to check it).
-
-Click **Update Interface**. The **Restart Network** button will appear — **do not
-click it yet**.
-
+7. Click on the Green **Update Interface** button.
+   
 ### Ethernet network settings
 
-*(Skip to the Network chapter's Host & DNS settings if you do not need Ethernet.)*
+*(Skip to Finishing up if you do not need Ethernet.)*
 
 1. Click the **eth0** interface (the wired interface).
-2. Choose **Static** or **DHCP** as above.
-3. For **Static**, enter a unique **IP address**.
-4. **Netmask** — usually `255.255.255.0` (match your router).
-5. **Gateway** — the IP address of your home/show router; check it.
+   ![Eth0 Settings](images/Eth0Initial.png)
+2. Select your **interface mode** (Static or DHCP)
 
-> **Important — one gateway only:** If you use both interfaces (for example the
-> home network over Wi‑Fi and a controller/switch over eth0), leave the **eth0
-> gateway blank** and set the gateway only on **wlan0** (your home/show router).
-> Only one interface should have a gateway defined; all others must leave it
-> blank.
+   > **Note:** With DHCP, a correctly configured **host name** and **DNS server**
+   > become important.
 
-Click **Update Interface** (again, do **not** click Restart Network yet).
+3. If you are going to use a **Static** IP address, enter an **IP address** unique to this interface.
+3. **Netmask** — usually `255.255.255.0` (match your router).
+4. Click on the Green **Update Interface** button.
 
 ### Finishing up
-
+1. Click on the Global Network settings button on the top of the page
+![GlobalNetwork](images/GlobalNetwork.png)
+2. **Host Name** Change the Host name if you need to.
+3. **Default Gateway** — usually the IP address of your home/show router; it is often
+   filled in automatically, but check it. Click on **Update Gateway**.If you are using DHCP, leave it blank.
+4.  **DNS Server Mode** — if any interface uses a static IP, set this to **Manual**
+   and configure the addresses. Click on the **Update DNS** button
+5.  Select the **WiFI Regulatory Domain** to the country where you will use the device.
 Once eth0, wlan0, host and DNS are all configured, double‑check them. When
 correct, click **Reboot** (from the red banner at the top or the button at the
 bottom).
@@ -354,19 +348,20 @@ bottom).
 ### Reconnecting after the network change
 
 Once the device is connected to your network using the settings you entered, open
-its web page at the **new** address — the page currently on your screen may no
-longer reach it. Browse to the **host name** or **IP address** you configured (or,
-if you used DHCP, the address your router assigned). If you cannot reach the FPP
+its web page by using either the static IP address that you configured or using the host name
+you configured. To connect to the device via host name, enter the address in this format:
+devicehostname.local 
+The page currently on your screen may no longer reach your FPP device. If you cannot reach the FPP
 page, see the [Help and Troubleshooting](#help-and-troubleshooting) chapter.
 
 In most configurations FPP has internet access and will keep the correct time
 automatically. If your device will **not** have internet access and has a
-Real‑Time Clock (RTC) installed, see *FPP Settings → Localization → Time Config*.
+Real‑Time Clock (RTC) installed, see ([FPP Settings → Localization → Time Config](#localization)).
 
 ### Updating the software
 
 You should update to the current version of the software. Open **Help → System
-Upgrade** (the *About* page).
+Upgrade**.
 
 ![The System Upgrade / About page.](images/about.png)
 

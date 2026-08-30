@@ -44,12 +44,16 @@ if [ "$count" -eq 0 ]; then
 fi
 
 # MkDocs needs an index.md for the site root (…/ → index.html). Promote the
-# lowest-numbered chapter (the "About" page) to the home page; it also stays the
-# first item in the auto-generated nav.
+# lowest-numbered chapter (the "About" page) to the home page; mkdocs.yml's nav
+# references it as index.md.
 first="$(ls "$DOCS_DIR"/*.md | sort | head -1)"
 if [ -n "$first" ] && [ ! -e "$DOCS_DIR/index.md" ]; then
     mv "$first" "$DOCS_DIR/index.md"
 fi
+
+# Stage extra_css (web/css/) referenced by mkdocs.yml — see nav-indent.css.
+mkdir -p "$DOCS_DIR/css"
+cp "$MANUAL_DIR"/web/css/*.css "$DOCS_DIR/css/"
 
 # Copy images alongside the docs so the chapters' images/<name>.png links resolve.
 # If screenshot annotations exist, bake them onto a mirror in build/images/ first

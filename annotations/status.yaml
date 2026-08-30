@@ -1,10 +1,15 @@
-# Annotations for images/status.png (1440 x 1103).
+# Annotations for images/status.png (1440 x 1000).
 #
 # This is a WORKED STARTER you can copy for other images. The active annotations
 # below number the six elements of the header bar, matching the numbered list in
 # chapters/20-status-page.md ("The header bar"). Coordinates are pixels from the
 # top-left; read the screenshot to find them (in Claude Code, the Read tool shows
 # the image). Preview with ./annotate.sh, then look at build/images/status.png.
+#
+# Note: images/status-nav.png is a separate capture of this same page, annotated
+# with a different (10-marker) numbering for chapters/008-overview-navigation.md
+# — see annotations/status-nav.yaml. Keep both shotlist entries in sync (same
+# source page) if you ever change how this screen is captured.
 #
 # Every annotation type is shown as a commented reference at the bottom.
 

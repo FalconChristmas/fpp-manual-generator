@@ -12,7 +12,7 @@ Because there are so many ways to configure a network, these settings cause many
 people difficulty. The basic setup earlier in this manual will get you running,
 though it may not be the best long‑term arrangement; the sections below should
 give you a better understanding for your situation. For deeper background on IP
-addressing, see [Advanced Options → Networking Considerations](#networking-considerations).
+addressing, see [Advanced Options → Networking Considerations](#Network-overview).
 
 ## Interface Settings {#interface-settings}
 

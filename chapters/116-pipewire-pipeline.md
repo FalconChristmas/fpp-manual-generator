@@ -1,4 +1,4 @@
-# The PipeWire Audio & Video Pipeline
+# The PipeWire Audio & Video Pipeline {#pipewire}
 
 FPP 10 replaces the simple audio/video handling of the 9.x series with a flexible
 pipeline built on **PipeWire** (the audio/video graph), **WirePlumber** (which

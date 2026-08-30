@@ -20,6 +20,8 @@ theme:
     - navigation.top        # back-to-top button
     - navigation.tracking   # update URL with the active anchor
     - navigation.footer     # prev/next chapter links
+    - navigation.expand     # start nav groups (Status/Control, etc.) expanded so the
+                             # indented child pages are visible without clicking
     - toc.follow
     - search.suggest        # autocomplete search terms
     - search.highlight      # highlight matches on the page
@@ -38,10 +40,71 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
 
-# Chapters are ordered by their numeric filename prefixes (00-, 02-, …), which
-# sort correctly under MkDocs' automatic navigation — the same "filename order"
-# convention the .docx build uses. New chapters appear automatically; nav labels
-# come from each chapter's top-level heading.
+# Explicit nav (mirrors the four v10 web UI menus: Status/Control, Content Setup,
+# Input/Output Setup, Help — see chapters/008-overview-navigation.md). Chapters
+# that belong to one of those menus are nested under it so the sidebar shows them
+# indented as children, matching where they live in the FPP UI; front-matter and
+# appendix chapters stay top-level. New chapters must be added here explicitly —
+# unlike the old filename-order auto-nav, they will NOT appear on their own.
+#
+# Numbering: filenames use a zero-padded 3-digit prefix. Main-content chapters
+# (000-058) are numbered close together since they're actively being split into
+# smaller chapters; back matter starts at 100 and increments by 2, leaving a
+# free slot between each for future additions without a wholesale renumber.
+nav:
+  - About This Manual: index.md
+  - Introduction: 002-introduction.md
+  - Hardware Needed: 004-hardware.md
+  - FPP Quick Start Guide: 006-quickstart.md
+  - General Overview and Navigation: 008-overview-navigation.md
+  - Status/Control:
+    - Overview: 010-status-overview.md
+    - Status Page: 012-status.md
+    - Port Status: 014-port-status.md
+    - Network: 016-network.md
+    - MultiSync: 018-multisync.md
+    - FPP Settings: 020-fpp-settings.md
+    - Backup and Restore: 022-backup-restore.md
+    - Proxy Settings: 024-proxy.md
+    - Command Presets: 026-command-presets.md
+    - Effects: 028-effects.md
+    - Display Testing: 030-testing.md
+  - Content Setup:
+    - Overview: 032-content-overview.md
+    - File Manager: 034-file-manager.md
+    - Playlists: 036-playlists.md
+    - Scheduler: 038-scheduler.md
+    - Scripts: 040-scripts.md
+    - Plugins: 042-plugins.md
+    - Packages: 044-packages.md
+    - Variables: 046-variables.md
+    - Recurring Tasks: 048-recurring.md
+  - Input/Output Setup:
+    - Overview: 050-inputs-outputs-overview.md
+    - Channel Inputs: 052-channel-inputs.md
+    - Channel Outputs: 054-channel-outputs.md
+    - Output Processors: 056-output-processors.md
+    - Pixel Overlay Models: 058-pixel-overlay-models.md
+    - GPIO Inputs: 060-gpio-inputs.md
+  - Help:
+    - Help and Troubleshooting: 064-help-troubleshooting.md
+    - "Appendix B: Protocols, Ports and the API": 066-appendix-protocols.md
+  - Glossary: 100-glossary.md
+  - Pixel Port Licensing: 102-pixel-port-licensing.md
+  - Advanced Options: 104-advanced-options.md
+  - Virtual Display: 106-virtual-display-3d.md
+  - Networking:
+    - Overview: 108-networking-overview.md
+    - Standalone: 110-standalone.md
+    - Home Network: 112-home-network.md
+    - Separate Network: 114-separate-network.md
+  - Pipewire: 116-pipewire-pipeline.md
+
+# Material's default sidebar tree doesn't indent nested chapters under a group
+# heading (Status/Control, etc.) on its own — see web/css/nav-indent.css, staged
+# into docs_dir by build-web.sh.
+extra_css:
+  - css/nav-indent.css
 
 markdown_extensions:
   - tables

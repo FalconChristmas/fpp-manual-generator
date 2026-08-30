@@ -5,6 +5,8 @@ significant number of changes over the 9.x series, including a refreshed user
 interface, a reorganized Settings page, a new audio/video pipeline based on
 PipeWire and GStreamer, and expanded MultiSync and health‑monitoring features.
 
+If you need a manual for an older version, see the [Falcon Christmas.github]([If you are going to use a **Static** IP address, enter an **IP address** unique to this interface.](https://github.com/FalconChristmas/FalconChristmas.github.io)).
+
 The screenshots in this manual were taken from a running FPP 10 system. Your
 screens may differ slightly depending on your hardware platform (Raspberry Pi,
 BeagleBone, or a generic Linux/Docker host), the capes or hats you have

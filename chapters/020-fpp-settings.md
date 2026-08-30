@@ -73,7 +73,13 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 
 ![Settings — Audio/Video tab (PipeWire pipeline).](images/settings-av.png)
 
-- **A/V Mode → Media Backend** – selects the media backend; **PipeWire
+- **A/V Mode → Media Backend** – selects the media backend. **Simple Pipewire** is the default setting for most systems. **PipeWire (Advanced)** enables the full routing capabilities but is an advanced concept. See [PipeWire](#pipewire)
+- **Audio Output Device** – which device audio plays through: on‑board analogue
+  audio, a Raspberry Pi's HDMI output, or a USB sound card. FPP stores the choice
+  by the sound card's stable ALSA name rather than its index, so it survives cards
+  being probed in a different order (for example a USB device being added or
+  removed).
+- **Default Video Output Device** – where video plays by defaul
   (Advanced)** enables the full routing capabilities below.
 - **Audio Output Device** – which device audio plays through: on‑board analogue
   audio, a Raspberry Pi's HDMI output, or a USB sound card. FPP stores the choice
@@ -92,8 +98,8 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
   values are less likely to glitch on a busy player. *(Advanced.)*
 
   > **Note:** In **PipeWire (Advanced)** mode these two are set *per card* in the
-  > PipeWire Audio Groups settings instead — see *The PipeWire Audio & Video
-  > Pipeline*.
+  > PipeWire Audio Groups settings instead — see [PipeWire Audio & Video
+  > Pipeline](#pipewire)
 
 - **Force Audio Card ID** – override the card ID that FPP normally reads from the
   sound card's `id` file. Occasionally that ID is wrong; setting it by hand can
@@ -461,7 +467,7 @@ change the location FPP offers to copy all existing files across.
   open on it, FPP lists the processes holding them so you can see what is in the
   way.
 
-## System
+## System {#settingsSystem}
 
 System‑wide settings; the page varies with the SBC and its hardware (there are
 separate Raspberry Pi and BeagleBone variants).

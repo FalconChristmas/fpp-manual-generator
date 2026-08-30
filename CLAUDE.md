@@ -80,11 +80,21 @@ sidecars skips the step and needs neither. `annotations/` is the source of truth
 
 ## Conventions
 
-- Chapters are combined in **filename order**; the numeric prefixes (`00-`, `02-`,
-  `52-` …) set the book order. Leave gaps so new chapters can be inserted.
+- Chapters are combined in **filename order** via a plain string `sort`, not a
+  numeric one — prefixes must be **zero-padded to the same width** (`002-`,
+  `052-`, `104-` …) or a shorter prefix can sort *after* a longer one (e.g. `8-`
+  sorted after `70-`; `100-` would sort before `58-`). Main-content chapters use
+  a 3-digit prefix incrementing by ~2 (`002`, `004`, `006` …); back matter starts
+  at `100` and also increments by 2. Leave gaps so new chapters can be inserted
+  without renumbering everything else.
 - Each chapter file has a single top-level `#` heading (its title); use `##`/`###`
   for sections.
 - Reference images as `images/<name>.png`. If you add a new screenshot, also add a
   capture line to `tools/shotlist.txt` so it can be (re)captured from a live FPP.
 - Match the surrounding prose style: user-focused (web UI), with `> **Note:**` /
   `> **Tip:**` blockquotes for asides.
+- The web edition's sidebar uses an explicit `nav:` in `mkdocs.yml`, grouped to
+  mirror FPP's four UI menus (Status/Control, Content Setup, Input/Output Setup,
+  Help) so related pages show up indented under their menu. A new chapter must be
+  added to that `nav:` list (under the matching menu, or top-level for front-/
+  back-matter) — unlike the `.docx` build, MkDocs will not pick it up on its own.

@@ -1,0 +1,21 @@
+/*
+ * Material's default sidebar tree doesn't indent chapters nested under a group
+ * heading (Status/Control, Content Setup, Input/Output Setup, Help) — it only
+ * shows them as a flat list under a small muted caption. This makes the
+ * parent/child relationship from mkdocs.yml's nested `nav:` visible at a
+ * glance, matching FPP's own UI menus.
+ */
+
+/* Group headings ("Status/Control", etc.): bold and full-strength text colour
+ * instead of the default small, muted caption look, so they read as section
+ * titles rather than a demoted extra item.
+ */
+.md-nav--primary .md-nav__item--nested > label.md-nav__link {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+/* Indent the chapters that belong to a group one level in from the heading. */
+.md-nav--primary .md-nav__item--nested > .md-nav > .md-nav__list > .md-nav__item > .md-nav__link {
+  padding-left: 1.6rem;
+}

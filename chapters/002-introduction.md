@@ -84,3 +84,9 @@ FPP's ongoing development is led by a small core team, including **Chris Pinkham
 with the many contributors and users who report issues, test releases and help
 one another on the forums. This v10 edition would not have been possible without
 them.
+
+The developers and authors of this software are volunteers. A very special thanks goes out to our families for supporting us in this hobby. 
+Without their support we could not do this. If you find FPP useful please consider donating to help support future development of FPP. 
+Here is a link: ([Donate to FPP](https://www.paypal.com/donate/?hosted_button_id=ASF9XYZ2V2F5G))
+
+[![Donate to FPP](images/Donate.png)](https://www.paypal.com/donate/?hosted_button_id=ASF9XYZ2V2F5G/)

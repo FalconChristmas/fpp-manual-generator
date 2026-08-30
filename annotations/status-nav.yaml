@@ -1,0 +1,22 @@
+# Annotations for images/status-nav.png (same live page as images/status.png —
+# see tools/shotlist.txt — captured separately so it can carry its own numbering).
+#
+# Numbers the ten header/navigation-bar elements described in
+# chapters/008-overview-navigation.md ("At the top of every page is a
+# status/navigation bar"). Coordinates are pixels from the top-left; read the
+# screenshot to find them (in Claude Code, the Read tool shows the image).
+# Preview with ./annotate.sh, then look at build/images/status-nav.png.
+
+annotations:
+  - {type: marker, at: [101, 72],  label: "1"}   # FPP version
+  - {type: marker, at: [1010, 72], label: "2"}   # host name
+  - {type: marker, at: [1078, 72], label: "3"}   # player status
+  - {type: marker, at: [1137, 72], label: "4"}   # sensors (CPU temp)
+  - {type: marker, at: [1242, 72], label: "5"}   # network interfaces
+  - {type: marker, at: [1315, 72], label: "6"}   # date and time (nudged left of centre so the badge clears the "Press F1 for help" hint)
+  - {type: marker, at: [1402, 72], label: "7"}   # platform graphic (Raspberry Pi icon)
+  # 8. Vendor logo has no marker: this capture has no cape fitted, so there is
+  #    nothing on screen to point at. Re-add a marker here once a capture from a
+  #    device with a cape shows a vendor logo next to the platform graphic.
+  - {type: marker, at: [450, 112], label: "9"}   # section indicator ("Status - Player Mode" title) -- placed in the empty gap to its right
+  - {type: marker, at: [750, 112], label: "10"}  # main navigation toolbar -- placed in the empty gap just left of "Status/Control"
