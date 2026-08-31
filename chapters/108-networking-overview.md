@@ -51,3 +51,6 @@ proxying, you can add a **static route** on the computer (or router) telling it 
 reach the controller's subnet via the FPP device's address. Note that static routes
 on Macs are not persistent across reboots — FPP's **Proxy Settings** are usually a
 better solution (see [Proxy Settings](#proxy-settings)).
+
+See [Configuring a Static Route](#configuring-a-static-route) for step-by-step
+instructions for both the router and computer methods.

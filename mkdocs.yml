@@ -99,6 +99,15 @@ nav:
     - Home Network: 112-home-network.md
     - Separate Network: 114-separate-network.md
   - Pipewire: 116-pipewire-pipeline.md
+  - Resources:
+    - Overview: 120-resources.md
+    - Help: 122-help.md
+    - Configuring a Static Route: 124-static-route.md
+    - Creating a Proxy Host: 126-proxy-host.md
+    - FPP Connect: 128-fpp-connect.md
+    - GPIO Button Input: 130-gpio-button.md
+    - Networking Explained: 132-networking-explained.md
+    - Troubleshooting: 134-troubleshooting.md
 
 # Material's default sidebar tree doesn't indent nested chapters under a group
 # heading (Status/Control, etc.) on its own — see web/css/nav-indent.css, staged

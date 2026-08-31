@@ -1,4 +1,4 @@
-# GPIO Inputs
+# GPIO Inputs {#gpio-inputs}
 
 **GPIO Inputs** trigger internal FPP events from an external input — a button, a
 motion sensor, a switch. Each input connects to a pin on the FPP's GPIO header or
