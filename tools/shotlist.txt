@@ -80,6 +80,9 @@ sound-card-aliases.png	audio-card-aliases.php	5000
 
 # ---- Content Setup ----
 filemanager.png	filemanager.php	4500
+# The Images tab. filemanager.php does not read location.hash on load, so the
+# tab is selected by clicking its link via js_after_load (as with networkconfig.php).
+filemanager-images.png	filemanager.php	4500	document.getElementById('tab-images-tab').click()
 playlists.png	playlists.php	4500
 # The playlist entry dialog. ?playlist= must name a playlist that exists on this
 # device - change it to one of yours.

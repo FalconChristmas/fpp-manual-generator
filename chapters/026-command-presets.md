@@ -24,8 +24,8 @@ A Command Preset can be triggered in four ways:
 - **Preset Name** – use a clear name that describes what it does, e.g.
   `StartMainPlaylist` or `StartOvernightPlaylist`.
 - **FPP Command** – choose from the many built‑in commands (plugins can add more).
-
-## How commands are organised
+  
+## How commands are organized
 
 FPP 10 groups the command list into **categories**, and ties each command to a
 **UI Level**, so the list you see matches how much of FPP you have chosen to
@@ -33,14 +33,16 @@ expose (see [FPP Settings → UI](#ui)). The categories are:
 
 | Category | What it covers |
 |---|---|
-| **Playlist** | Start, stop, pause, insert and navigate playlists |
-| **Media** | Play and stop media files, and per‑slot media control |
-| **Effects** | Start/stop effects and FSEQ‑as‑effect, All Lights Off |
 | **Audio** | Volume control, per‑slot volume, and audio routing |
-| **Pixel Overlay** | Fill, clear, text and effects on overlay models |
-| **Outputs** | Test mode, GPIO output and MQTT publishing |
+| **Effects** | Start/stop effects and FSEQ‑as‑effect, All Lights Off |
 | **Events** | Presets, scripts, URLs, and the *If* / *Set Variable* commands |
+| **Media** | Play and stop media files, and per‑slot media control |
+| **Outputs** | Test mode, GPIO output and MQTT publishing |
+| **Pixel Overlay** | Fill, clear, text and effects on overlay models |
+| **Playlist** | Start, stop, pause, insert and navigate playlists |
+| **Plugins** | Commands created by installed Plugins |
 | **System** | Reboot, shutdown, and switching between Player and Remote mode |
+
 
 At the **Basic** level you see the everyday commands — starting and stopping
 playlists, effects and media, and volume. Raising the level to **Advanced**
@@ -98,6 +100,21 @@ The command list is extensive; commonly used commands include:
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
 
+## FPP System Event Commands
+FPP has some built-in commands that are triggered by system events. These commands are available in the drop down list before you enter any text.
+
+- FPPD_STARTED- This will trigger any time FPPD is started.
+- FPPD_STOPPED- This will trigger any time FPPD is stopped.
+- PLAYLIST_STARTED- This will trigger each time a playlist is started.
+- PLAYLIST_STOPPED- This will trigger each time a playlist is stopped.
+- PLAYLIST_START_TMINUS_xxx- This will trigger xxx seconds before a playlist is started.
+- SEQUENCE_STARTED- This will trigger each time a sequence is started.
+- SEQUENCE_STOPPED- This will trigger each time a sequence is stopped.
+- MEDIA_STARTED- This will trigger each time a media file is started.
+- MEDIA_STOPPED- This will trigger each time a media file is stopped.
+- Outputs Enabled-If your FPP device has the ability to turn on the outputs, then you can use this command to trigger an action when the Outputs get enabled.
+- Outputs Disabled-If your FPP device has the ability to turn off the outputs, then you can use this command to trigger an action when the Outputs get disabled. 
+
 ## The FPP Command Editor
 
 Wherever FPP lets you choose a command — a preset, a playlist entry, a GPIO
@@ -119,16 +136,16 @@ Hover the **?** beside any argument for help on what it expects.
 
 > **Tip:** The bottom bar's **Run FPP Command** button opens a cut‑down version of
 > this dialog on any page, for firing a command by hand.
->
-> ![The Run FPP Command popup.](images/run-command-popup.png)
->
+
+![The Run FPP Command popup.](images/run-command-popup.png)
+
 > Choose a **Command** and the same argument fields appear beneath it. **Run Now**
 > runs it and leaves the popup open, **Run and Close** runs it and closes.
 
 **Preset Slot** – a number from 1–255 that identifies the preset, so it can be
 triggered by slot (from GPIO, a remote, the API, etc.).
 
-## Worked example — a push button that starts a playlist
+## Example — a push button that starts a playlist
 
 To make a GPIO button start a "Thank You" playlist:
 

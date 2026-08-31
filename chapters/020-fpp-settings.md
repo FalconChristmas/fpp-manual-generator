@@ -1,7 +1,7 @@
 # FPP Settings {#fpp-settings}
 
 The **FPP Settings** page (**Status/Control → FPP Settings**) is where you set up
-administrative functions and settings. In FPP 10 the settings are organised into
+administrative functions and settings. The settings are organized into
 a row of tabs across the top of the page: **Playback**, **Audio/Video**,
 **Localization**, **UI**, **Email**, **MQTT**, **Privacy**, **Input/Output**,
 **Logging**, **Services**, **Storage**, **System** and **Developer**.
@@ -31,19 +31,23 @@ Configures general playback behaviour.
 
 ![Settings — Playback tab.](images/settings-playback.png)
 
-- **Send MultiSync Packets** *(Player only)* – send MultiSync packets to remote
+- **Send MultiSync Packets** *(Player mode only)* – send MultiSync packets to remote
   devices (see [MultiSync](#multisync)).
 - **Pause Background Effect Sequence during FSEQ playback** – effect sequences
   normally take priority over FSEQ files; select this if you want the FSEQ file to
   take priority over a background effect sequence.
 - **Blank between sequences** – send blanking data to turn the pixels off between
   items.
-- **Blank screen on startup** – turn all channels off at boot.
+- **Blank screen on startup** – By default, FPP will display system data to the HDMI port 
+  when it boots up and will remain until other data is sent out to the HDMI port. The screen 
+  blanking will turn the text console off after one minute so that it does not remain on the monitor. 
+  If you are using this FPP to play video through the HDMI port, then you probably want to 
+  enable this setting. (This option is only available on Pi based FPP devices as the HDMI port is disabled on BeagleBone based systems)
 - **Inactivity timeout for screen blanking** – when *Blank screen on startup* is
   enabled, blank the screen after this many minutes with no activity.
   *(Developer.)*
 - **Open/Start Delay** – a delay (ms) before playback begins.
-- **Local Media/Sequence Offset** – trims the synchronisation between media and
+- **Local Media/Sequence Offset** – trims the synchronization between media and
   sequences on *this* device, in milliseconds. A positive value moves the media
   ahead, a negative value moves it back. Requires an FPPD restart. *(Advanced.)*
 - **Remote Media/Sequence Offset** – the same trim applied to an FPP **remote**,
@@ -89,7 +93,7 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 - **Default Video Output Device** – where video plays by default. On every FPP
   system a video in a playlist can be shown on a Pixel Overlay model; on a
   Raspberry Pi it can also go to the HDMI or composite outputs.
-- **Audio Sample Rate** – the rate PipeWire's audio graph runs at. **Default**
+- **Audio Sample Rate** – the rate PipeWire's audio graph runs at. The **Default**
   uses 44100 unless the selected sound card clocks at something else; 44100, 48000
   and 96000 can be forced. The bit depth is not set here — FPP probes the card and
   uses the widest format that holds the rate. *(Advanced.)*
@@ -97,9 +101,9 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
   (the graph quantum), from 1024 up to 8192. Smaller values lower latency; larger
   values are less likely to glitch on a busy player. *(Advanced.)*
 
-  > **Note:** In **PipeWire (Advanced)** mode these two are set *per card* in the
-  > PipeWire Audio Groups settings instead — see [PipeWire Audio & Video
-  > Pipeline](#pipewire)
+> **Note:** In **PipeWire (Advanced)** mode these two are set *per card* in the
+> PipeWire Audio Groups settings instead — see [PipeWire Audio & Video
+> Pipeline](#pipewire)
 
 - **Force Audio Card ID** – override the card ID that FPP normally reads from the
   sound card's `id` file. Occasionally that ID is wrong; setting it by hand can
@@ -415,16 +419,6 @@ media *(Advanced UI Level or higher)*.
 
 ![Settings — Storage tab.](images/settings-storage.png)
 
-**SD Card Actions:**
-
-- **Grow Filesystem** – expand the file system to fill the whole SD card. Useful
-  after writing a small image to a larger card, since the unused space is
-  otherwise wasted.
-- **New Partition** – create a new partition in the unused area of the SD card.
-  After a reboot that partition can be selected as a storage location and
-  formatted as **BTRFS** or **ext4**. *(Only offered when there is free space to
-  use.)*
-
 **Flash FPP to Another Device:**
 
 FPP 10 replaced the old platform-specific eMMC/USB flashing pages with one flow
@@ -476,7 +470,7 @@ separate Raspberry Pi and BeagleBone variants).
 
 - **GPIO 14 Fan Control** – PWM fan control on GPIO 14. *(Pi only, Advanced.)*
 - **Fan On Temperature** – the temperature above which that cooling fan switches
-  on (default 70). Fan state is reported on the [System Health Check](#system-health-check) page.
+  on (default 70 C). Fan state is reported on the [System Health Check](#system-health-check) page.
   *(Advanced.)*
 - **Disable IP announcement** – during boot FPP announces its IP addresses over
   the audio output. Turn this off for production use, when the audio output feeds
@@ -494,9 +488,9 @@ separate Raspberry Pi and BeagleBone variants).
 - **Enable HDMI Display** – enable the HDMI port on a BeagleBone.
   *(BeagleBone only, Advanced.)*
 
-  > **Warning:** Enabling the BeagleBone's HDMI port **disables many GPIO pins**,
-  > which will stop most capes working. Only turn it on if you are not using a
-  > cape.
+> **Warning:** Enabling the BeagleBone's HDMI port **disables many GPIO pins**,
+> which will stop most capes working. Only turn it on if you are not using a
+> cape.
 
 - **BeagleBone LEDs** – control or disable the five on‑board LEDs (commonly
   disabled if distracting; defaults recommended). *(BeagleBone only.)*

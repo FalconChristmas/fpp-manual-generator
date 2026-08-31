@@ -42,6 +42,8 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
 - **Git Version** – software status: **red** = an upgrade is available, **green**
   = up to date, **black** = the device could not report (usually a network/DNS
   configuration error).
+- Utilization- This will show the utilization of various system resources like CPU, 
+- Memory and uptime.
 
 ## Display and sending options
 
@@ -55,6 +57,8 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
       – send via IP Multicast.
     - **Send MultiSync to all Remotes via Broadcast** *(Player)* – send via network
       broadcast; helpful on networks without IP Multicast / IGMP Snooping.
+    - **Send MultiSync to ALL KNOWN remotes via Unicast** This will send the MultySync packets
+      via unicast.
     - **MultiSync Unicast Discovery IPs (CSV list)** – for instances/controllers
       not found by normal discovery. *(Advanced.)*
     - **HTTP Discovery IPs & subnets** – add devices on a different subnet so they
@@ -103,14 +107,14 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
       a compressed FSEQ format, so for those this option can actually *slow the
       transfer down* as FPP tries to recompress already-compressed data.
 
-  > **Warning:** Take care when copying **sequences**. Newer xLights versions
-  > create host-specific `.fseq` files containing only the channels each
-  > individual FPP instance needs — so the `.fseq` sitting on your player may not
-  > hold all the channel data a remote requires to play correctly. Where you use
-  > host-specific files, upload to each device from xLights instead of copying
-  > them between devices here.
+> **Warning:** Take care when copying **sequences**. Newer xLights versions
+> create host-specific `.fseq` files containing only the channels each
+> individual FPP instance needs — so the `.fseq` sitting on your player may not
+> hold all the channel data a remote requires to play correctly. Where you use
+> host-specific files, upload to each device from xLights instead of copying
+> them between devices here.
 
-  > **Note:** `rsync` must be enabled on any remote you send files to.
+> **Note:** `rsync` must be enabled on any remote you send files to.
 
 - **Copy OS Upgrade Files** – copy `.fppos` OS‑upgrade files to other devices;
   only files appropriate to each platform are copied (Pi files won't go to BB

@@ -221,6 +221,41 @@ for the regular build:
   name unchanged) under the matching group — or top-level for front-/back-matter —
   or it simply won't appear in the web sidebar even though it's in the `.docx`.
 
+### Formatting reference
+
+Chapters are plain Markdown, parsed by Pandoc with
+`markdown+pipe_tables+backtick_code_blocks+implicit_figures` for the `.docx`/PDF
+and by MkDocs with `tables`, `admonition`, `attr_list` and `md_in_html` for the
+web edition. Beyond ordinary prose and the heading-id links above:
+
+- **Callout blockquotes** — a blockquote whose first line is `> **Keyword:** …`
+  is rendered as a styled admonition box on the web edition (`tools/webify.py`
+  converts it during staging); the `.docx`/PDF keep it as a plain blockquote.
+  Only these keywords convert — anything else bolded at the start of a
+  blockquote (e.g. a button name) is left as an ordinary blockquote:
+
+  | Write | Renders as (web) |
+  |---|---|
+  | `> **Note:** …` | note |
+  | `> **Tip:** …` | tip |
+  | `> **Warning:** …` | warning |
+  | `> **Caution:** …` | warning |
+  | `> **Important:** …` | info |
+  | `> **Changed:** …` | info |
+  | `> **Screenshots:** …` | note |
+
+- **Tables** — standard pipe tables (`| A | B |`).
+- **Code** — fenced/backtick code blocks.
+- **Images** — a standalone `![Caption](images/x.png)` on its own line becomes a
+  captioned figure; if the image is missing at build time, Pandoc substitutes the
+  caption text instead of failing (see "Screenshots" below for capturing the
+  images themselves, and "Annotating screenshots" above for overlaying arrows,
+  callouts, highlights or redactions on top of one).
+
+Not currently used anywhere in the manual, and best avoided for consistency even
+though Pandoc/MkDocs support them: footnotes, task-list checkboxes, definition
+lists.
+
 ### Editing tips (VSCode)
 
 The [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
@@ -252,6 +287,45 @@ outfile.png <TAB> path_or_url <TAB> settle_ms [ <TAB> js_after_load [ <TAB> clip
   fixed‑height viewport — used to frame a centred modal or the top of a very tall
   page.
 
+### Capturing a tab
+
+Some pages select their tab from a URL `#hash` on load; others need the tab link
+clicked with JavaScript. Check whether the page reads `location.hash` (as
+`settings.php` does) to tell which one applies:
+
+- **Hash-driven tab** — append `#tab-id` to the page column, no `js_after_load`
+  needed:
+  ```
+  settings-mqtt.png	settings.php#settings-mqtt	4000
+  ```
+- **Click-driven tab** (e.g. `networkconfig.php`, `filemanager.php`) — put the JS
+  that clicks the tab's link in the `js_after_load` column:
+  ```
+  filemanager-images.png	filemanager.php	4500	document.getElementById('tab-images-tab').click()
+  ```
+
+Either way, add the line to `tools/shotlist.txt` and capture just that shot with:
+
+```bash
+./capture.sh --only filemanager-images.png
+```
+
+### Capturing a modal
+
+Add a `js_after_load` expression that opens the dialog — a helper function the
+page already defines, or a jQuery `.click()` on the button that opens it — plus a
+`clip_height_px` to frame it tightly instead of the whole page:
+
+```
+command-editor-modal.png	commandPresets.php	6000	ShowCommandEditor('demo',{command:'Start Playlist'},function(){})	1150
+```
+
+Then capture just that shot the same way:
+
+```bash
+./capture.sh --only command-editor-modal.png
+```
+
 By default `./capture.sh` (re)captures *every* line in the shotlist. To touch up
 just one or a few shots without re-shooting (and potentially changing) everything
 else, pass `--only` with a comma-separated list of tokens — each can be the
@@ -259,11 +333,11 @@ output image name *or* the page it's captured from (whichever you actually know
 at the time), resolved by `tools/filter_shotlist.py`:
 
 ```bash
-./capture.sh --only network.png              # by output image name
-./capture.sh --only networkconfig.php        # by page (same shot either way)
-./capture.sh --only settings.php             # by page's base, no #tab -- every
-                                              # settings.php#... tab at once
-./capture.sh --only network.png,multisync.png http://192.168.1.50
+./capture.sh --only network.png                       # by output image name
+./capture.sh --only networkconfig.php                  # by page (same shot either way)
+./capture.sh --only settings.php                       # by page's base, no #tab --
+                                                         # captures every settings.php#... tab at once
+./capture.sh --only network.png,multisync.png http://192.168.1.50  # multiple tokens, remote FPP
 ```
 
 A page can have more than one shotlist entry (a plain shot plus one or more

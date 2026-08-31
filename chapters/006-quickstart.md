@@ -184,6 +184,8 @@ There are three basic ways to install and configure FPP:
 > Some capes draw more current than a USB connection can provide — you may need to
 > remove the cape before connecting the USB cable.
 
+> **Note:** Only a few devices support USB Tethering: Raspberry Pi Zero W, BeagleBone Black, 
+> PocketBeagle, BeagleBone Green, and BeagleBone Green Gateway. (The PocketBeagle 2 does not support USB tethering.)
 1. Make sure the SD card with the correct image is inserted.
 2. Fit any network adapters you will need for your final configuration.
 3. Connect one end of the USB cable to your computer. (Do **not** also connect a

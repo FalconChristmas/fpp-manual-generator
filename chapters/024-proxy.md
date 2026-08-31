@@ -13,7 +13,7 @@ device's IP followed by `/proxy/` and the controller's address — for example, 
 the FPP's wlan0 IP is `192.168.1.101` and the controller is `192.168.101.2`,
 browse to `192.168.1.101/proxy/192.168.101.2`.
 
-> Not all controllers support being proxied. Falcon controllers (with current
+> **Note:** Not all controllers support being proxied. Falcon controllers (with current
 > firmware) and KulpLights controllers do.
 
 **Configuring proxies from xLights** (recommended): in the example, an F16 uses a
