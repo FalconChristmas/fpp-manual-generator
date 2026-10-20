@@ -238,30 +238,40 @@ computer with a wireless connection.
 
 ### Initial Configuration {#initial-configuration}
 
-Once FPP is installed, the **Initial Setup** page provides a convenient place to
-configure common or required settings:
+Once FPP is installed, the **Initial Setup** wizard walks you through the
+common or required settings in four steps. The step you are on is highlighted
+along the top; use **Next** and **Back** to move between them, and **Finish
+Setup** on the last step.
 
-![The Initial Setup page.](images/initial-setup.png)
+![The Initial Setup wizard.](images/initial-setup.png)
 
-- **UI Password** *(required choice)* — whether to set a web‑UI password. This is
-  an advanced setting; the recommended choice is **No Password (default)**. See
-  [FPP Settings → UI](#ui).
-- **OS Password** *(required choice)* — used for SSH and similar access. This is
-  an advanced setting; the recommended choice is **falcon (Default)**. See [FPP
-  Settings → System](#settingsSystem).
-- **FPP Player Mode** — set the mode this device will run in. If unsure, leave it
-  at **Player**. See [The Status Page → FPP Mode](#fpp-mode).
-- **Host Name** — a meaningful name for this device. See *Network → Host
-  Settings*.
-- **Installed Cape/Hat** — if your device has a cape/hat with no EEPROM, define
-  the Virtual EEPROM here. See [Pixel Port Licensing](#pixel-port-licensing).
-- **Share Crash Data with FPP Developers** — helps developers find and fix crash
-  bugs. The recommended setting is *Include settings and configurations*. See
-  [FPP Settings → Privacy](#privacy).
-- **Email Address** — if you share crash data, providing an email lets the
-  developers follow up if needed.
+1. **Location** — **Holiday List** (which holidays the scheduler knows about),
+   **Time Zone**, **Latitude / Longitude** (for sunrise/sunset scheduling), the
+   **WIFI Regulatory Domain**, and the **Legal Jurisdiction** — which privacy
+   rules apply where the device is used. **Lookup Time Zone**, **Lookup Location**
+   and **Show On Map** help fill these in; if the player has no internet, the
+   location is taken from your browser instead. The jurisdiction must be
+   answered before you can continue. See [FPP Settings →
+   Localization](#localization).
+2. **Device** — **FPP Player Mode** (if unsure, leave it at **Player**; see [The
+   Status Page → FPP Mode](#fpp-mode)), **Host Name** and **Host description** (a
+   meaningful name for this device; see *Network → Host Settings*), **Installed
+   Cape/Hat** (if your cape/hat has no EEPROM, define the Virtual EEPROM here; see
+   [Pixel Port Licensing](#pixel-port-licensing)) and the **User Interface
+   Level**.
+3. **Privacy** — the same Allow / Deny table as [FPP Settings →
+   Privacy](#privacy): usage statistics, cape logos (and serial number), crash
+   reports and how much they include, and an optional contact e‑mail. Each row
+   says what is sent and to whom. Depending on the jurisdiction you chose, the
+   rows start either pre‑filled or unanswered — in regions that require a device
+   to ask first, you must answer every row before continuing.
+4. **Security** — the **UI Password** (the recommended choice is **No Password**;
+   see [FPP Settings → UI](#ui)) and **OS Password** used for SSH (the recommended
+   choice is **falcon (Default)**; see [FPP Settings →
+   System](#settingsSystem)). At an Advanced UI level you can also add **SSH
+   Keys** here.
 
-The Initial Setup page also offers to **restore a previous configuration**, which
+The wizard also offers **Restore from Backup** to **restore a previous configuration**, which
 saves time in setting a replacement or rebuilt device up from scratch. As well as
 restoring from an FPP backup file, FPP 10 adds a **File Copy Restore** option that
 brings the configuration across directly. See [Backup and Restore](#backup-restore).
@@ -271,7 +281,7 @@ and the rest of this manual to finish setting up your show.
 
 ## Initial Network Configuration {#initial-network-configuration}
 
-After completing Initial Setup, click **Finish Setup** (top‑right). Back on the
+After completing Initial Setup, click **Finish Setup** on its last step. Back on the
 main screen you will see a reboot warning — **do not reboot yet**. Instead open
 **Status/Control → Network** to configure how the device connects.
 
@@ -368,18 +378,20 @@ Upgrade**.
 ![The System Upgrade / About page.](images/about.png)
 
 This screen shows the FPP version you are running and, if an update is available,
-a notice. Click **Upgrade FPP**.
+says so on the **Update FPP Software** card. Click **Update FPP Now**.
 
-> **Note:** If the **Remote Git Version** shows *Unknown*, FPP usually cannot
-> reach the internet — most often a network/DNS configuration problem. See the
-> [Help and Troubleshooting](#help-and-troubleshooting) chapter.
+> **Note:** If the version status stays unknown (a grey dot) or the update check
+> fails, FPP usually cannot reach the internet — most often a network/DNS
+> configuration problem. See the [Help and
+> Troubleshooting](#help-and-troubleshooting) chapter.
 
 You will get a progress screen; the update can take several minutes. When it
-finishes, click **Close** at the bottom. In FPP 10 the progress pop‑up also shows
+finishes, click **Close** at the bottom. (You can **Hide** the window and keep
+working — a banner on every page lets you reopen the progress.) In FPP 10 the progress pop‑up also shows
 the current stage in its **title**, so you can tell how far along an FPP or FPPOS
 upgrade is at a glance — useful when the window is in the background.
 
-Sometimes an additional **major** update is offered — if so, click **Upgrade**.
+Sometimes a newer release is offered — if so, click **Upgrade to …**.
 You will usually see a **Release Notes** page; some updates need a matching
 Operating System (OS) update to gain full functionality, and that will be noted
 there.
@@ -390,7 +402,7 @@ there.
 
 Confirm any prompts and let the update run, then click **Close**. When complete,
 the screen returns to the About page and you can verify the version. When fully up
-to date, the **Local Git Version** matches the **Remote Git Version**.
+to date, the FPP Version shows a green **Up to Date** dot.
 
 Your FPP software is now installed and up to date. There are many ways to use FPP,
 and the settings needed to run your show vary with your particular setup — refer

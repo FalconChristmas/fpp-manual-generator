@@ -4,7 +4,7 @@ This chapter collects two kinds of troubleshooting information from the
 FPP community: warnings you may see on the **Status** page during normal
 operation, and problems that come up while installing FPP for the first time.
 For the built‑in diagnostic tools (System Health Check, Troubleshooting
-Commands, support bundles), see
+Commands, Diagnostic Report), see
 [Help and Troubleshooting](#help-and-troubleshooting).
 
 ## Status page warnings

@@ -67,6 +67,13 @@ page.
   you see in the date lists), a **Config Name** (the identifier FPP stores), and
   the **Month** and **Day** it falls on. **Save** stores them.
 - **Save** – must be clicked to store any additions or changes.
+
+> **Note:** FPP checks each entry as it is shown. An FPP Command whose command no
+> longer exists, or whose arguments name a playlist, sequence, media file, effect,
+> script or preset that is missing, gets a **warning icon** listing what is
+> wrong — and a scheduled playlist that has problems of its own is flagged too.
+> The same command check runs on the Command Presets, GPIO Inputs and Recurring
+> Tasks pages. Flagged entries can still be saved.
 - **Add** – create a new entry, then fill in its columns.
 
 ## Schedule entry fields
@@ -74,10 +81,13 @@ page.
 - **Active** – enable or disable the entry (e.g. prepare a future entry without
   running it yet).
 - **Start Date** – when the playlist begins playing; can be far in the past (it
-  plays at the next matching time/day). With a **Locale** configured you can pick
-  **holidays by name**.
+  plays at the next matching time/day). With a **Holiday List** configured (see
+  [FPP Settings → Localization](#localization)) you can pick **holidays by
+  name**. A holiday date gets a **day offset** box beside it (−366 to 366 days),
+  so *Thanksgiving −7* or *Christmas +2* works out the right date every year.
 - **End Date** – the last day it plays (it still starts on this date); can be far
-  in the future. Holidays by name are supported here too.
+  in the future. Holidays by name, with their own day offset, are supported here
+  too. The Schedule Preview shows the offset in the holiday's label.
 - **Day(s)** – any combination of days; common combinations are in the drop‑down,
   or choose **Day Mask** and tick specific days.
 - **Start Time** – when to begin, in your configured time format (defaults to

@@ -57,6 +57,14 @@ upload the configuration is the recommended method, as it avoids typing errors.
     - **Multi‑Threaded Non‑Blocking** – multiple threads, send the next packet as
       soon as it is ready.
     - **Single‑Threaded Non‑Blocking** – one thread, send as soon as ready.
+- **Pacing** – the maximum rate data is sent to each **unicast** controller
+  *(Advanced)*. Pacing to what the controller's network port can absorb prevents
+  switch buffer overruns and silently dropped packets. Most pixel controllers have
+  100 Mbps ports, so **90 Mbps** (the default) is recommended; choose a higher
+  rate for gigabit controllers. Multicast and broadcast are not paced, and
+  **Disabled** sends at full line rate. A note beside it estimates the maximum
+  frame rate your largest controller can be fed at that rate, and each output row
+  has its own **Pacing** override.
 - **Outputs Count** – the number of output rows, typically one **per controller**
   (even when a controller uses several universes). Click **Set** to create the
   rows.
@@ -82,6 +90,15 @@ For each output row:
   universe (commonly 512 or 510 — keep it consistent across your show).
 - **Universe Priority** – priority for the E1.31 packets when more than one source
   targets a device.
+
+> **Note:** If a paced controller needs more data per frame than its pacing rate
+> can carry, its frames arrive late or cut short and its lights stutter. FPP now
+> spots this and raises a warning naming the controller, the rate it needs and the
+> rate it is paced at, with a button to this page. To fix it, raise that row's
+> **Pacing** override if the controller has a gigabit port; otherwise lower the
+> sequence frame rate, switch the controller to DDP, or move some pixels to
+> another controller. Do not simply disable pacing — that turns the stutter into
+> packets silently dropped by the switch.
 
 ## Pixel Strings
 
@@ -212,6 +229,16 @@ through them one tab at a time; the settings below apply per matrix.
   addressing or specialty panels (Pi Hat/Cape only).
 - **Start Channel** / **Channel Count** – the panel array's absolute start channel
   and total channels.
+- **PWM Register Profile** – shown for panels whose driver chips need a register
+  profile uploaded (FM6373, ICND1065L, SM16380SH). Either load a `.profiles`
+  capture catalog and pick a profile from the list (profiles captured at this
+  panel's scan rate are listed first, labelled with the row driver and pitch they
+  came from), or paste a single profile your supplier sent. Only the chosen
+  profile is saved, in the output configuration, so it travels with a backup. FPP
+  also lets the FM6373 family's output‑enable timing and register upload be tuned
+  for panels that need it. *(Cape hardware only.)*
+- **Row addressing** – BeagleBone capes now support panels that use **ABC shift
+  register** row addressing.
 
 > **Screenshots pending — cape hardware required.**
 
@@ -240,7 +267,18 @@ and the menu reads *All groups already added* when every category is on screen.
 What each category is for:
 
 - **DMX / Serial** – DMX, Pixelnet, Renard and LOR over a USB/serial adapter.
-  Select the serial device and protocol and map the channel range to it. *Generic
+  Select the serial device and protocol and map the channel range to it. USB serial
+  adapters are numbered in the order they are found, so `ttyUSB0` can be a
+  different adapter after a reboot; pick the adapter's **by‑id** name (or, for an
+  adapter without a USB serial number, its **by‑path** name, which follows the USB
+  socket) so the output stays on the right port. On a **PocketBeagle 2** cape whose DMX/Renard line driver sits on a pin
+  with no UART transmit, FPP sends from the PRU instead, so those outputs work
+  unchanged.
+  **LOR Enhanced** now defaults to **1 Mbps** and keeps its channel count in step
+  with the number of units; the speed choices are labelled with roughly how many
+  *all‑changing* pixels each can carry at 40 fps (e.g. 800 at 1 Mbps). Because FPP
+  now sends only the pixels that changed, paced to the line rate, real sequences
+  usually fit far more. *Generic
   UDP* sends raw channel data to an arbitrary UDP destination.
 - **GPIO** – drive GPIO pins, or an I/O expander (PCF8574, MCP23017) or shift
   register (GPIO-595), from channel data — typically for relays.

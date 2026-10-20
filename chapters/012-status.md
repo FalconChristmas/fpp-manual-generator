@@ -72,6 +72,10 @@ status. You should remedy any abnormal conditions.**
    much time remains; it also indicates if the playlist is set to random order.   
 6. **Volume** – controls the output volume for the currently playing sequence.
    Useful for setting the level fed to an FM transmitter or external speakers.
+   The scale is perceptual: 70 is about −9 dB and 50 about −18 dB. In PipeWire
+   (Advanced) mode a **Mixer** button (sliders icon) beside it opens the [Audio
+   Mixer](#pipewire-mixer), with faders and live meters for every stream, output
+   group and input in the audio graph.
 
 If nothing is playing the status is **Idle**. It also indicates when a playlist
 is shutting down gracefully (finishing the song, then stopping).

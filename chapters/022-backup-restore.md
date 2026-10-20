@@ -15,19 +15,29 @@ This saves all or part of your settings to your computer to restore later. It
 saves only the selected **configuration** files — **not** sequences, audio or
 video.
 
+> **Warning:** A configuration backup contains everything needed to restore this
+> player — **including passwords, the Wi‑Fi passphrase and access tokens, in plain
+> text**. Treat the file as you would the passwords themselves: do not attach it
+> to a forum post or bug report (use a [Diagnostic Report](#diagnostic-report)
+> instead). The old *Protect sensitive data* option has been removed, because it
+> protected far less than it claimed.
+
 **Backup Configuration (creating a backup):**
 
-- **Protect sensitive data** – when selected, your wlan0 network password is
-  **not** saved, and you must re‑enter it after restoring. When cleared, a
-  complete backup is saved and the device should be fully functional when
-  restored — but anyone with the backup file can read your wireless password from
-  it.
 - **Backup area** – which portion of the configuration to save; normally select
   **all**, or choose individual sections.
 - **Download Configuration** – save the configuration to your computer. The file
   is named with the device name and a timestamp so you can identify the newest.
 - **Download Existing Backups** – FPP keeps a backup after every system change;
-  download any of them here.
+  download any of them here. Repeated backups share large sections that have not
+  changed between them, so keeping many automatic backups uses little extra
+  space.
+- **Additional storage device** – optionally name a USB device that every new
+  configuration backup is also copied to, so a second copy stays with the show.
+  Remember that the copy is plain text and a USB stick is not encrypted.
+
+Backups now also include plugins' JSON and XML configuration files, alongside
+their other settings.
 
 > **Note:** This does **not** save media files such as sequences, music or
 > videos.
@@ -43,6 +53,14 @@ video.
   right one if you keep several).
 - **Restore Configuration** – restore the selected areas from the chosen file.
 - **Restore Existing Backups** – restore from one of FPP's automatic backups.
+
+> **Note:** A backup this player made itself restores completely. A backup from a
+> *different* player restores everything except that player's privacy answers,
+> its identity and its logins (web UI and OS passwords, and the address it sent
+> mail to), so restoring someone else's file cannot lock you out of the device in
+> front of you. A backup that does not record which player made it (from an older
+> FPP) keeps your logins but not the privacy answers, so the device asks the
+> privacy questions again.
 
 ### File Copy Backup
 

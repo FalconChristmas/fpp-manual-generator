@@ -33,7 +33,11 @@ header colour, and the header fields/arrows to filter and sort. Columns include:
   when your network supports IP Multicast and IGMP Snooping; if it does not, or
   you get dropped/unreliable connections, set your remotes to **Unicast** and
   disable "Send MultiSync to all remotes via Multicast".
-- **Platform** – the SBC model and other information.
+- **Platform** – the SBC model and other information. As well as FPP systems,
+  discovery identifies many controllers by type — Falcon, WLED, Baldrick,
+  SanDevices, AlphaPix, ESPixelStick and **Twinkly** among them — and learns a
+  stable identity for each, so a controller keeps its row even if its address
+  changes.
 - **Mode** – the FPP mode each device is running.
 - **Status** – the current status; if playing, the sequence name.
 - **Elapsed** – elapsed time of the playing sequence on player and remotes, or an
@@ -96,12 +100,15 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
 - **Upgrade FPP** – upgrade software on any or all devices simultaneously (red =
   out of date, green = up to date, black = could not determine, usually a DNS
   problem). A progress screen is shown; afterwards you can Reboot or Restart FPPD.
+  While a remote is updating its Status shows **Upgrading** — click it to open
+  that remote's live update log, which follows each stage and keeps going while
+  the remote restarts or reboots.
 - **Restart FPPD** – restart the FPP software without a full OS reboot.
 - **Reboot** / **Shutdown** – full OS reboot or shutdown of the selected devices.
 - **Copy Show Files** – copy show files from this device to others. You cannot
   pick individual files; all files of the selected **type** are copied. Tick the
   types to include: **Copy Sequences**, **Copy Music**, **Copy Videos**, **Copy
-  Effects**, **Copy Scripts** and **Copy Events**.
+  Images**, **Copy Effects**, **Copy Scripts** and **Copy Events**.
     - **Compress files during copy to Remotes** – compress files before sending,
       mainly useful for older V1 FSEQ files. Newer xLights versions already write
       a compressed FSEQ format, so for those this option can actually *slow the
@@ -122,6 +129,13 @@ Tick one or more devices in the right‑hand column, choose an **Action**, and c
 - **Set to Player** / **Set to Remote** – change the mode of the selected devices.
 - **Add as Proxy** – configure this device to act as a Proxy Host for the selected
   device (see [Proxy Settings](#proxy-settings)).
+
+Upgrades, OS upgrades, file copies and branch changes share one connection to
+this FPP however many systems are selected, so other pages stay usable while they
+run. At most ten systems are worked on at once (the rest show **Queued** until a
+slot frees), and once started an action runs to completion even if you leave the
+page. If an action fails on a system — for example it never answers — its log
+offers **Retry**, which runs that one system again.
 
 > **Note:** **FPP Connect** in xLights is a more robust way to upload files to
 > your FPP devices — it can upload in a sparse format that greatly reduces file

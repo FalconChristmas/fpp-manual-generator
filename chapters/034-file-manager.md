@@ -9,7 +9,9 @@ File Manager**.
 > **Note:** The available options depend on the FPP mode (Player or Remote).
 
 The upper‑right of the screen shows the number of items of the file type you
-are viewing and total size of those files.
+are viewing and total size of those files. Tabs with no files in them can be
+hidden with **Hide Empty Tabs**; that switch and **Enable Filter** are repeated at
+the bottom of the page (and live on [FPP Settings → UI](#ui)).
 You can sort the columns by clicking on the up or down arrows above the column or 
 you can filter the list entering the search criteria in the boxes above the columns.
 
@@ -49,17 +51,26 @@ You can multi-select files using shift-click or cmd/ctrl-click.
 > **Note:** Scripts will be deprecated in v11
  
 - **Logs** – system logs for troubleshooting. Additional options include:
-  - **Zip** bundles all logs and downloads them. 
+  - **Diagnostic Report** opens the [Diagnostic Report](#diagnostic-report)
+    wizard, which builds a report of settings, configuration, the main logs and
+    system diagnostics that you can download or send. (It replaces the old
+    **Zip** button; to keep a copy of one log, select it and use **Download**.)
   - **View** shows the log. 
   - **Tail** shows just the last 50 lines.
   - **Tail Follow** shows the last 50 lines and a live update as entries are added.
 - **Uploads** – files that do not fit the standard formats, including `.fppos`
   upgrade files; Additional options include:
   - **Copy** duplicate the file under a new name
-- **Crash Reports** – crash reports FPP has generated. FPP keeps these on the
-  device even when you have chosen not to send crash data to the developers (see
-  [FPP Settings → Privacy](#privacy)), so you can inspect one yourself or attach it to a
-  support request.
+- **Crash Reports** – crash reports FPP has generated, plus any
+  [Diagnostic Report](#diagnostic-report) you built but did not send (their names
+  end in `-manual`). FPP keeps crash reports on the device even when you have
+  chosen not to send crash data to the developers (see
+  [FPP Settings → Privacy](#privacy)), so you can inspect one yourself. Additional
+  options include:
+  - **Upload and Delete** sends the selected reports to the developers, then
+    removes them from the player. The confirmation shows who receives them and
+    what they contain.
+  - **Delete** discards reports without sending them.
 - **Backups** – any manual backups you have created (see [Backup and Restore](#backup-restore)).
 - **Config** – FPP's own configuration files. Additional options include:
   - **View** shows the file.

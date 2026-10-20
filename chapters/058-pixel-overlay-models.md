@@ -85,6 +85,23 @@ arrangement of props.
 > xLights buffer style. Like submodels, groups are loaded on demand from the
 > data uploaded by FPP Connect (`config/xlights-modelgroups.json`).
 
+## Polar Buffers {#polar-buffers}
+
+Some xLights models — stars, spinners, circles and the like — can declare a
+**polar** buffer style, where the buffer's axes are **radius and angle** rather
+than wiring order. When present, the page lists these in a separate **Polar
+Buffers** section, showing each one's name, the model it is a **View Of**, its
+pixel count and buffer size. A polar buffer is addressable by name like any other
+model, but effects behave differently on it: an ordinary *Horizontal* sweep
+radiates out from the centre, and a *Vertical* one rotates around it.
+
+> **Note:** A polar buffer paints the same channels as the model it is a view of,
+> so if you drive both at once, whichever writes last wins.
+
+WLED effects on any model can also be laid out in polar order directly, using
+the **Radial Out**, **Radial In**, **Angular CW** and **Angular CCW** buffer
+mappings alongside the usual Horizontal and Vertical ones.
+
 ## Uses
 
 - Displaying real‑time dynamic text on a matrix or mega‑tree.

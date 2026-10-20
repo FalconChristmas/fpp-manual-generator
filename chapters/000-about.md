@@ -34,8 +34,8 @@ The most visible and important changes since 9.x include:
   tagged with a *UI Level* marker so you can choose how much detail to see.
 - **New audio/video pipeline** – audio and video routing is now handled by
   **PipeWire** with **GStreamer**, adding audio output groups (per‑output delay
-  and EQ), a routing matrix, AES67 and Opus network audio, and video output/input
-  groups. This is significant enough to have its own chapter, *The PipeWire Audio
+  and EQ), a routing matrix, a live audio mixer, AES67, Opus and VBAN network
+  audio, video output/input groups and RTSP video outputs. This is significant enough to have its own chapter, *The PipeWire Audio
   & Video Pipeline*.
 - **Pixel Overlay Model improvements** – a model **preview**, plus support for
   xLights **submodels** and **model groups**, all addressable by name through the
@@ -75,9 +75,19 @@ The most visible and important changes since 9.x include:
   media** that lives and dies with it.
 - **Calendar view of the schedule** – alongside the weekly preview, the Scheduler
   offers a month/calendar view of what will actually run.
-- **Support bundle** – [Help → Troubleshooting Commands](#troubleshooting-commands) can package the logs,
-  configuration and health-check data into a single zip to attach to a support
-  request.
+- **Diagnostic Report** – press **F8** on any page to build a report of the
+  device's logs, configuration and health‑check data, review it, send it to the
+  developers and open a pre‑filled GitHub issue — see [Diagnostic
+  Report](#diagnostic-report).
+- **Keyboard shortcuts and settings search** – **F1** opens help for the current
+  page, custom shortcuts can trigger presets, commands or pages
+  ([Keyboard Shortcuts](#keyboard-shortcuts)), and a search box on FPP Settings
+  finds a setting without knowing its tab.
+- **Plugin privacy lights** – every plugin card shows six lights summarising
+  what its author says it sends, collects and changes, and FPP keeps a history of
+  plugin installs — see [Plugins](#plugins).
+- **Guided first‑time setup** – a four‑step setup wizard (location, privacy,
+  password, network) — see [Initial Configuration](#initial-configuration).
 
 Each of these areas is covered in detail in the relevant chapter.
 

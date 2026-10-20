@@ -4,55 +4,67 @@ The **Help** menu gathers FPP's information, upgrade, support and diagnostic too
 
 ## System Upgrade (About)
 
-The **About** page (**Help → System Upgrade**) shows the current FPP version and
-statistics about the running system, and is where you perform a manual update.
+The **About** page (**Help → System Upgrade**) shows the current FPP and OS
+versions and is where you update FPP or upgrade the operating system.
 
 ![The System Upgrade / About page.](images/about.png)
 
-### Version Info
+### Version Information
 
-- **FPP Version** – the current FPP version.
-- **Platform** – the SBC platform of this device.
-- **FPP OS Build** – the current OS build. The OS should match the requirement for
-  the FPP version (see the release notes or the *Upgrade OS* drop‑down).
-- **OS Version** – the SBC base OS version; some capabilities need the OS upgraded
-  to match the build.
-- **Hardware Serial Number** / **Kernel Version** – device identifiers.
-- **System Boot Time** / **fppd Uptime** – when the device booted and how long the
-  daemon has run (restarting fppd resets this).
-- **Local Git Version** – the installed version (with a **ChangeLog** link and an
-  update indicator).
-- **Remote Git Version** – the latest available version; *Unknown* means no
-  internet (often a network/DNS problem). A **Preview Changes** link shows what an
-  update provides.
+The top panel shows the **FPP Version** and **OS Version**, each with a status
+dot (**Up to Date**, **Upgrade Available**, **OS Upgrade Required** / **Rebuild
+Required**, or unknown when the check could not run), plus the **OS Build**,
+**Platform**, **Serial Number** and **Kernel**.
 
-### Upgrade FPP
+### Update FPP Software
 
-A minor update (same branch) is indicated on the Local Git Version and by an icon
-in the header; click **Upgrade FPP** to install it. A major upgrade requires an OS
-update. Options include:
+The left card keeps FPP itself current, without touching the operating system.
+Its subtitle says what is available (for example *"FPP 10.2 is available"*) and
+its button changes to suit:
 
-- **FPP Upgrade Source** – upgrade from GitHub or from another of your FPP devices
-  (useful when some devices have no internet); the chosen source is also used for
-  upgrades launched from the MultiSync page. *(Advanced.)*
-- **Upgrade OS** – select an FPPOS version to download (or download and upgrade).
-  With internet access the list includes the currently supported FPPOS files.
-- **Show All Platforms** – view/download files for other platforms, e.g. to act as
-  an upgrade source for Pi *and* BB devices. *(Advanced.)*
-- **Show Legacy OS's** – show older, deprecated versions.
-- **Preserve /opt/fpp** – when already on master and newer than the fppos image,
-  upgrade the OS without downgrading FPP from master. *(Developer.)*
+- **Update FPP Now** – install the latest fixes on your current branch.
+- **Upgrade to …** – move to a newer FPP release (the release notes open first).
+- **Update to latest *current version*** – shown beside the upgrade button when a
+  newer release is offered *and* your current version has new fixes of its own.
+  It updates you in place without moving to the new release, so you can stay on,
+  say, v10.1 and still pick up its latest fixes — including when the newer
+  release is a major version that needs an OS upgrade.
+- **Rebuild FPP** – shown only when the installed build is missing or damaged.
+- **Source** *(Advanced)* – upgrade from GitHub or from another of your FPP
+  devices (useful when some devices have no internet); the chosen source is also
+  used for upgrades launched from the MultiSync page.
 
-**Upgrade methods:** **from GitHub** (updates to the newest version of the current
-branch), **from another FPP** (matches another device's FPP version, not the OS;
-Advanced), or **from FPPOS** (an in‑place upgrade of both FPP *and* OS without
-re‑imaging — download the appropriate `.fppos` and upload it; requires being on at
-least 5.5‑24 first). Major branch/OS changes otherwise require a re‑image.
+### Upgrade Operating System
 
-> **Warning:** Always take an **FPP Backup** before upgrading.
+The right card handles **FPPOS** images, which upgrade both FPP *and* the
+operating system in place without re‑imaging. Pick an image from **Select OS
+Image** (it lists only images for this device, plus any `.fppos` files you have
+uploaded), then **Upgrade OS**, **Download Only**, **Backup First** or **Release
+Notes**. **Show All Platforms** *(Advanced)* lists images for other platforms, e.g.
+to act as an upgrade source for Pi *and* BeagleBone devices, and **Show Legacy
+OS** *(Advanced)* shows older images. An OS upgrade reboots the device.
 
-Below Version Info the page also shows **System Utilization**, **Player Stats** and
-**Disk Utilization** for the device.
+When both an FPP update and an OS upgrade are available, a banner recommends
+**Upgrade OS First** — the OS image already contains a fresh FPP — and the
+recommended card is outlined in amber. On a version that has reached end of
+life, an OS upgrade is the only path.
+
+**Revert to Previous Commit** *(Advanced)* opens the changelog so you can roll
+back to an earlier git commit while keeping your configuration.
+
+### Update progress
+
+While any FPP, branch or OS update runs, **every page** — in any browser, on any
+device — shows an update banner with **View progress** (reopens the live log) and
+**Dismiss** (hides the banner in that browser only; the update keeps running).
+Each progress window also has a **Hide** button so you can keep using the UI and
+come back to it. While an update runs, the other kind of update is refused, and
+the header's update badges are hidden. When it finishes, the banner shows the
+outcome (*complete* or *failed*, with a link to the final log) and a notification
+reports it; the version in the header refreshes by itself.
+
+> **Warning:** Always take an **FPP Backup** before upgrading, and especially
+> before a major upgrade — the upgrade banner links straight to the backup page.
 
 ## Cape Info {#cape-info}
 
@@ -95,6 +107,15 @@ The page has four tabs:
 - **FPP Facebook Group** and the **Falcon Christmas Forums** – community help.
 - **xLights Zoom Room** – often the fastest way to get any lighting question
   answered (not just xLights).
+- **Issue Tracker** – log a bug against FPP on GitHub.
+- **Diagnostic Report** – *"Something not working?"* builds a diagnostic report
+  of this device and helps you send it to the developers — see [Diagnostic
+  Report](#diagnostic-report) below. The **F8** badge is a reminder that the same
+  wizard opens from any page.
+
+> **Tip:** Pressing **F1** on any page opens help for that page (and, on the FPP
+> Settings page, for the tab you are on). See [Keyboard
+> Shortcuts](#keyboard-shortcuts) for the other system keys.
 
 **FPP API:**
 
@@ -122,7 +143,14 @@ Issues**, including: **FPPD Daemon** and **FPPD Warnings**; **Unique Hostname** 
 **Root Filesystem** usage; **Time Sync (NTP)** and **Browser Time Sync**;
 **PipeWire Audio** and **GStreamer**; **Scheduler**; and network checks (**Default
 Gateway**, **Gateway Reachable**, **Internet Access**, **DNS Resolution**). Use
-**Re‑run** to check again. Live panels below show **CPU Usage**, **Memory Usage**,
+**Re‑run** to check again. A few checks only appear when they have something to
+say: **Media Partition**, and **Unknown Plugins**, which fails once a plugin from
+outside the curated plugin list has been installed and names it. That result stays
+even after the plugin is uninstalled — an uninstall cannot be trusted to undo
+everything the install changed — until the next FPPOS upgrade clears it. If the
+PipeWire or GStreamer check is degraded, a **Restart Audio Services** (or
+**Restart FPPD**) button appears below the checks; it interrupts playback, then
+re‑checks after a few seconds. Live panels below show **CPU Usage**, **Memory Usage**,
 **Temperature**, **Fan Monitoring** (on devices with a controllable fan — see *FPP
 Settings → System*), **Disk Utilization**, **System Uptime**, **System Busyness**
 and **Player Statistics**.
@@ -148,40 +176,98 @@ are investigating:
 | **Disk** | Mounted file systems, free space and partition layout |
 | **Date / Time** | System clock, time zone and time-sync (chrony) status |
 | **Memory / CPU** | Memory use, load and processor information |
+| **PCI** | PCI / PCIe devices, drivers, link status and kernel messages — e.g. an NVMe drive on a Pi 5 |
 | **USB** | Connected USB devices — the place to confirm a dongle or adapter was detected |
 | **Audio** | Sound cards, ALSA/PipeWire devices and current audio routing |
-| **Media Backend** | The media backend's state (PipeWire/GStreamer) |
+| **Media Health Checks** | Pass / fail checks across the PipeWire, WirePlumber and GStreamer media stack (see below) — start here for any audio or video problem |
+| **Media Backend** | The raw state of the media backend (PipeWire/GStreamer) behind those answers |
+| **Media Files** | A report of what is in your music, video and image folders (see below) |
 | **Midi** | Detected MIDI devices |
 | **Video** | Video outputs, displays and modes |
 | **OS, Kernel, and SD image** | OS release, kernel version and the image FPP was installed from |
+| **Plugins** | The plugin install history, and settings and packages left behind by removed plugins |
 | **i2c** | Devices on the I2C bus — useful for OLED displays and capes |
 | **Processes** | Running processes, including whether `fppd` is up |
 | **Boot** | Boot configuration and boot-time messages |
 | **Git** | The FPP source checkout's branch and status |
+| **Dev Tools** | NOCC distributed‑compile helpers FPP can see, and the Developer settings in use *(Developer UI level only)* |
 | **GPIO** | GPIO pin state and configuration |
 | **PHP** | The PHP environment behind the web UI |
-| **RPI Utils** | Raspberry Pi specific tools — throttling, voltage and firmware |
+| **RPI Utils** | Raspberry Pi specific tools — throttling, firmware and, on a Pi 5, an **RPI Power Supply** readout (input voltage, core voltage/current, estimated power, the USB‑C supply's negotiated current limit, under‑voltage flags and the RTC battery voltage) |
 | **Webserver** | Apache configuration and error logs |
+
+Tabs only run their commands the first time you open them. Each tab that has
+checks shows badges counting failures, warnings and passes, and a row of links at
+the top of each tab jumps straight to a command. Lines marked **[FAIL]** are
+highlighted red and **[WARN]** amber, with the "what to do" lines beneath them
+tinted to match.
 
 > **Note:** Every command here is **read‑only** — opening a tab inspects the
 > device, it does not change anything.
 
-### Download Support Bundle
+**Media Health Checks** answer questions rather than print state: service and
+runtime health, configuration integrity, whether the running audio graph matches
+the configuration, ALSA hardware and contention, GStreamer elements, network audio
+and video outputs, video input/output, latency and dropouts, and an end‑to‑end
+pipeline test. Every failure says what breaks and what to do about it.
 
-Rather than copying individual command output by hand, use **Download Support
-Bundle (Logs / Config / Troubleshooting)**. It packages the device's logs, its
-configuration, the troubleshooting command output and the **System Health Check**
-results into a single `.zip` you can attach to a forum post or bug report. FPP
-shows progress while the zip is generated, since gathering everything takes a few
-moments.
+**Media Files** inspects every file in your music, video and image folders. It
+is meant for finding out why a small device works hard while audio plays. The
+scan runs only when you open the tab, one file at a time at low priority (a large
+library can take several minutes on a small device; reload the page to scan
+again). The report gives:
 
-> **Tip:** Attaching a support bundle is the single most useful thing you can do
-> when asking for help — it saves a long back‑and‑forth about versions, settings
-> and log contents.
+- the **engine rate** the audio system actually runs at and the **configured
+  rate** you chose — they can differ on hardware that cannot clock as low as you
+  asked;
+- for each audio file and video soundtrack, whether it plays at the engine rate,
+  is **hardware upsampled** (a whole multiple, done by the card for free), or is
+  **resampled** by the CPU every time it plays. Convert resampled files once, ahead
+  of time, to the *configured* rate;
+- summary tables of codecs, sample rates, channels, bit rates, resolutions,
+  aspect ratios and frame rates, and one line per file.
 
-> **Note:** A support bundle contains your configuration and logs, which may
-> include your host name, network details, Wi‑Fi SSID, file names and email
-> settings. Look through it before posting it somewhere public.
+## Diagnostic Report {#diagnostic-report}
+
+When something isn't working and you would like the developers to look at it,
+press **F8** on any page — or use the **Diagnostic Report** button on the Get Help
+page, at the top right of Troubleshooting Commands, or on File Manager → Logs. The
+Diagnostic Report replaces the older *Download Support Bundle* / logs‑zip buttons.
+
+![The Diagnostic Report wizard.](images/diagnostic-report-modal.png)
+
+The wizard has three steps, shown as buttons across the top (a finished step gets
+a green tick and can be revisited); the green button at the bottom moves you on:
+
+1. **Build Report** – FPP builds a `.zip` on the device. This takes seconds on a
+   fast player and a few minutes on a Pi Zero or BeagleBone. A download link lets
+   you look inside before sending anything. If you close the window mid‑build the
+   build carries on, and reopening the wizard picks up the finished report.
+2. **Review & Send** – check the system‑information preview, then **Send
+   Report**; FPP shows what will be sent and asks you to confirm. If the player
+   has no internet, your browser sends it instead. Once delivery is confirmed the
+   file is deleted from the player.
+3. **GitHub Issue** – **Open GitHub** opens a new FPP issue with the report's
+   file name, FPP version and platform already filled in. Choose *Bug report*,
+   describe the problem and submit.
+
+The report always contains: system information (FPP version, platform, OS,
+plugin list, cape info), settings and configuration, your playlists, the main logs
+(fppd, Apache errors, boot, plugin‑install and upgrade logs, git status), and the
+Troubleshooting Commands and health‑check output — including hardware and USB
+serial numbers, network shares and network settings (IP and MAC addresses).
+Wi‑Fi network names, process command lines and your git identity are left out.
+
+> **Note:** Nothing leaves the device until you review and confirm it. A report
+> you build but do not send is kept under **File Manager → Crash Reports**
+> (names ending in `-manual`, two at most), where you can download it, send it
+> with **Upload and Delete**, or delete it. See [Privacy](#privacy) for who
+> receives reports.
+
+> **Tip:** Building and sending a Diagnostic Report is the single most useful
+> thing you can do when asking for help — it saves a long back‑and‑forth about
+> versions, settings and log contents. Mention the sent file name in your forum
+> post or issue.
 
 ## SSH Shell
 

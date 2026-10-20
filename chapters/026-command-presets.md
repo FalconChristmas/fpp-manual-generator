@@ -84,21 +84,37 @@ The command list is extensive; commonly used commands include:
 - **Overlay Model Effect** – apply an effect to an overlay model: **Bars**,
   **Blink**, **Color Fade**, **Text**, **Images** (draw or scroll an image across
   the model — new in FPP 10), **WLED Effects** (some sound‑reactive, marked with a
-  musical note), or **Stop Effects**.
+  musical note), or **Stop Effects**. WLED effects include **Copy Segment**,
+  which mirrors another model into this one with optional hue, saturation and
+  brightness adjustment, and can be laid out radially or angularly (see [Polar
+  Buffers](#polar-buffers)). The **Text** effect has optional **Color Effects**:
+  a **Color Mode** (Single, Gradient, Per Letter / Word / Line, Random Letter /
+  Word, Sparkle or Chase), a **Palette** (Custom colours, Rainbow or a ready‑made
+  set) and a **Color Speed** for moving colours (Sparkle and Chase need it above
+  0).
 - **Pause / Resume Playlist** – pause or resume the current playlist.
 - **Play Media** – play a media file (optionally onto an overlay model). It can
   also target a specific **video output**, so a non‑primary slot can drive a second
   display.
 - **Reboot** / **Shutdown** – restart or power down the device from a command, so a
   schedule entry or GPIO button can do it (Advanced UI level).
-- **Remote Effect / FSEQ / Playlist / Script / Command Preset** – trigger effects,
-  sequences, playlists, scripts or presets stored on a **remote** device (enter the
-  name/slot exactly as stored on the remote).
+- **Restart FPPD** – restart the FPP daemon without rebooting the device
+  (Advanced UI level).
 - **Run Script** – run a script stored on this device.
+- **Set Playlist Repeat** – turn repeat on or off for the *running* playlist.
+  Nothing is started, stopped or restarted; the new setting takes effect when the
+  playlist reaches the end of its current loop.
 - **Set Variable** – store a value (fixed, counter, random or calculated) in a
   named variable for other commands to read. See [Variables](#variables).
 - **Start Playlist** – start a stored playlist (also available directly in playlist
   entries and GPIO inputs).
+
+> **Note:** The separate **Remote …** commands of older versions (Remote Playlist
+> Start, Remote Run Script, Remote Trigger Command Preset and so on) no longer
+> exist. To run a command on another device, use the plain command with its
+> **Multisync** option and pick the host(s). Playlists, schedules, presets and
+> GPIO actions saved with the old commands are converted automatically each time
+> FPPD starts.
 
 ## FPP System Event Commands
 FPP has some built-in commands that are triggered by system events. These commands are available in the drop down list before you enter any text.

@@ -7,7 +7,7 @@ within a page**. Regenerate the page/tab inventory from a running FPP with
 Status key: `OK` covered · `GAP` missing/incomplete · `STALE` describes something
 that no longer exists · `—` n/a.
 
-Last audited: FPP `10.0-370e62ed7` (Pi 5, OS v2026-08).
+Last audited: FPP `10.x-master-2840-gb08fe4a62` (Pi 5, 2026-10-20). Previous audit: `10.0-370e62ed7` (2026-08).
 
 > Chapter numbers below were refreshed 2026-08-30 for the 3-digit chapter
 > restructuring (`chapters/` renumbered and several chapters split into smaller,
@@ -75,7 +75,8 @@ chapter 020.
 | Get Help (`help.php`) | — | 064 | OK |
 | Credits (`credits.php`) | — | 064 | OK |
 | System Health Check (`system-stats.php`) | System Health · Fan Monitoring · Disk Utilization · System Uptime · System Busyness · Player Statistics | 064 | OK |
-| Troubleshooting (`troubleshooting.php`) | 18 category tabs (Networking, Disk, Date/Time, Memory/CPU, USB, Audio, Media Backend, Midi, Video, OS/Kernel/SD image, i2c, Processes, Boot, Git, GPIO, PHP, RPI Utils, Webserver) | 064 | OK — all tabs tabulated |
+| Troubleshooting (`troubleshooting.php`) | 23 category tabs (Networking, Disk, Date/Time, Memory/CPU, PCI, USB, Audio, Media Health Checks, Media Backend, Media Files, Midi, Video, OS/Kernel/SD image, Plugins, i2c, Processes, Boot, Git, Dev Tools *(Developer)*, GPIO, PHP, RPI Utils, Webserver) | 064 | OK — all tabs tabulated; Media Health Checks and Media Files described |
+| Diagnostic Report wizard (F8) | Build · Send · GitHub | 064 | OK — replaces the old *Download Support Bundle* / logs Zip |
 | REST API (`api/`) | — | 066 | OK |
 | SSH Shell | — | 064 | OK |
 
@@ -84,7 +85,8 @@ chapter 020.
 | Page | Reached from | Chapter | Status |
 |---|---|---|---|
 | PipeWire routing matrix / graph / audio / video / input mixing / video inputs | Settings → Audio/Video | 116 | OK |
-| AES67, Opus RTP, Sound Card Aliases | Settings → Audio/Video | 116 | OK |
+| AES67, Opus RTP, VBAN, RTSP Outputs, Sound Card Aliases | Settings → Audio/Video | 116 | OK |
+| Audio Mixer (`OpenPipeWireMixer()`) | Status page volume → Mixer (Advanced PipeWire) | 116 | OK |
 | Flash storage (`flash-storage.php`) | Settings → Storage | 020 | OK |
 | Grow Filesystem / New Partition | Settings → Storage | 020 | OK |
 | Reset FPP Config (`resetConfig.php`) | Settings → System | 020 | OK |
@@ -108,6 +110,10 @@ are also screenshotted.
 | Run FPP Command | bottom bar, every page | 026 | `run-command-popup.png` |
 | Playlist entry (New / Edit Entry) | Playlists → Add a Sequence/Entry | 036 | `playlist-entry-modal.png` |
 | Reset FPP Config | Settings → System | 020 | `reset-config-modal.png` |
+| Configure Key Bindings | Settings → UI | 020 | `keybindings-modal.png` |
+| Diagnostic Report | F8 / Get Help / Troubleshooting / File Manager → Logs | 064 | `diagnostic-report-modal.png` |
+| Unsaved Changes (playlist editor) | leaving the playlist editor | 036 | described in text |
+| Plugin privacy disclosure / install note | Plugins → a card or Install | 042 | described in text |
 | Edit User-Defined Holidays | Scheduler → Edit Holidays | 038 | `holiday-editor.png` |
 | Start Effect | Effects → Start | 028 | `start-effect-modal.png` |
 | Schedule Preview: Calendar View | Scheduler / Status → Preview | 038 | `schedule-calendar.png` |
@@ -150,7 +156,7 @@ python3 tools/settings-coverage.py       # against /opt/fpp
 
 It works out which of `settings.json`'s entries are UI-visible (printed directly,
 or a member of a settingGroup a page prints) and checks each description against
-`chapters/`. Current state: **173 UI-visible settings, 149 checked, 100 %
+`chapters/`. Current state: **179 UI-visible settings, 155 checked, 100 %
 documented**; the other 24 are listed in the script's `ACCEPTED` set because the
 manual covers them collectively or under a different label (the BeagleBone LEDs,
 the eight schedule colour pairs, the tethering trio, password-confirmation

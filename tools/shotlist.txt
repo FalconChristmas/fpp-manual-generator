@@ -65,6 +65,8 @@ settings-storage.png	settings.php#settings-storage	4000
 settings-system.png	settings.php#settings-system	4500
 # The Reset FPP Config dialog (Settings -> System -> Reset FPP Config).
 reset-config-modal.png	settings.php#settings-system	5500	ShowResetConfigPopup()	1150
+keybindings-modal.png	settings.php#settings-ui	5500	OpenKeyBindingsDialog()	1100
+diagnostic-report-modal.png	troubleshooting.php	5500	DisplayErrorReportDialog()	1100
 settings-developer.png	settings.php#settings-developer	4000
 
 # ---- PipeWire audio/video pipeline (Settings -> Audio/Video buttons) ----
@@ -76,6 +78,8 @@ pw-video.png	pipewire-video.php	5500
 pw-video-inputs.png	pipewire-video-inputs.php	5500
 aes67-config.png	aes67-config.php	5000
 opus-rtp-config.png	opus-rtp-config.php	5000
+vban-config.png	vban-config.php	5000
+rtsp-outputs.png	pipewire-rtsp-outputs.php	5000
 sound-card-aliases.png	audio-card-aliases.php	5000
 
 # ---- Content Setup ----

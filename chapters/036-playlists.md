@@ -100,7 +100,16 @@ The available types are:
 
 Drag items to reorder them, including between sections. Hover over an item for
 **Edit** and **delete** options. Save the playlist when done; it is then available
-on the Status page and to the Scheduler.
+on the Status page and to the Scheduler. FPP checks every entry the way it will
+play it — files exist where FPP looks for them, sub‑playlists exist and are valid
+themselves (with loops and over‑deep nesting reported), and command entries name
+a command that still exists with arguments that point at real playlists, files or
+presets — and flags any entry with a problem.
+
+> **Note:** If you leave the playlist editor with unsaved changes — by its back
+> button, the FPP menu or any other link — an **Unsaved Changes** dialog offers
+> **Save**, **Discard Changes** or **Cancel**. Closing or reloading the browser
+> tab gets the browser's own "leave page?" warning instead.
 
 ## Companion media
 

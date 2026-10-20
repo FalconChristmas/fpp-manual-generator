@@ -10,6 +10,16 @@ a row of tabs across the top of the page: **Playback**, **Audio/Video**,
 > hardware and mode. Most settings save immediately; some prompt you to **Restart
 > FPPD** or **Reboot** before they take effect.
 
+**Searching settings.** If you know what a setting does but not which tab it is on,
+type into the **search box** above the tabs. As you type, the tabs are replaced by
+one list of matching settings grouped under their tab name; you can change a
+setting right there in the results, or click a tab name to jump to that tab. Clear
+the box (or press **Esc**) to get the tabs back. The search matches each setting's
+name, its internal setting name, the choices in its drop‑down and its current
+value; tick **Include tooltip text** to search the help text behind each setting's
+help icon as well. Only settings visible at your current UI Level are searched, and
+the **Storage** tab is not included.
+
 ## UI Levels
 
 FPP has several **UI Levels** that show more or fewer settings so that advanced
@@ -122,6 +132,14 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
 - **General Audio** – master audio behaviour, including **Global Audio/Sequence
   Offset** (a fine sync trim in ms) and **Disable Volume Slider**. **Configure
   Sound Card Aliases** gives friendly names to audio devices.
+- **Keep Audio Output Open** – keep FPP's audio output running all the time,
+  instead of starting it when media is about to play and stopping it a few seconds
+  afterwards. Media that starts with no warning — a sound effect triggered by a
+  GPIO input, a command or the API — then plays without the start‑up delay, which
+  can be most of a second on a BeagleBone. Scheduled playlists and back‑to‑back
+  media already avoid that delay, so most shows do not need it; it costs a little
+  CPU all the time because the sound card never idles. Takes effect immediately.
+  *(Advanced.)*
 - **WLED Sound Reactive** – drives sound‑reactive effects on WLED devices from
   FPP's audio:
     - **WLED Sound Reactive Source** – where the sound‑reactive data comes from;
@@ -142,18 +160,21 @@ The **Audio/Video** tab is substantially expanded in FPP 10, which uses a
   outputs, and **Visualise Current Pipeline** to see a live PipeWire graph.
 - **PipeWire Audio** – **Configure Input Mixing (Mix Buses)** and **Configure
   Output Audio Groups** to combine and split audio across multiple outputs.
-- **PipeWire Network Streams** – **AES67 Audio‑over‑IP** and **Opus RTP Audio
-  Streaming** for sending/receiving audio over the network. The AES67 page also
-  holds the device‑wide **PTP clock** settings (enable, interface, domain and
-  clock role), and both pages show live per‑stream status.
-- **PipeWire Video** – **Configure Video Input Sources** and **Configure Video
-  Output Groups** for HDMI/video routing and video‑to‑pixel mapping.
+- **PipeWire Network Streams** – **AES67 Audio‑over‑IP**, **Opus RTP Audio
+  Streaming** and **VBAN Audio Streaming** for sending/receiving audio over the
+  network. The AES67 page also holds the device‑wide **PTP clock** settings
+  (enable, interface, domain and clock role), and the pages show live per‑stream
+  status. VBAN is the protocol used by Voicemeeter and the VB‑Audio tools.
+- **PipeWire Video** – **Configure Video Input Sources**, **Configure Video
+  Output Groups** and **Configure RTSP Outputs** for HDMI/video routing,
+  video‑to‑pixel mapping and serving a video output (with its audio) as an RTSP
+  stream.
 
 > **Note:** Each of these buttons opens a dedicated configuration page with
 > substantial functionality of its own. The whole pipeline — sound card aliases,
 > audio output groups (delay/EQ per card), input mixing, the routing matrix, the
-> live pipeline graph, AES67 and Opus RTP audio streaming, and video input/output
-> groups — is documented in its own chapter, **The PipeWire Audio & Video
+> live pipeline graph, AES67, Opus RTP and VBAN audio streaming, video input/output
+> groups and RTSP outputs — is documented in its own chapter, **The PipeWire Audio & Video
 > Pipeline**, which immediately follows this one. (It replaces the simpler
 > Audio/Video settings of FPP 9.x.)
 
@@ -172,6 +193,12 @@ Clock (RTC) or internet the time resets on reboot.
 - **Set Date / Set Time** – set these manually when there is no network.
 - **Real Time Clock** – if a cape/hat with an RTC is attached, select it from the
   list (FPP tries to detect it), reboot, then set the time here.
+- **Disable Pi 5 Built‑in RTC** – a Raspberry Pi 5 has its own real‑time clock,
+  but it only keeps time across a power cut if a battery is fitted to the Pi's RTC
+  header. Without a battery it still claims the first clock device and sets the
+  system time from it early in boot, before FPP can read a cape's clock. If there
+  is no battery on the Pi's header, tick this so the cape's RTC is the only clock
+  used. *(Pi 5 only; requires a reboot.)*
 - **Use NTP Server from DHCP** – let your DHCP server supply the time server,
   overriding the one configured below. Off by default, in which case only the
   configured NTP server is used. *(Advanced.)*
@@ -182,7 +209,11 @@ Clock (RTC) or internet the time resets on reboot.
 
 **Regional Settings:**
 
-- **Locale** – country‑specific settings such as Holidays used in the Scheduler.
+- **Holiday List** – which country's holidays the [Scheduler](#scheduler) knows
+  about, so a playlist can be scheduled on Thanksgiving or Boxing Day without
+  working out the date each year. That is all it does — it does not change the
+  language, time zone, or how dates and numbers are shown. Pick **Global** for no
+  country‑specific holidays. (Earlier versions called this setting *Locale*.)
 - **Date Format** / **Time Format** – how dates and times are displayed.
 - **Temperature Display Units** – Fahrenheit or Celsius.
 - **Latitude / Longitude** – required for sunrise/sunset scheduling. Use **Lookup
@@ -222,6 +253,9 @@ Changes the appearance and behaviour of the web interface.
   *(Advanced.)*
 - **File Manager Enable Filter** – toggle the File Manager's sort/filter header to
   free up screen space.
+- **File Manager Hide Empty Tabs** – hide File Manager tabs that contain no files.
+  A tab reappears as soon as a file of that type is uploaded, and the tab you are
+  on is never hidden. *(Advanced.)*
 - **Theme** – controls the web interface's appearance. **System Default** follows
   your browser or operating system's dark‑mode preference; **Light** and **Dark**
   override it and always use that theme.
@@ -244,6 +278,40 @@ Changes the appearance and behaviour of the web interface.
   glance.
 - **Color Pairs** – the colours used in tables such as the Schedule Preview,
   making scheduling problems easier to spot.
+
+### Keyboard Shortcuts {#keyboard-shortcuts}
+
+FPP has a few **system shortcuts** that work on every page:
+
+| Key | Action |
+|---|---|
+| **F1** | Help for the current page (press again, or **Esc**, to close). Cannot be changed. |
+| **F2** | Open **FPP Settings** — unless you assign a custom shortcut to F2. (On the Pixel Strings tab of Channel Outputs, F2 instead sets the next string's start channel.) |
+| **F8** | Open or close the [Diagnostic Report](#diagnostic-report) wizard — unless you assign a custom shortcut to F8. |
+| **Esc** | Close the Help or Diagnostic Report window. Cannot be changed. |
+
+![The Configure Key Bindings dialog.](images/keybindings-modal.png)
+
+*(Advanced.)* **Configure Key Bindings** opens a dialog listing those system
+shortcuts and your own **custom shortcuts**, which also work on every page. For
+each custom shortcut:
+
+- **Keys** – click the field, then press the combination. It must use **Ctrl** or
+  **Alt** with another key, or be a function key (**F2–F4**, **F6–F10**). Browser
+  and text‑editing shortcuts (copy, paste, undo, find, reload, zoom …) are
+  refused, since taking them over would break them everywhere. **Esc** cancels
+  recording; **Backspace** clears the field.
+- **Action type** – **Command preset** triggers one of your
+  [Command Presets](#command-presets) by name; **FPP command** runs any command
+  with the arguments you enter; **Page** opens an FPP page.
+- **Test** (play button) – run that row's action now, without pressing the keys.
+
+**Save shortcuts** checks for empty, reserved or duplicate keys and saves them;
+they apply on every page straight away, with nothing to restart.
+
+> **Tip:** For a command with complicated arguments, save it as a Command Preset
+> first and bind the preset — the preset editor gives you the full argument
+> editors.
 
 ## Email
 
@@ -292,27 +360,47 @@ Connects FPP to an MQTT broker for automation (e.g. a home‑automation system).
 
 ## Privacy {#privacy}
 
-FPP's developers are cautious about privacy and let you customise what is shared.
+FPP's developers are cautious about privacy and let you choose exactly what, if
+anything, leaves the device. The Privacy tab shows the same table as the privacy
+step of the [setup wizard](#initial-configuration), and the two save the same way.
 
 ![Settings — Privacy tab.](images/settings-privacy.png)
 
-- **Email Address** – if you share crash data, this lets developers contact you for
-  more information.
-- **Share Statistics** – anonymous usage statistics (SBC type, installed plugins,
-  FPP version, etc.) with no personally identifying information; click **Preview
-  Statistics** to see exactly what is sent. Options: **Enabled** (recommended),
-  **Disabled**, or **Banner** (prompt on the Status page).
-- **Share Crash Data with FPP Developers** – choose what, if anything, is sent to
-  help diagnose crashes. The default *Include settings and configurations* is
-  recommended. FPP 10 also **keeps crash reports on the device** even when you
-  choose not to send them, so you can inspect one yourself or attach it to a
-  support bundle. The reports carry more useful detail than before — the context
-  around the crash, the versions of any installed plugins, and stack addresses
-  resolved to file and line on the device itself.
-- **Fetch cape logos from vendors** – a vendor logo shown in the header must be
-  downloaded from the vendor, which exposes your IP to them (usually low risk).
-- **Send Cape serial numbers to vendors** – could identify you from purchase
-  history (usually not a security issue), but you can disable it.
+Each row is one thing FPP could send, who it goes to, and a plain **Allow** /
+**Deny** choice. Indented rows are an extra on top of the row above them — allowing
+an indented row implies allowing its parent, and denying the parent denies it too.
+
+- **Share usage statistics** (to the FPP and xLights developers) – anonymous
+  statistics about platforms and features, so the developers keep supporting what
+  people actually use. Click **Preview data** to see exactly what would be sent;
+  nothing is sent until you allow it.
+- **Load cape logos from vendor website** (to the cape vendor) – with a cape
+  fitted, FPP shows the vendor's logo, which means fetching it from their site and
+  so revealing your IP address to them.
+    - **…and include your cape's serial number** – adds the serial number to that
+      request so the vendor can identify the cape.
+- **Send crash reports** (to the FPP and xLights developers) – if FPPD crashes, a
+  report is built and sent. This is how most crashes get found and fixed.
+    - **…and include your settings** – a scrubbed copy of the settings, so the
+      developers can reproduce the configuration that crashed.
+    - **…and include configuration and logs** – channel configuration and recent
+      logs as well. Passwords, Wi‑Fi keys, addresses and location are redacted, and
+      the network interface configuration is never included.
+- **E‑mail address** *(optional)* – a contact for crash follow‑up only, shown once
+  crash reports are allowed. Leave it blank to stay anonymous.
+
+**Allow all** / **Deny all** set every row at once; you can then change individual
+rows back. There is no Apply button — each change saves immediately, and FPP also
+records *that* you made the choice (a withdrawal is recorded just like a consent).
+
+> **Note:** FPP **keeps crash reports on the device** even when you choose not to
+> send them, so you can look at one yourself or send it later from **File Manager →
+> Crash Reports** or the [Diagnostic Report](#diagnostic-report) wizard.
+
+> **Note:** The **Legal Jurisdiction** you choose in the setup wizard decides
+> whether these questions start unanswered or pre‑filled: some regions require a
+> device to ask before it sends anything. It does not change what any setting
+> does.
 
 ## Input/Output
 
@@ -401,6 +489,12 @@ Configures optional system services; options depend on the SBC.
   Explorer). *(Advanced.)*
 - **Enable FTP** – transfer files with an FTP client. *(Advanced.)*
 - **Enable Local MQTT Broker** – run a local MQTT broker. *(Advanced.)*
+- **Let other websites read the API** – allow a web page served from somewhere
+  else (a dashboard on another computer, say) to read this player's API from the
+  browser. Off by default. While it is on, *any* website you visit can read the
+  API too — including the cape serial number and the settings — unless a UI
+  password is set. FPP's own pages, other FPP players, xLights and apps that are
+  not web pages never need it. *(Advanced.)*
 
 **Kiosk Mode** *(Pi only, Advanced)* – for a fully standalone device with a
 connected touchscreen (an advanced configuration; not all touchscreens are
@@ -409,7 +503,9 @@ supported):
 - **Kiosk Start URL** – the page shown at startup (default: the Status page).
 - **Kiosk Screen DPMS Timeout** – seconds before the display sleeps.
 - **Rotate Kiosk** – tick this if you are using the **Raspberry Pi Touch Display
-  2** (7 inch), which needs the output rotated to appear the right way up.
+  2** (5 or 7 inch), which needs the output — and the touchscreen — rotated to
+  landscape. The panel is found automatically on whichever DSI connector it is
+  plugged into. Takes effect after a reboot.
 - **Enable Kiosk** installs and enables Kiosk mode.
 
 ## Storage
@@ -480,11 +576,19 @@ separate Raspberry Pi and BeagleBone variants).
   when two devices end up reporting the same identity. *(Advanced.)*
 - **Status Display** – configure an OLED screen on the I2C bus (usually
   auto‑detected at boot); it shows IP addresses, status and the playing sequence.
-  Select your OLED model here.
+  Select your OLED model here — 128×32 and 128×64 SSD1306/SH1106 displays, and
+  128×128 **SH1107** displays, each in normal and flipped orientations.
 - **FPPD Boot Delay** – delay FPP's startup, useful if you power everything on
   together and want routers/switches to initialise first. The **Auto** setting
   waits for a valid time source before booting (falling back to internal time
   after 10 minutes).
+- **Prevent HDMI CEC at Boot** – stop the Raspberry Pi firmware sending the HDMI
+  CEC "Active Source" message at boot. That message is what wakes a TV or
+  projector from standby and switches it to the Pi's input after a power cut;
+  FPP never sends CEC itself, so with this on a display left in standby stays dark
+  until someone uses its remote. Only enable it if you would rather the display
+  did not come on by itself. A plain monitor is unaffected, and it does not apply
+  to a Pi 5. *(Pi only; requires a reboot.)*
 - **Enable HDMI Display** – enable the HDMI port on a BeagleBone.
   *(BeagleBone only, Advanced.)*
 
@@ -550,11 +654,26 @@ developer testing.
 - **UI Platform Masq** – display settings for a different platform than the one
   detected (for plugin/feature development). Take care, as changes can adversely
   affect your device.
-- **Git Remote Repository** – which git remote branch selection uses: **origin**
-  is the main FPP repository, **newfeatures** is for new‑feature testing.
+- **Git Remote Repository** – which git remote branch selection uses: **FPP
+  Releases** (origin) is the main FPP repository, **FPP New Feature Testing**
+  (newfeatures) is for new‑feature testing, and **Pull Requests** lists the open
+  pull requests on the FPP repository so you can test one before it is merged.
+  When GitHub credentials are set (below) and you have a fork of FPP, your fork's
+  branches can be chosen too.
 - **Git Branch** – choose which FPP version/branch to run, e.g. **Master** for the
-  latest improvements ahead of release. Note that some upgrades require an OS
-  rebuild to get all benefits (see [Final Configuration and Updating](#final-configuration-and-updating)).
+  latest improvements ahead of release. With **Pull Requests** selected the list
+  shows `#number - author` for each open pull request (drafts are flagged
+  **[Draft]**); choosing one checks it out locally as `pr-<number>`. If that pull
+  request carries a configuration migration this device has not yet run, FPP stops
+  on a confirmation screen listing it first, because a migration moves the
+  configuration forward and is not undone by switching back. Note that some
+  upgrades require an OS rebuild to get all benefits (see [Final Configuration and
+  Updating](#final-configuration-and-updating)).
+
+> **Warning:** Switching branch or pull request pulls and recompiles FPP (which
+> can take many minutes) and removes untracked files from the source tree. Do not
+> do it during a show, and back up any development work first.
+
 - **Reset Local Changes** – revert any manual code changes to the original code.
 - **Git Status** – show the status of your local FPP version.
 - **FPP Rebuild** – recompile all FPP files (useful after an interrupted install
@@ -577,3 +696,17 @@ developer testing.
   distcc use `host[:port][/jobs][,options]`, e.g. `fpppi5:3632/6,lzo`; for nocc use
   `host[:port]` (default port 43210), e.g. `fpppi5`. Leave it empty for the
   *zeroconf* / *mdns* modes, which discover their helpers automatically.
+- **Enable NOCC discovery across Wireless Networks** – shown when Distributed
+  Compile is **nocc + mdns**. A Wi‑Fi access point can hold back multicast
+  traffic, so helpers' announcements may arrive after FPP has stopped listening
+  and a build reports no helpers even though they are running. Turning this on
+  adds about 3 seconds to each build's helper search. Leave it off on a wired
+  connection. The **Dev Tools** tab of
+  [Troubleshooting Commands](#troubleshooting-commands) lists the helpers FPP can
+  currently see.
+- **Use 16K‑Page Kernel** – boot the Raspberry Pi 5's 16K‑page kernel instead of
+  the standard 4K‑page one. 64‑bit FPP images ship it disabled because some
+  libraries FPP uses do not work with 16K pages; this exists for testing them. It
+  only appears on 64‑bit images that carry that kernel, only affects the Pi 5,
+  Pi 500 and Compute Module 5, and survives an FPPOS upgrade (at the cost of one
+  extra reboot). *(Requires a reboot.)*

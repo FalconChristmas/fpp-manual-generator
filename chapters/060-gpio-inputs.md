@@ -31,6 +31,13 @@ lives. It is organised into three panels.
 
 - **GPIO Pin** – the pin this trigger uses. Pins already assigned to another
   trigger are not offered, so you cannot configure the same pin twice.
+  On a Raspberry Pi's 40‑pin header each pin is labelled with its GPIO number
+  (gpiochip/line), and a line under the selector describes the chosen pin —
+  its GPIO number, whether it has an internal pull‑up/down, and, if the pin is
+  reserved by your cape or a channel output, what is using it. (On other boards,
+  and on I/O expanders, the chip/line numbers can change between boots, so they
+  are not shown.) A trigger saved before a cape claimed its pin keeps that pin,
+  marked *reserved*.
 - **Enabled** – whether this trigger is active. Leave it unticked to keep a
   configuration without it firing.
 - **Description** – what the input is for, e.g. *Start button* or *Emergency

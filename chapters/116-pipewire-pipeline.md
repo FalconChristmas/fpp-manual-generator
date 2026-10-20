@@ -91,6 +91,28 @@ The **Routing Matrix** is the single place to connect everything:
 
 Click **Save & Apply** to activate the routing.
 
+## Audio Mixer {#pipewire-mixer}
+
+*Status page → the **Mixer** (sliders) button next to the volume control.*
+
+In PipeWire (Advanced) mode the Status page's volume slider is a single global
+master, but the graph has many independent levels. The **Audio Mixer** dialog
+shows them all at once, as faders with live signal meters:
+
+- **Master volume** – the global master; it multiplies with every level below.
+- **Media Stream Slots** – the level of each FPP media stream.
+- **Output Groups** – each group's level and, beneath it, its member sound cards.
+  Output strips show the *effective* level after the master and group levels are
+  applied.
+- **Input Groups** – the members of each input group (mix bus).
+- **Routing Matrix** – the level of each input → output path.
+
+Each strip has a **Mute** button and, where possible, a **Listen** (speaker)
+button that plays that point in the graph in your browser — useful for checking a
+feed without walking out to the speakers. Sections can be collapsed, and the
+dialog remembers which are open. Changes save as you make them, exactly as if you
+had made them on the corresponding settings page.
+
 ## Pipeline Graph
 
 *Audio/Video → Visualise Current Pipeline.*
@@ -137,27 +159,36 @@ not to a single instance:
 
 - **Enable PTP** – run the PTP clock. Enable it when you need tight sync between
   several FPP instances or with professional AES67 gear.
-- **Network Interface** – which interface the PTP clock runs on. Choose the wired
-  Ethernet interface; **(Default)** uses the system's primary route.
+- **Network Interface** – which interface the PTP clock runs on; it is also the
+  source address for streams that do not name an interface of their own. Only
+  **wired** interfaces are listed — PTP needs deterministic latency (and, where
+  the network card supports it, hardware timestamping), so Wi‑Fi cannot hold
+  sync.
 - **Domain** – the PTP domain number, **0–127**. Every device that must share a
   clock has to be on the same domain. AES67 gear normally uses domain **0**, so
   leave this alone unless your console or DSP is set otherwise.
-- **Clock Role** – who provides the clock:
-    - **Auto (prefer other devices)** – the default. FPP joins the election at a
-      low priority: it becomes the clock when it is the only device on the domain,
-      but yields to a console or DSP that wants the role.
-    - **Follower only (never master)** – FPP never becomes the clock.
-    - **Prefer master** – FPP tries to win the election. Use this only if FPP is
-      meant to be the master clock for the network.
+- **Clock Role** – who provides the clock (unrelated to FPP's Player/Remote
+  mode):
+    - **Auto** – the default. FPP joins the election at a low priority: it becomes
+      the clock when it is the only device on the domain, but yields to a console
+      or DSP that wants the role.
+    - **Master** – FPP tries to win the election. Use this only if FPP is meant to
+      be the master clock for the network.
+    - **Slave** – FPP follows another clock and never becomes the master.
 
 Once PTP is running the status line shows either **PTP master (this device)**, or
 **PTP synced to** the grandmaster's clock ID together with the current offset
 (shown in ns, µs or ms as it settles). If it has not locked yet you get **PTP not
-synced** plus the port state, which is normal for the first few seconds.
+synced** plus the port state, which is normal for the first few seconds. Beside
+the PTP controls a small panel shows the live **PTP State**, the **Grandmaster**
+(with its address, and whether it is reached via a boundary clock), the
+**Domain**, the **Offset** and the **Stream Source Rate**. Send streams wait for
+PTP to lock before they start transmitting, and their status says so while they
+wait.
 
 > **Tip:** If FPP keeps announcing itself as the clock when you have a proper
 > master on the network, check that both are on the same **Domain** and set FPP's
-> **Clock Role** to *Follower only*.
+> **Clock Role** to *Slave*.
 
 > **Note:** FPP marks its own traffic for QoS automatically — RTP audio as **AF41**
 > (DSCP 34) and PTP messages as **EF** (DSCP 46), the codepoints AES67 recommends.
@@ -167,7 +198,13 @@ synced** plus the port state, which is normal for the first few seconds.
 ### Per‑instance settings
 
 Each instance has a checkbox to enable it, an editable name, a badge showing the
-PipeWire node it creates, and a delete button. Its settings are:
+PipeWire node it creates, an **SDP** button and a delete button. **SDP** shows the
+stream's session description, with **Copy** and **Download .sdp** buttons, for
+tools that need it handed to them as text — Stream Monitor, VLC and the like.
+(AES67 equipment discovers FPP's streams through SAP and does not need it.) If a
+stream's settings do not add up — for example tuning options that contradict each
+other — the instance shows a warning explaining what to change. Its settings
+are:
 
 - **Stream Mode** – **Send (Transmit)**, **Receive**, or **Both (Send &
   Receive)**. Send creates a virtual sink; Receive creates a virtual source.
@@ -175,13 +212,14 @@ PipeWire node it creates, and a delete button. Its settings are:
   range. Give each instance its own address to avoid conflicts.
 - **RTP Port** – the UDP port for RTP traffic; the AES67 default is **5004**. Use
   different ports if several instances share one multicast address.
-- **Audio Channels** – channels in this stream (standard AES67 allows up to 8;
-  most setups use 2).
-- **Network Interface** – the interface used for the multicast traffic. Wired
-  Ethernet gives the best results.
-- **Packet Time (ptime)** – the packetisation interval: **1 ms** (lower latency,
-  more CPU) or **4 ms** (the default, more widely compatible). It must match at
-  both ends.
+- **Audio Channels** – channels in this stream, up to 8 (most setups use 2). The
+  output group feeding a Send stream must be set to the same channel count.
+- **Network Interface** – the wired interface used for the multicast traffic;
+  **(Default)** uses the PTP interface set above.
+- **Packet Time (ptime)** – the packetisation interval: **1 ms** (the default —
+  mandatory for every AES67 device, the only packet time Dante transmits, and it
+  gives tighter timing) or **4 ms** (optional, less CPU, stereo only — wider
+  streams would not fit in one packet). It must match at both ends.
 - **Session Name** – the name other devices see in the SAP announcement.
 - **Network Latency** – the target buffer for *receive* streams, in milliseconds
   (AES67's minimum is 1 ms; 1–20 ms is typical). Lower means less delay but more
@@ -235,6 +273,58 @@ Each instance has:
 > **Note:** Opus RTP audio is marked **AF41** (DSCP 34) automatically, so switches
 > and access points that honour QoS give it priority over bulk traffic.
 
+## VBAN Audio Streaming {#vban}
+
+*Audio/Video → Configure VBAN Streams.*
+
+![VBAN audio streaming configuration.](images/vban-config.png)
+
+**VBAN** (VB‑Audio Network) carries uncompressed audio over UDP on your local
+network. It is the protocol spoken by **Voicemeeter**, VBAN Talkie and the other
+VB‑Audio tools, which makes it the simplest way to get audio from a Windows or
+macOS desktop into FPP — or to send FPP's audio back the other way. Each stream
+becomes a node in the PipeWire graph:
+
+- a **receive** stream is an audio **source** — add it as a member on the [Input
+  Mixing](#input-mixing-mix-buses) page to route it to any output group, or pick it
+  as the **WLED Sound Reactive Source** on *FPP Settings → Audio/Video*;
+- a **send** stream is an audio **sink** — add it to an [Audio Output
+  Group](#audio-output-groups) and whatever that group plays is transmitted.
+  Nothing is sent until a group feeds it.
+
+Each stream has:
+
+- **Enable** and **Name** – the name also sets the PipeWire node name, so renaming
+  a stream already used in a group means re‑selecting it there.
+- **Mode** – **Receive**, **Send**, or **Both** on the same port.
+- **VBAN Stream Name** – the name carried inside every packet (up to 16
+  characters, case sensitive); Voicemeeter's default is `Stream1`, and it must
+  match at both ends. A receiver may leave it blank to accept whatever arrives.
+- **Listen Address** *(receive)* – normally `0.0.0.0`, to accept from any sender.
+- **Destination IP** *(send)* – the machine running the VBAN receiver.
+- **UDP Port** – VBAN's default is **6980**. Several receivers can share a port if
+  their stream names differ.
+- **Channels**, and for send streams **Sample Rate** (usually 48000 Hz) and
+  **Sample Format** (16‑bit PCM is the most widely supported) – these must match
+  the far end.
+- **Jitter Buffer** *(receive)* – how much network timing variation to absorb;
+  **100 ms** suits most links.
+- **Network Interface** – leave on **(Default)** unless the stream must use a
+  specific connection.
+
+A status badge on each stream reads **Live** (the node is in the graph),
+**Waiting** (applied, but nothing received yet — normal for a receiver until a
+matching packet arrives), **Not applied** or **Disabled**.
+
+> **Note:** **Save & Apply** restarts PipeWire and FPPD, so audio stops for a few
+> seconds — apply VBAN changes when nothing is playing. VBAN needs the PipeWire
+> (Advanced) media backend.
+
+> **Tip:** Short dropouts at regular intervals, each about as long as the jitter
+> buffer, are caused by packets being **reordered** on the network, not by FPP.
+> Lowering the jitter buffer (try 60 ms) makes each dropout much shorter; a wired
+> connection on the sending machine usually removes the cause.
+
 ## Video Output Groups
 
 *Audio/Video → Configure Video Output Groups.*
@@ -248,13 +338,56 @@ PipeWire graph.) For each group set a name, the **Video Source** (Media Playback
 or a persistent input source), optionally which **Stream Slots** (1–5) it uses,
 then add outputs. Each output has:
 
-- **Output Type** – **HDMI Display**, a **Pixel Overlay** model, or a **network
-  (RTP)** stream.
-- **Destination** – the specific HDMI connector, overlay model, or network address.
-- **Options** – scaling such as **Fit**.
+- **Output Type** – **HDMI Display**, a **Pixel Overlay** model, a **Network
+  (RTP)** stream, or a **Network (RTSP)** stream (see [RTSP Video
+  Outputs](#rtsp-outputs) below).
+- **Destination** – the specific HDMI connector, overlay model, network address,
+  or for RTSP the stream's path (e.g. `/live`).
+- **Scaling** *(HDMI)* – how the video is fitted to the display:
+    - **Fit** – the whole frame fits on the display at its original aspect ratio;
+      black bars fill any leftover space.
+    - **Fill** – the video covers the whole display at its original aspect ratio;
+      the overhanging edges are cropped.
+    - **Stretch** – the video is stretched to the exact display size, distorting
+      it if the shapes differ.
+- **Region** *(HDMI)* – which portion of the source frame this display shows, as
+  percentages. Giving two displays opposite halves splits one video across both
+  from a single decode.
+- **Network options** – for RTP/RTSP members, the width, height, frame rate,
+  encoding and bitrate, and whether to carry **Audio** in the same stream. An RTP
+  member offers a **Download SDP** button for VLC/ffplay.
 
 This is how you drive a second HDMI screen, mirror video onto an LED matrix (via an
 overlay model), and stream video over the network — all from one playing video.
+FPP keeps video pixels square, so a picture is never squashed by a mismatch
+between the source and output shapes.
+
+## RTSP Video Outputs {#rtsp-outputs}
+
+*Audio/Video → Configure RTSP Outputs.*
+
+![RTSP Video Outputs — the server settings and the streams it is serving.](images/rtsp-outputs.png)
+
+FPP can serve video, **with its audio**, as an **RTSP** stream that a player opens
+by URL — point VLC, ffplay, OBS or a video wall at it and it negotiates the rest.
+Unlike the RTP outputs, no SDP file has to be copied to the receiver.
+
+This page controls the server itself: **Enable RTSP server**, its **Port**
+(default **8554**) and **Buffering (ms)** inside each stream (default 40; lower
+means less delay, but a jittery source may drop frames), then **Save & Apply**. The
+streams are members of [Video Output Groups](#video-output-groups): add a
+**Network (RTSP)** member to a group and it serves whatever that group shows, so
+one source can go to an HDMI display and out over RTSP at the same time. The
+page lists the streams currently being served, with their URLs.
+
+> **Tip:** Most of the delay a viewer sees is their own player's buffering. VLC
+> buffers 1000 ms of network input by default — lower it under *Preferences →
+> Input/Codecs → Network caching* (or run `vlc --network-caching=200`) before
+> tuning the buffering here.
+
+> **Note:** The RTSP server listens on every interface without a password, like
+> FPP's other network media outputs: anyone who can reach the player on the
+> network can watch the streams.
 
 ## Video Input Sources
 
@@ -266,13 +399,23 @@ overlay model), and stream video over the network — all from one playing video
 route from (they survive consumers connecting and disconnecting). Supported types
 include:
 
-- **Test Pattern** (`videotestsrc`) – e.g. SMPTE bars at a chosen size/frame rate.
-- **USB Camera** (`v4l2src`) – a connected camera device (`/dev/video0`, …).
-- **IP Camera** (`rtspsrc`) – an RTSP stream from a network camera.
+- **Test Pattern** (`videotestsrc`) – e.g. SMPTE bars, a moving ball or a solid
+  colour at a chosen size/frame rate.
+- **USB Camera** (`v4l2src`) – a connected camera or capture card
+  (`/dev/video0`, …). FPP lists the modes the device actually supports
+  (resolution, frame rate and format — raw, Motion JPEG and so on) to choose
+  from, and offers camera controls: **Anti‑flicker** (50 Hz or 60 Hz mains — rolling
+  bands or pulsing brightness under artificial light nearly always mean this is set
+  for the wrong region) and **Exposure** (camera default, auto, or a manual
+  **Shutter** time).
+- **RTSP Network Stream** (`rtspsrc`) – a stream from an IP camera, optionally
+  with **Extract audio from stream** to make its sound available as a PipeWire
+  audio source.
 
-Define a source here, then select it as the **Video Source** of a video output
-group to send a live camera or test pattern to HDMI, an overlay model, or the
-network.
+Each source shows a **live preview** once it is enabled and applied, so you can
+check framing and exposure on the page itself. Define a source here, then select
+it as the **Video Source** of a video output group to send a live camera or test
+pattern to HDMI, an overlay model, or the network.
 
 ## A note on remote synchronisation
 

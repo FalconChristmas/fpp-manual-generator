@@ -168,6 +168,11 @@ It will also list Available Networks if your Wi-Fi adapter can scan the networks
   interface name — enter it exactly as the system will name it, such as `wlan0` or
   `eth1` — and the new interface then appears as its own tab to configure.
   *(This is only visible with an Advanced or higher level setting in the UI tab.)*
+- **Delete Interface** – remove the saved configuration of an interface whose
+  hardware is no longer present, such as a USB adapter you have unplugged for
+  good. FPP asks you to confirm first. The button stays disabled for interfaces
+  that are present right now — those can be reconfigured, but not deleted. It sits
+  next to **Add New Interface**.
 
 - **Create Persistent Name** – when using more than one Wi-fi interface
   (Not common) and you need the adapters to keep their order,
@@ -210,6 +215,11 @@ This tab assigns the device's **host name** and DNS settings.
   `8.8.8.8` for the other.
 - **Wi‑Fi Regulatory Domain** – enter your country. Some jurisdictions have
   regulations, and Wi‑Fi will not work correctly unless this is set correctly.
+- **WiFi Antenna** – on a Raspberry Pi **Compute Module 4 or 5**, choose the
+  **Internal (onboard)** PCB antenna or the **External (U.FL socket)** on the
+  module. Choosing External switches the onboard antenna off completely, so only
+  select it with an antenna connected to the socket — otherwise Wi‑Fi has almost
+  no range. Only shown on modules that support it; requires a reboot.
 
 ## Tethering {#tethering}
 
